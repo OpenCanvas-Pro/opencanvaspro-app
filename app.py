@@ -6,7 +6,7 @@ st.set_page_config(page_title="OpenCanvas Pro", page_icon="🍊")
 c1, c2, c3 = st.columns([1,2,1])
 
 with c2:
-    st.image("assets/logo_laranja_neural.png") # (Se já tiver a imagem)
+    #st.image("assets/logo_laranja_neural.png") # (Se já tiver a imagem)
     st.title("OpenCanvas Pro")
     st.markdown("### A Revolução do AutoML Local-First")
     
