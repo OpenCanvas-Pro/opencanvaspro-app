@@ -1,6 +1,8 @@
 import streamlit as st
 import time
 
+st.set_page_config(page_title="OpenCanvas Pro")
+
 # 1. Configuração da Página (Layout Centralizado e Limpo)
 st.set_page_config(
     page_title="OpenCanvas Pro | Coming Soon",
