@@ -1,11 +1,10 @@
 # 🔐 Segurança — OpenCanvas Pro
 
 ![Security](https://img.shields.io/badge/Security-Best%20Effort-blue)
-![Open Source](https://img.shields.io/badge/Open%20Source-MIT-lightgrey)
 ![Hosting](https://img.shields.io/badge/Hosting-Streamlit%20Community%20Cloud-purple)
 ![Compliance](https://img.shields.io/badge/Compliance-LGPD%20%7C%20GDPR-green)
 
-**Última atualização:** 31 de janeiro de 2026
+**Última atualização:** 21 de fevereiro de 2026
 
 O **OpenCanvas Pro** adota práticas de segurança compatíveis com seu propósito: uma plataforma gratuita, open-source e educacional de AutoML, priorizando proteção de dados, transparência e responsabilidade.
 
