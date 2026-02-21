@@ -1,11 +1,10 @@
 # 📜 Termos de Uso — OpenCanvas Pro
 
 ![Terms](https://img.shields.io/badge/Terms-Use%20At%20Your%20Own%20Risk-yellow)
-![Open Source](https://img.shields.io/badge/Open%20Source-MIT-lightgrey)
 ![Privacy](https://img.shields.io/badge/Privacy-LGPD%20%7C%20GDPR-green)
 ![Hosting](https://img.shields.io/badge/Hosting-Streamlit%20Community%20Cloud-purple)
 
-**Última atualização:** 31 de janeiro de 2026  
+**Última atualização:** 21 de fevereiro de 2026  
 
 Bem-vindo ao **OpenCanvas Pro**.  
 Ao acessar ou utilizar esta plataforma, você concorda integralmente com os presentes **Termos de Uso**. Caso não concorde, recomendamos que não utilize o serviço.
@@ -106,7 +105,7 @@ O OpenCanvas Pro:
 
 ## 9. Propriedade intelectual
 
-- O código-fonte do OpenCanvas Pro é licenciado sob a **Licença MIT**
+- O código-fonte do OpenCanvas Pro é licenciado sob a **AGPLv3**
 - O usuário mantém a propriedade dos seus dados e modelos gerados
 - Nenhuma parte da plataforma concede direitos comerciais exclusivos
 
