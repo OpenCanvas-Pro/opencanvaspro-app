@@ -1,0 +1,12 @@
+OpenCanvas Pro Community Documentation Repository
+Copyright (C) 2026 OpenCanvas Pro
+
+Licensed under the Apache License, Version 2.0.
+
+The OpenCanvas Pro name and logo are trademarks of OpenCanvas Pro.
+
+This repository contains public documentation, reference materials,
+example code and datasets.
+
+Core engine components and Enterprise editions are proprietary
+and licensed separately.

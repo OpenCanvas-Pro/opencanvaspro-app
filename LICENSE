@@ -1,5 +1,7 @@
-# OpenCanvas Pro - Plataforma SaaS de AutoML
-# Copyright (C) 2025-2026 Lucindo Tomiosso Jr.
+# SPDX-License-Identifier: AGPL-3.0-or-later
+#
+# OpenCanvas Pro - Plataforma SaaS de AutoMLOps e Data Science
+# Copyright (C) 2025-2026 OpenCanvas Pro Inova Simples (I.S.) - CNPJ: 64.918.004/0001-36
 #
 # Este programa é um software livre: você pode redistribuí-lo e/ou modificá-lo
 # sob os termos da Licença Pública Geral Affero GNU conforme publicada pela
@@ -7,9 +9,12 @@
 # qualquer versão posterior.
 #
 # Este programa é distribuído na expectativa de que seja útil, mas SEM NENHUMA
-# GARANTIA; sem mesmo a garantia implícita de COMERCIALIZAÇÃO ou de ADEQUAÇÃO 
+# GARANTIA; sem mesmo a garantia implícita de COMERCIALIZAÇÃO ou de ADEQUAÇÃO
 # A QUALQUER PROPÓSITO PARTICULAR. Veja a Licença Pública Geral Affero GNU
 # para mais detalhes.
+#
+# Você deve ter recebido uma cópia da Licença Pública Geral Affero GNU junto
+# com este programa. Se não, veja <https://www.gnu.org/licenses/>.
 
                     GNU AFFERO GENERAL PUBLIC LICENSE
                        Version 3, 19 November 2007
