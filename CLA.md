@@ -1,4 +1,3 @@
-# \# Contributor License Agreement (CLA)
 # Contributor License Agreement (CLA)
 
 By contributing to OpenCanvas Pro, you agree that:
