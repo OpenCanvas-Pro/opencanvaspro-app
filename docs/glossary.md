@@ -95,7 +95,7 @@ Using the trained model to generate predictions on **new data**, never seen duri
 
 Type of problem where the model predicts categories.
 
-###🔹 Binary Classification
+🔹 Binary Classification
 Two possible classes.
 
 Examples:
@@ -104,7 +104,7 @@ Examples:
 - Fraud / Non-fraud
 - 0 / 1
 
-###🔹 Multiclass Classification
+🔹 Multiclass Classification
 More than two classes.
 
 Examples:
