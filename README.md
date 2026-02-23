@@ -1,5 +1,11 @@
 # OpenCanvas Pro
 
+![Privacy First](https://img.shields.io/badge/Privacy-First-2E8B57)
+![Autonomous ML](https://img.shields.io/badge/Autonomous-ML-6A5ACD)
+![Embedded Governance](https://img.shields.io/badge/Governance-Embedded-1E90FF)
+![Enterprise Ready](https://img.shields.io/badge/Enterprise-Ready-8B0000)
+![Local First](https://img.shields.io/badge/Deployment-Local%20First-696969)
+
 **Privacy-First Autonomous ML Platform with Embedded Governance**
 
 OpenCanvas Pro is a privacy-first autonomous machine learning platform designed for governed, reproducible and enterprise-ready analytics — from raw data to deployment.
