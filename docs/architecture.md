@@ -121,5 +121,3 @@ All runs generate structured metadata including:
 - Evaluation metrics
 
 This enables full reproducibility of analytical workflows.
-
-> *Simplicidade na interface. Clareza na arquitetura. Liberdade no uso.*
