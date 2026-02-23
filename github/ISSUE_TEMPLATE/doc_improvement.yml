@@ -1,0 +1,19 @@
+name: Documentation Improvement
+description: Suggest improvements or additions to documentation
+title: "[Docs]: "
+labels: ["documentation"]
+body:
+  - type: input
+    id: doc
+    attributes:
+      label: Document
+      placeholder: "docs/governance.md"
+    validations:
+      required: true
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: Suggestion
+      description: What should be improved and why?
+    validations:
+      required: true
