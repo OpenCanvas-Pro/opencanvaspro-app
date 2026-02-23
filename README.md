@@ -11,6 +11,7 @@
 OpenCanvas Pro is a privacy-first autonomous machine learning platform designed for governed, reproducible and enterprise-ready analytics — from raw data to deployment.
 
 ---
+**Last Updated** — 23 February 2026
 
 ## 🚀 Why OpenCanvas Pro?
 
