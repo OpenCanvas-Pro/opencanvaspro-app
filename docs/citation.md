@@ -40,3 +40,7 @@ Tomiosso Jr., Lucindo. 2026. *OpenCanvas Pro: A Privacy-First Autonomous Machine
   year    = {2026},
   url     = {https://github.com/OpenCanvas-Pro/opencanvaspro-app}
 }
+
+---
+
+© 2026 OpenCanvas Pro — All rights reserved.
