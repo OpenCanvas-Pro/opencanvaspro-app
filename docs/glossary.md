@@ -215,7 +215,7 @@ Structured metadata describing dataset transformations and integrity.
 
 ---
 
-## 🧾 Kaggle Submission
+## Kaggle Submission
 
 File in the format required by Kaggle competitions, usually containing:
 
@@ -226,7 +226,7 @@ OpenCanvas Pro automatically generates Kaggle-ready files.
 
 ---
 
-## 🔐 Cloud Dependency
+## Cloud Dependency
 
 Technical dependence on a specific cloud provider, making it difficult to migrate or reuse templates.
 
