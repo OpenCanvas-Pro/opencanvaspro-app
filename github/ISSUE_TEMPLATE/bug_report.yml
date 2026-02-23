@@ -1,0 +1,36 @@
+name: Bug Report (Docs/Examples)
+description: Report an issue in documentation, examples or repository configuration
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting. This public repository hosts docs, examples and datasets only.
+  - type: input
+    id: location
+    attributes:
+      label: Where is the issue?
+      description: Link to the file or page (or describe the path)
+      placeholder: "docs/architecture.md"
+    validations:
+      required: true
+  - type: textarea
+    id: what_happened
+    attributes:
+      label: What happened?
+      description: Describe the problem clearly
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect?
+    validations:
+      required: false
+  - type: textarea
+    id: extra
+    attributes:
+      label: Additional context
+    validations:
+      required: false
