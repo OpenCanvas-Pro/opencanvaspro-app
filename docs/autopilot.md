@@ -1,6 +1,6 @@
-# EMILIA Autopilot
+# E.M.I.L.I.A. Autopilot
 
-EMILIA (Engineering Machine Learning & Intelligence Assistant) represents the autonomous orchestration layer of OpenCanvas Pro.
+E.M.I.L.I.A. (Engineering Machine Learning & Intelligence Assistant) represents the autonomous orchestration layer of OpenCanvas Pro.
 
 ---
 
