@@ -1,0 +1,23 @@
+name: Request (Docs/Examples Scope)
+description: Propose an improvement aligned with this repository scope (docs/examples/datasets)
+title: "[Request]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Note: This public repository is documentation + examples only.
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal
+      description: Describe the request and expected outcome
+    validations:
+      required: true
+  - type: textarea
+    id: rationale
+    attributes:
+      label: Rationale
+      description: Why is this valuable?
+    validations:
+      required: false
