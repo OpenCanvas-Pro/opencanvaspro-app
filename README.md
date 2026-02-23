@@ -1,5 +1,8 @@
 # OpenCanvas Pro
 
+<img width="400" height="400" alt="Cor_Logo_OCP" src="https://github.com/user-attachments/assets/3b2a4852-670c-4478-bac1-d279d4a8d25b" />
+
+[![CLA assistant](https://cla-assistant.io/readme/badge/OpenCanvas-Pro/opencanvaspro-app)](https://cla-assistant.io/OpenCanvas-Pro/opencanvaspro-app)
 ![Privacy First](https://img.shields.io/badge/Privacy-First-2E8B57)
 ![Autonomous ML](https://img.shields.io/badge/Autonomous-ML-6A5ACD)
 ![Embedded Governance](https://img.shields.io/badge/Governance-Embedded-1E90FF)
