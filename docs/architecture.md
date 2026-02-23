@@ -121,3 +121,7 @@ All runs generate structured metadata including:
 - Evaluation metrics
 
 This enables full reproducibility of analytical workflows.
+
+---
+
+© 2026 OpenCanvas Pro — All rights reserved.
