@@ -8,6 +8,7 @@ OpenCanvas Pro embeds governance directly into the analytical workflow.
 
 Governance is not an afterthought — it is structural.
 
+**Last Updated** — 23 February 2026
 ---
 
 ## 🎯 Why Governance Matters
