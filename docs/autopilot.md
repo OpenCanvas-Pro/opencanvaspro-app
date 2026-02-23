@@ -62,7 +62,7 @@ Planned enhancements include:
 
 ## 🎯 Vision
 
-EMILIA Autopilot is designed to move beyond “AutoML”.
+E.M.I.L.I.A. Autopilot is designed to move beyond “AutoML”.
 
 The goal is Autonomous, Governed, Decision-Ready Machine Learning.
 
