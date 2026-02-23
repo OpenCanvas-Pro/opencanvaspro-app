@@ -7,7 +7,7 @@
 ![Local First](https://img.shields.io/badge/Deployment-Local%20First-696969)
 
 
-**Last Atualization:** 23, february, 2026
+**Last Updated** — 23 February 2026
 
 # Architecture Overview
 
