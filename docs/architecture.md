@@ -1,177 +1,125 @@
-# 🏗️ OpenCanvas Pro — Arquitetura do Sistema
+# 🏗️ OpenCanvas Pro — Architecture
 
-![Architecture](https://img.shields.io/badge/Architecture-System%20Design-blue)
-![AutoML](https://img.shields.io/badge/AutoML-PyCaret-orange)
-![Framework](https://img.shields.io/badge/Framework-Streamlit-red)
-![Cloud](https://img.shields.io/badge/Cloud-Agnostic-lightgrey)
-![Open Source](https://img.shields.io/badge/Open%20Source-MIT-green)
+![Privacy First](https://img.shields.io/badge/Privacy-First-2E8B57)
+![Autonomous ML](https://img.shields.io/badge/Autonomous-ML-6A5ACD)
+![Embedded Governance](https://img.shields.io/badge/Governance-Embedded-1E90FF)
+![Enterprise Ready](https://img.shields.io/badge/Enterprise-Ready-8B0000)
+![Local First](https://img.shields.io/badge/Deployment-Local%20First-696969)
 
-**Última atualização:** 31 de janeiro de 2026
 
-Este documento descreve a arquitetura do **OpenCanvas Pro**, uma plataforma de AutoML open-source projetada para ser **simples para o usuário**, **modular internamente** e **segura para execução pública**.
+**Last Atualization:** 23, february, 2026
 
-O foco do design é:
+# Architecture Overview
 
-- facilidade de uso
-- transparência técnica
-- extensibilidade futura
-- estabilidade em ambiente multiusuário
+OpenCanvas Pro is structured as a layered analytical system designed to ensure traceability, reproducibility and decision integrity.
 
----
+The platform follows a staged data evolution model:
 
-## 🎯 Visão Geral
-
-O OpenCanvas Pro segue uma arquitetura **UI-first**, onde toda a experiência acontece no navegador, sem necessidade de configuração de infraestrutura pelo usuário.
-
-**Fluxo principal de execução:**
-
-Usuário (Browser)
-↓
-Interface Web (Streamlit)
-↓
-Preparação de Dados
-↓
-AutoML Engine (PyCaret)
-↓
-Predições • Visualizações • Exportações
+Bronze → Silver → Gold
 
 ---
 
-## 🧩 Componentes Principais
+## 🥉 Bronze Layer — Raw Data
 
-### 1. Interface do Usuário (UI)
+The Bronze layer represents the original dataset exactly as ingested.
 
-**Tecnologia:** Streamlit
+Characteristics:
+- No structural modifications
+- Profiling of missing values, data types and distributions
+- Dataset fingerprint (hash)
+- Baseline metadata registration
 
-Responsável por:
-
-- Upload de datasets (CSV / Parquet)
-- Navegação por abas (Dados, Modelo, Predições, Guia)
-- Configuração visual do AutoML
-- Exibição de métricas, gráficos e resultados
-- Consentimento de cookies (LGPD)
-
-Arquivos principais:
-
-- `app.py`
-- `opencanvaspro/ui/layout.py`
-- `opencanvaspro/ui/styles.css`
-- `opencanvaspro/pages/*.py`
+The Bronze dataset acts as the immutable reference point for audit and reproducibility.
 
 ---
 
-### 2. Camada de Preparação de Dados
+## 🥈 Silver Layer — Data Preparation
 
-Responsável por transformar dados brutos em datasets prontos para AutoML.
+The Silver layer applies controlled transformations to improve data quality and analytical usability.
 
-Funcionalidades:
+Typical operations include:
+- Missing value handling
+- Outlier filtering
+- Schema validation
+- Type correction
+- Deduplication
+- Controlled feature transformation
 
-- Conversão automática CSV → Parquet
-- Otimização de tipos (`optimize_dtypes`)
-- Exclusão de colunas (IDs / leakage)
-- Tratamento guiado de datas
-- Imputação manual e automática
-- Relatório de saúde do dataset
-
-Arquivos principais:
-
-- `opencanvaspro/core/preprocess.py`
-- `opencanvaspro/core/io.py`
+All transformations are logged and stored as metadata.
 
 ---
 
-### 3. AutoML Engine
+## 🥇 Gold Layer — Model-Ready Dataset
 
-**Tecnologia:** PyCaret 3.x
+The Gold layer represents the dataset ready for machine learning.
 
-Responsável por:
+Operations may include:
+- Encoding (e.g., categorical to numerical)
+- Scaling (excluding target variables)
+- Correlation filtering
+- Temporal feature engineering
+- Controlled train/test configuration
 
-- Auto-detecção do tipo de problema
-- Setup do experimento
-- Comparação automática de modelos
-- Treinamento otimizado (modo rápido vs completo)
-- Geração de métricas e artefatos
-
-Arquivos principais:
-
-- `opencanvaspro/core/automl.py`
+Each Gold dataset is accompanied by a structured Data Contract.
 
 ---
 
-### 4. Visualizações & Interpretabilidade
+## 📜 Data Contracts
 
-Os gráficos são gerados pelo PyCaret e integrados de forma segura ao Streamlit.
+Every transformation step produces metadata describing:
 
-Tipos de visualizações:
+- Dataset hash
+- Schema and data types
+- Applied transformations
+- Statistical reference values
+- Temporal configuration (if applicable)
 
-- Classificação: Matriz de Confusão, ROC, PR Curve
-- Regressão: Resíduos, Predito vs Real, SHAP
-- Clustering: Elbow, Silhouette, PCA
-- Anomalia: PCA, t-SNE, UMAP
-- Séries Temporais: Forecast, ACF, PACF, Decomposição
+This ensures:
 
-A renderização é protegida por *fallbacks*, evitando que erros de gráfico quebrem a interface.
-
----
-
-### 5. Predição & Exportação
-
-Responsável por transformar modelos treinados em resultados utilizáveis.
-
-Funcionalidades:
-
-- Batch prediction
-- Exportação CSV e Parquet
-- Exportação de modelo `.pkl`
-- Geração automática de arquivos **Kaggle-ready**
-
-Arquivos principais:
-
-- `opencanvaspro/pages/predict_tab.py`
-- `opencanvaspro/core/automl.py`
-- `opencanvaspro/core/kaggle_exporter.py`
+- Reproducibility
+- Auditability
+- Traceable lineage from raw data to model output
 
 ---
 
-### 6. Telemetria & Compliance
+## 🧠 Machine Learning Layer
 
-O OpenCanvas Pro utiliza **Google Analytics 4** de forma opcional e transparente.
+Model training is executed over the Gold dataset.
 
-Características:
+The architecture supports:
 
-- Consentimento explícito (opt-in)
-- Cookies persistentes
-- Eventos deduplicados
-- Sem coleta de dados sensíveis
+- Deterministic configuration
+- Session identifiers (seeds)
+- Model comparison
+- Structured leaderboard extraction
+- Artifact export
 
-Arquivos principais:
-
-- `opencanvaspro/core/analytics.py`
-- `opencanvaspro/core/consent.py`
+Future versions introduce robustness-aware selection and stress validation.
 
 ---
 
-## 🔐 Segurança & Estabilidade
+## 🔐 Privacy & Deployment Model
 
-- Hard block por tamanho de dataset
-- Prevenção de uso excessivo de memória
-- Nenhuma execução arbitrária de código do usuário
-- Ambiente isolado por sessão do Streamlit
+OpenCanvas Pro is designed with a privacy-first philosophy.
 
----
+Enterprise deployments support:
 
-## 🔮 Evolução Planejada
-
-- Login OAuth (Google / Microsoft)
-- Persistência de usuários (Firebase)
-- Execução assíncrona de treinos
-- Fila de jobs e workers
-- Deploy de modelos como API
+- Local-first execution
+- Controlled infrastructure integration
+- Data sovereignty preservation
+- Offline-capable analytical pipelines
 
 ---
 
-## 📌 Considerações Finais
+## 🔄 Reproducibility by Design
 
-O OpenCanvas Pro foi projetado para **escala educacional e experimental**, sem sacrificar boas práticas de engenharia.
+All runs generate structured metadata including:
+
+- Dataset fingerprint
+- Configuration signature
+- Model metadata
+- Evaluation metrics
+
+This enables full reproducibility of analytical workflows.
 
 > *Simplicidade na interface. Clareza na arquitetura. Liberdade no uso.*
