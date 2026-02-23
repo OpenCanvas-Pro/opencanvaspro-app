@@ -1,88 +1,70 @@
-# 🍪 Política de Cookies — OpenCanvas Pro
+# 🍪 Cookie Policy — OpenCanvas Pro
 
 ![Cookies](https://img.shields.io/badge/Cookies-Consent%20Required-blue)
-![Analytics](https://img.shields.io/badge/Analytics-Google%20Analytics%204-orange)
 ![Privacy](https://img.shields.io/badge/Privacy-LGPD%20%7C%20GDPR-green)
-![Open Source](https://img.shields.io/badge/Open%20Source-MIT-lightgrey)
+![Analytics](https://img.shields.io/badge/Analytics-GA4-orange)
 
-**Última atualização:** 31 de janeiro de 2026
+**Last Updated — 23 February 2026**
 
-Esta Política de Cookies explica como o **OpenCanvas Pro** utiliza cookies e tecnologias semelhantes para garantir o funcionamento da aplicação e, mediante consentimento, coletar métricas de uso.
-
----
-
-## 1. O que são cookies?
-
-Cookies são pequenos arquivos de texto armazenados no seu navegador quando você acessa um site. Eles ajudam a lembrar preferências, melhorar a experiência e coletar informações estatísticas.
+This Cookie Policy explains how OpenCanvas Pro uses cookies and similar technologies.
 
 ---
 
-## 2. Como utilizamos cookies
+## 1. What Are Cookies?
 
-O OpenCanvas Pro utiliza dois tipos de cookies:
-
-### 2.1 Cookies estritamente necessários
-Esses cookies são essenciais para:
-- funcionamento básico da aplicação
-- manutenção da sessão
-- preferências técnicas
-
-➡️ **Não podem ser desativados**, pois sem eles o serviço não funciona corretamente.
+Cookies are small text files stored in your browser that help maintain session functionality and improve user experience.
 
 ---
 
-### 2.2 Cookies analíticos (opcionais)
-Utilizamos **Google Analytics 4 (GA4)** exclusivamente para fins estatísticos e de melhoria do produto.
+## 2. Types of Cookies Used
 
-Esses cookies **só são ativados após o seu consentimento explícito**.
+### Essential Cookies
+Required for:
+- Basic application functionality
+- Session management
+- Technical preferences
 
-Exemplos de dados coletados:
-- páginas visitadas
-- eventos de uso (ex.: upload de dataset, início de treino)
-- tipo de dispositivo e navegador
-- país/região aproximada
+These cannot be disabled.
 
-❌ Não coletamos dados pessoais identificáveis.
+### Analytical Cookies (Optional)
 
----
+Used only with explicit user consent.
 
-## 3. Consentimento
+Analytics may collect:
+- Pages visited
+- Anonymous usage events
+- Device and browser type
+- Approximate geographic region
 
-Ao acessar a aplicação, você verá um **banner de consentimento de cookies**, onde poderá:
-- aceitar cookies analíticos
-- recusar cookies analíticos
-
-A recusa não afeta o funcionamento principal da plataforma.
-
----
-
-## 4. Como revogar o consentimento
-
-Você pode:
-- limpar os cookies do navegador
-- recarregar a página para redefinir preferências
-- alterar as configurações do navegador para bloquear cookies
+No personally identifiable information is collected.
 
 ---
 
-## 5. Terceiros
+## 3. Consent Management
 
-Os cookies analíticos são fornecidos por:
-- **Google Analytics 4**
+Users may:
+- Accept analytics cookies
+- Reject analytics cookies
 
-Cada serviço possui sua própria política de privacidade.
-
----
-
-## 6. Alterações nesta política
-
-Esta Política de Cookies pode ser atualizada periodicamente.  
-Alterações relevantes serão refletidas nesta página com nova data de atualização.
+Rejection does not affect platform functionality.
 
 ---
 
-## 7. Contato
+## 4. Third-Party Services
 
-Em caso de dúvidas, entre em contato:
+Analytics services may include:
+- Google Analytics 4
+
+Each service operates under its own privacy policy.
+
+---
+
+## 5. Contact
+
+If you have any questions, please contact us:
 
 📧 **contato@opencanvaspro.com**
+
+---
+
+© 2026 OpenCanvas Pro — All rights reserved.
