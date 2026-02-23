@@ -2,45 +2,79 @@
 
 **Last Updated — 23 February 2026**
 
-OpenCanvas Pro follows a dual-structure model.
+---
+
+## Overview
+
+OpenCanvas Pro follows a structured multi-edition licensing model designed to balance transparency, accessibility, and proprietary innovation.
+
+---
 
 ## Public Repository
 
-This repository contains:
+This public repository contains:
 
-- Documentation
-- Conceptual architecture
-- Reference materials
-- Example boilerplates
-- Public datasets
+- Documentation  
+- Conceptual architecture  
+- Governance artifacts  
+- Example boilerplates  
+- Public datasets  
 
-Licensed under Apache License 2.0.
+This repository is licensed under the **Apache License 2.0**.
 
-No core engine components are included in this repository.
+No production engine components, model orchestration logic, automation layers, or proprietary intelligence modules are included in this repository.
+
+The public repository is intended for documentation transparency, community reference, and educational purposes only.
+
+---
+
+## Community Studio
+
+Community Studio is a free-to-use edition designed for individual practitioners, researchers, and small teams.
+
+It includes:
+
+- Local-first execution  
+- Guided AutoML workflows  
+- Core training and prediction capabilities  
+
+The underlying machine learning engine, orchestration logic, automation mechanisms, and decision intelligence components are proprietary and maintained in a private core repository.
+
+Community Studio is distributed under a proprietary license.
+
+It is not open-source.
 
 ---
 
 ## Journey Edition
 
-Commercial subscription-based edition with enhanced automation
-and robustness capabilities.
+Journey Edition is a commercial, subscription-based edition offering enhanced automation, robustness validation, and expanded operational capabilities.
 
-Proprietary license.
+Distributed under a proprietary commercial license.
 
 ---
 
 ## Enterprise Edition
 
-Custom enterprise deployment model featuring:
+Enterprise Edition provides customized enterprise deployment with advanced governance and automation features, including:
 
-- Local-first execution
-- Autonomous workflow orchestration
-- Robustness validation framework
-- Extended governance controls
+- Local-first execution  
+- Autonomous workflow orchestration  
+- Robustness validation framework  
+- Extended governance controls  
+- Advanced decision intelligence modules  
+- Enterprise-grade compliance mechanisms  
 
-Proprietary license with contractual terms.
+Enterprise Edition is distributed under a proprietary contractual license.
 
 ---
 
-The OpenCanvas Pro name and logo are registered trademarks
-of OpenCanvas Pro.
+## Trademark Notice
+
+The OpenCanvas Pro name, visual identity, and associated marks are registered trademarks of OpenCanvas Pro.
+
+Unauthorized use of branding, identity elements, or commercial representation is prohibited.
+
+---
+
+© 2026 OpenCanvas Pro — All rights reserved.
