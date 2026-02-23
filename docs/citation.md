@@ -3,31 +3,31 @@
 ![Citation](https://img.shields.io/badge/Citation-Academic%20Ready-blue)
 ![Research](https://img.shields.io/badge/Use-Academic%20%26%20Research-purple)
 ![DOI](https://img.shields.io/badge/DOI-Zenodo-lightgrey)
-![Open Source](https://img.shields.io/badge/License-MIT-green)
+![Reproducible](https://img.shields.io/badge/Reproducible-Yes-success)
 
-**Última atualização:** 31 de janeiro de 2026
+**Last Updated — 23 February 2026**
 
-Se você utilizou o **OpenCanvas Pro** em trabalhos acadêmicos, artigos científicos, TCCs, dissertações, teses ou relatórios técnicos, por favor utilize uma das citações abaixo.
+If you use OpenCanvas Pro in academic research, scientific publications, technical reports, theses or dissertations, please use one of the citation formats below.
 
-O OpenCanvas Pro é um projeto **open-source** e citar corretamente contribui para o fortalecimento da ciência aberta, da educação em Machine Learning e do desenvolvimento de ferramentas acessíveis.
+OpenCanvas Pro is an autonomous ML platform with embedded governance designed for reproducible and decision-ready analytics.
 
 ---
 
 ## 🇧🇷 Citação — ABNT (Português)
 
-TOMIOSSO JR., Lucindo. **OpenCanvas Pro: uma plataforma open-source de AutoML para democratização do aprendizado de Machine Learning**. 2026. Disponível em: <https://github.com/OpenCanvas-Pro/opencanvaspro-app>. Acesso em: _________ 2026.
+TOMIOSSO JR., Lucindo. **OpenCanvas Pro: Uma plataforma de aprendizado de máquina autônoma com foco na privacidade e governança integrada.**. 2026. Disponível em: <https://github.com/OpenCanvas-Pro/opencanvaspro-app>. Acesso em: _________ 2026.
 
 ---
 
-## 🌍 Citation — Academic / Journal (APA-like)
+## 🌍 Citation — Academic / Journal (APA-Style)
 
-Tomiosso Jr., L. (2026). *OpenCanvas Pro: An open-source AutoML platform for transparent and cost-free machine learning experimentation*. GitHub repository. https://github.com/OpenCanvas-Pro/opencanvaspro-app
+Tomiosso Jr., L. (2026). *OpenCanvas Pro: A privacy-first autonomous machine learning platform with embedded governance*. GitHub repository. https://github.com/OpenCanvas-Pro/opencanvaspro-app
 
 ---
 
 ## 🏛️ Citation — Chicago Style
 
-Tomiosso Jr., Lucindo. 2026. *OpenCanvas Pro: An Open-Source AutoML Platform for Transparent and Cost-Free Machine Learning Experimentation*. GitHub. https://github.com/OpenCanvas-Pro/opencanvaspro-app
+Tomiosso Jr., Lucindo. 2026. *OpenCanvas Pro: A Privacy-First Autonomous Machine Learning Platform with Embedded Governance*. GitHub. https://github.com/OpenCanvas-Pro/opencanvaspro-app
 
 ---
 
@@ -35,9 +35,8 @@ Tomiosso Jr., Lucindo. 2026. *OpenCanvas Pro: An Open-Source AutoML Platform for
 
 ```bibtex
 @software{opencanvaspro2026,
-  author       = {Tomiosso Jr., Lucindo},
-  title        = {OpenCanvas Pro: An open-source AutoML platform for transparent and cost-free machine learning experimentation},
-  year         = {2026},
-  publisher    = {GitHub},
-  url          = {https://github.com/OpenCanvas-Pro/opencanvaspro-app}
+  author  = {Tomiosso Jr., Lucindo},
+  title   = {OpenCanvas Pro: A Privacy-First Autonomous Machine Learning Platform with Embedded Governance},
+  year    = {2026},
+  url     = {https://github.com/OpenCanvas-Pro/opencanvaspro-app}
 }
