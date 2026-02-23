@@ -1,143 +1,99 @@
-# 📜 Termos de Uso — OpenCanvas Pro
+# 📜 Terms of Use — OpenCanvas Pro
 
 ![Terms](https://img.shields.io/badge/Terms-Use%20At%20Your%20Own%20Risk-yellow)
-![Privacy](https://img.shields.io/badge/Privacy-LGPD%20%7C%20GDPR-green)
-![Hosting](https://img.shields.io/badge/Hosting-Streamlit%20Community%20Cloud-purple)
+![Privacy](https://img.shields.io/badge/Privacy-Respected-green)
+![Governance](https://img.shields.io/badge/Governance-Embedded-1E90FF)
+![Infrastructure](https://img.shields.io/badge/Deployment-Controlled-purple)
 
-**Última atualização:** 21 de fevereiro de 2026  
+**Last Updated — 23 February 2026**
 
-Bem-vindo ao **OpenCanvas Pro**.  
-Ao acessar ou utilizar esta plataforma, você concorda integralmente com os presentes **Termos de Uso**. Caso não concorde, recomendamos que não utilize o serviço.
+By accessing or using OpenCanvas Pro, you agree to these Terms of Use.
 
----
-
-## 1. Sobre o OpenCanvas Pro
-
-O **OpenCanvas Pro** é uma plataforma open-source de AutoML (Machine Learning Automatizado), disponibilizada gratuitamente para fins educacionais, experimentais e de validação de modelos.
-
-- **Website:** https://opencanvaspro.com  
-- **Aplicação:** https://opencanvaspro.streamlit.app  
-- **Repositório:** https://github.com/OpenCanvas-Pro/opencanvaspro-app  
+If you do not agree, please refrain from using the platform.
 
 ---
 
-## 2. Natureza do serviço
+## 1. Nature of Service
 
-O serviço é fornecido **“como está” (as-is)**, sem garantias de qualquer tipo, explícitas ou implícitas.
+OpenCanvas Pro is provided "as-is" without warranties of any kind.
 
-O OpenCanvas Pro:
-- não garante resultados específicos
-- não garante acurácia, performance ou adequação dos modelos
-- não substitui análise profissional ou validação técnica aprofundada
+The platform does not guarantee:
 
-O uso da plataforma é de **inteira responsabilidade do usuário**.
+- Specific performance results
+- Model accuracy
+- Business outcomes
+- Continuous availability
 
----
-
-## 3. Uso permitido
-
-Você concorda em utilizar o OpenCanvas Pro apenas para fins legais e legítimos, incluindo:
-- aprendizado
-- experimentação
-- validação de ideias
-- competições (ex.: Kaggle)
-- estudos acadêmicos
+Use of the platform is at your own risk.
 
 ---
 
-## 4. Uso proibido
+## 2. Acceptable Use
 
-É expressamente proibido utilizar a plataforma para:
+You agree to use the platform only for lawful purposes, including:
 
-- envio de dados pessoais sensíveis
-- envio de dados confidenciais, sigilosos ou protegidos por lei
-- atividades ilegais ou não autorizadas
-- tentativa de exploração de falhas, abuso de recursos ou uso malicioso
-- engenharia reversa da infraestrutura da plataforma
-
-O OpenCanvas Pro se reserva o direito de **bloquear ou restringir o acesso** em caso de uso indevido.
+- Learning
+- Experimentation
+- Model validation
+- Research
+- Educational activities
 
 ---
 
-## 5. Responsabilidade sobre os dados
+## 3. Prohibited Use
 
-O usuário declara que:
-- possui direito de uso sobre os dados enviados
-- é o único responsável pelo conteúdo dos datasets utilizados
-- não enviará dados que violem leis de privacidade ou propriedade intelectual
+You may not:
 
-O OpenCanvas Pro **não se responsabiliza** por danos decorrentes do uso indevido de dados enviados pelo usuário.
+- Upload sensitive personal data
+- Upload confidential or legally protected information
+- Exploit infrastructure vulnerabilities
+- Abuse computational resources
+- Attempt unauthorized access
 
----
-
-## 6. Processamento de dados e modelos
-
-- Os datasets enviados são processados de forma temporária
-- Os modelos gerados são disponibilizados apenas ao usuário
-- O OpenCanvas Pro não reutiliza datasets ou modelos para outros fins
-
-Consulte a **Política de Privacidade** para mais detalhes.
+Violation may result in restricted access.
 
 ---
 
-## 7. Limitação de responsabilidade
+## 4. User Responsibility
 
-Na máxima extensão permitida por lei, o OpenCanvas Pro não será responsável por:
+You are solely responsible for:
 
-- perdas financeiras
-- perda de dados
-- interrupções de serviço
-- decisões tomadas com base nos modelos gerados
-- danos diretos, indiretos ou incidentais
-
-O uso da plataforma é feito **por sua conta e risco**.
+- The legality of uploaded datasets
+- The rights to use submitted data
+- Decisions made based on generated models
 
 ---
 
-## 8. Disponibilidade do serviço
+## 5. Limitation of Liability
 
-O OpenCanvas Pro:
-- pode ser alterado, suspenso ou descontinuado a qualquer momento
-- não garante disponibilidade contínua
-- pode impor limites técnicos para preservar a estabilidade do serviço gratuito
+To the maximum extent permitted by law, OpenCanvas Pro shall not be liable for:
 
----
-
-## 9. Propriedade intelectual
-
-- O código-fonte do OpenCanvas Pro é licenciado sob a **AGPLv3**
-- O usuário mantém a propriedade dos seus dados e modelos gerados
-- Nenhuma parte da plataforma concede direitos comerciais exclusivos
+- Financial loss
+- Data loss
+- Business interruption
+- Decisions made using model outputs
 
 ---
 
-## 10. Links e serviços de terceiros
+## 6. Service Modifications
 
-A plataforma pode integrar ou depender de serviços de terceiros, como:
-- Streamlit Community Cloud
-- Google Analytics
-- Cloudflare
-
-O OpenCanvas Pro não se responsabiliza por políticas ou práticas desses serviços.
+The platform may be modified, limited or discontinued at any time.
 
 ---
 
-## 11. Alterações nos Termos
+## 7. Intellectual Property
 
-Estes Termos de Uso podem ser atualizados periodicamente.  
-Alterações relevantes serão refletidas nesta página com nova data de atualização.
+All proprietary components, documentation and trademarks remain the property of OpenCanvas Pro.
 
----
-
-## 12. Contato
-
-Em caso de dúvidas sobre estes Termos de Uso, entre em contato:
-
-📧 **contato@opencanvaspro.com**
+Users retain ownership of their data and generated models.
 
 ---
 
-## 🌱 Filosofia OpenCanvas Pro
+## 8. Changes to Terms
 
-> Aprenda. Experimente. Valide.  
-> **Sem lock-in. Sem sustos de cloud. Sem promessas mágicas.**
+These terms may be updated periodically.  
+Updates will be reflected with a new revision date.
+
+---
+
+© 2026 OpenCanvas Pro — All rights reserved.
