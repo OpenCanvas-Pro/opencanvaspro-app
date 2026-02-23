@@ -1,23 +1,39 @@
-# 📘 OpenCanvas Pro — Documentação
+# 📘 OpenCanvas Pro — Documentation Index
 
-Bem-vindo à documentação oficial do **OpenCanvas Pro**.
+![Documentation](https://img.shields.io/badge/Documentation-Official-blue)
+![Governance](https://img.shields.io/badge/Governance-Embedded-1E90FF)
+![Enterprise Ready](https://img.shields.io/badge/Enterprise-Ready-8B0000)
 
-## 🔐 Legal
-- [Política de Privacidade](privacy.md)
-- [Política de Cookies](cookies.md)
-- [Termos de Uso](terms.md)
-- [Segurança](security.md)
+**Last Updated — 23 February 2026**
 
-## 🧠 Produto
-- [Arquitetura](architecture.md)
-- [Roadmap](roadmap.md)
-- [Comparativo com AWS SageMaker Canvas](comparison.md)
-
-## 📚 Referência
-- [Glossário](glossary.md)
-- [Como citar o OpenCanvas Pro](citation.md)
+Welcome to the official documentation of OpenCanvas Pro.
 
 ---
 
-© 2026 OpenCanvas Pro  
-Licença MIT
+## Legal
+
+- Privacy Policy
+- Cookie Policy
+- Terms of Use
+- Security
+
+---
+
+## Product
+
+- Architecture
+- Governance Framework
+- Autopilot
+- Enterprise Framework
+- Roadmap
+
+---
+
+## Reference
+
+- Glossary
+- Citation Guidelines
+
+---
+
+© 2026 OpenCanvas Pro — All rights reserved.
