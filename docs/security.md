@@ -5,6 +5,8 @@
 ![Infrastructure](https://img.shields.io/badge/Infrastructure-Controlled-purple)
 ![Responsible Disclosure](https://img.shields.io/badge/Disclosure-Responsible-orange)
 
+teste manutenção
+
 **Last Updated — 23 February 2026**
 
 OpenCanvas Pro follows a security-by-design philosophy aligned with its governance-oriented architecture.
