@@ -171,9 +171,9 @@ Classification
 - Precision
 - Recall
 - F1-Score
-
 - AUC
-- Regression
+  
+Regression
 - R²
 - MAE
 - RMSE
