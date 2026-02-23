@@ -1,6 +1,7 @@
 # OpenCanvas Pro
 
 ![Privacy First](https://img.shields.io/badge/Privacy-First-2E8B57)
+[![CLA assistant](https://cla-assistant.io/readme/badge/OpenCanvas-Pro/opencanvaspro-app)](https://cla-assistant.io/OpenCanvas-Pro/opencanvaspro-app)
 ![Autonomous ML](https://img.shields.io/badge/Autonomous-ML-6A5ACD)
 ![Embedded Governance](https://img.shields.io/badge/Governance-Embedded-1E90FF)
 ![Enterprise Ready](https://img.shields.io/badge/Enterprise-Ready-8B0000)
