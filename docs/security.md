@@ -1,117 +1,73 @@
-# 🔐 Segurança — OpenCanvas Pro
+# 🔐 Security Policy — OpenCanvas Pro
 
-![Security](https://img.shields.io/badge/Security-Best%20Effort-blue)
-![Open Source](https://img.shields.io/badge/Open%20Source-MIT-lightgrey)
-![Hosting](https://img.shields.io/badge/Hosting-Streamlit%20Community%20Cloud-purple)
-![Compliance](https://img.shields.io/badge/Compliance-LGPD%20%7C%20GDPR-green)
+![Security](https://img.shields.io/badge/Security-Best%20Practices-blue)
+![Governance](https://img.shields.io/badge/Governance-Embedded-1E90FF)
+![Infrastructure](https://img.shields.io/badge/Infrastructure-Controlled-purple)
+![Responsible Disclosure](https://img.shields.io/badge/Disclosure-Responsible-orange)
 
-**Última atualização:** 31 de janeiro de 2026
+**Last Updated — 23 February 2026**
 
-O **OpenCanvas Pro** adota práticas de segurança compatíveis com seu propósito: uma plataforma gratuita, open-source e educacional de AutoML, priorizando proteção de dados, transparência e responsabilidade.
-
----
-
-## 1. Princípios de segurança
-
-O OpenCanvas Pro é desenvolvido com base nos seguintes princípios:
-
-- **Minimização de dados**  
-  Apenas os dados estritamente necessários são processados.
-
-- **Processamento temporário**  
-  Datasets enviados são utilizados apenas durante a sessão ativa.
-
-- **Transparência**  
-  O código é open-source e auditável pela comunidade.
-
-- **Sem lock-in**  
-  Nenhum dado do usuário é retido para fins comerciais.
+OpenCanvas Pro follows a security-by-design philosophy aligned with its governance-oriented architecture.
 
 ---
 
-## 2. Armazenamento e processamento de dados
+## 1. Security Principles
 
-- Os dados enviados são processados **em memória ou armazenamento temporário**
-- Nenhum dataset é armazenado permanentemente por padrão
-- Modelos treinados pertencem exclusivamente ao usuário
-- Logs técnicos não contêm dados sensíveis ou datasets
-
----
-
-## 3. Autenticação e contas (quando aplicável)
-
-Quando funcionalidades de login estiverem habilitadas:
-- autenticação será realizada via provedores confiáveis (ex.: Google, Microsoft)
-- o OpenCanvas Pro não armazena senhas
-- tokens e credenciais seguem boas práticas de segurança
+- Data minimization
+- Temporary processing
+- No persistent dataset storage (by default)
+- Transparent execution structure
+- Infrastructure isolation
 
 ---
 
-## 4. Cookies e analytics
+## 2. Data Processing
 
-- Cookies essenciais são utilizados para funcionamento da aplicação
-- Cookies analíticos (Google Analytics 4) **só são ativados com consentimento**
-- Nenhuma informação pessoal identificável é coletada
-
-Consulte:
-- `docs/PRIVACY.md`
-- `docs/COOKIES.md`
+- Datasets are processed during active sessions
+- No manual access to user datasets occurs
+- Logs do not contain dataset contents
 
 ---
 
-## 5. Infraestrutura
+## 3. Infrastructure
 
-O OpenCanvas Pro utiliza serviços amplamente adotados e confiáveis:
+OpenCanvas Pro may rely on managed infrastructure providers for hosting and delivery.
 
-- **Streamlit Community Cloud** (hospedagem)
-- **Cloudflare** (DNS, HTTPS, proteção básica)
-- **GitHub** (controle de versão e transparência)
+Enterprise deployments are designed to support local-first execution.
 
 ---
 
-## 6. Limitações conhecidas
+## 4. Authentication (Future Editions)
 
-Por se tratar de um serviço gratuito e open-source:
-- não há garantia de disponibilidade contínua
-- não há SLA formal
-- recursos computacionais podem ser limitados
-- datasets muito grandes podem ser bloqueados preventivamente
+When enabled, authentication mechanisms may include:
 
-Essas limitações existem para garantir estabilidade e uso justo.
+- OAuth providers
+- Token-based authentication
+- Secure session handling
 
 ---
 
-## 7. Responsabilidade do usuário
+## 5. Known Limitations
 
-O usuário é responsável por:
-- não enviar dados pessoais sensíveis
-- não enviar informações confidenciais ou protegidas
-- garantir que possui direito de uso sobre os dados
+As an actively evolving platform:
 
-O OpenCanvas Pro não se responsabiliza por uso indevido.
-
----
-
-## 8. Reportando vulnerabilidades
-
-Se você identificar uma vulnerabilidade de segurança, pedimos que **não a explore**.
-
-Entre em contato de forma responsável:
-
-📧 **contato@opencanvaspro.com**
-
-Relatos serão analisados com prioridade.
+- No formal SLA is guaranteed
+- Availability may vary
+- Resource limits may apply
 
 ---
 
-## 9. Atualizações deste documento
+## 6. Responsible Disclosure
 
-Esta política pode ser atualizada conforme a evolução do projeto.  
-A data de atualização será sempre informada no topo do documento.
+If you identify a security vulnerability:
+
+- Do not exploit it
+- Report it responsibly via email:
+
+contato@opencanvaspro.com
+
+All reports are reviewed with priority.
 
 ---
 
-## 🛡️ Compromisso
-
-> Segurança não é promessa absoluta.  
-> É compromisso contínuo com boas práticas, transparência e respeito ao usuário.
+© 2026 OpenCanvas Pro — All rights reserved.

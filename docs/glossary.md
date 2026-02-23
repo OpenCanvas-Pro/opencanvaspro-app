@@ -1,171 +1,179 @@
-# 📘 Glossário — OpenCanvas Pro
+# 📘 Glossary — OpenCanvas Pro
 
-![Glossary](https://img.shields.io/badge/Glossary-Essential%20ML%20Terms-blue)
-![Education](https://img.shields.io/badge/Focus-Education%20%26%20Practice-green)
-![AutoML](https://img.shields.io/badge/Context-AutoML-orange)
+![Glossary](https://img.shields.io/badge/Glossary-ML%20Terminology-blue)
+![Education](https://img.shields.io/badge/Education-Technical%20Reference-green)
+![Autonomous ML](https://img.shields.io/badge/Context-Autonomous%20ML-purple)
 
-**Última atualização:** 31 de janeiro de 2026
+**Last Updated — 23 February 2026**
 
-Este glossário reúne os principais termos utilizados no **OpenCanvas Pro** e no universo de **Inteligência Artificial e Machine Learning**, com explicações objetivas e práticas.
-
----
-
-## 🤖 Inteligência Artificial (IA)
-
-Campo da computação que busca criar sistemas capazes de executar tarefas que normalmente exigiriam inteligência humana, como reconhecimento de padrões, tomada de decisão e previsão.
+This glossary provides key terminology used within OpenCanvas Pro and modern machine learning workflows.
 
 ---
 
-## 🧠 Machine Learning (Aprendizado de Máquina)
+## Artificial Intelligence (AI)
 
-Subcampo da IA em que modelos aprendem padrões a partir de dados, sem serem explicitamente programados para cada regra.
-
-No OpenCanvas Pro, o Machine Learning é aplicado de forma **automatizada (AutoML)**.
+A field of computing that seeks to create systems capable of performing tasks that would normally require human intelligence, such as pattern recognition, decision-making, and prediction.
 
 ---
 
-## ⚙️ AutoML (Automated Machine Learning)
+## Machine Learning
 
-Automação das etapas do Machine Learning, incluindo:
-- preparação de dados
-- seleção de algoritmos
-- ajuste de hiperparâmetros
-- avaliação de métricas
+A subfield of AI in which models learn patterns from data, without being explicitly programmed for each rule.
 
-➡️ O objetivo é **reduzir complexidade e tempo**, mantendo qualidade.
+In OpenCanvas Pro, Machine Learning is applied automatically (AutoML).
 
 ---
 
-## 🧩 Algoritmo
+## AutoML (Automated Machine Learning)
 
-Conjunto de regras matemáticas usadas para aprender padrões nos dados.  
-Exemplos comuns:
-- Random Forest
-- XGBoost
-- LightGBM
-- Logistic Regression
+- Data preparation
+- Algorithm selection
+- Hyperparameter tuning
+- Metric evaluation
 
-O AutoML testa vários algoritmos automaticamente.
+➡️ The goal is to **reduce complexity and time** while maintaining quality.
 
 ---
 
-## 🎯 Variável Alvo (Target)
+## Algorithm
 
-Coluna que o modelo tenta prever.
+A set of mathematical rules used to learn patterns in data.
 
-Exemplos:
-- `Survived` (Titanic)
-- `Preço`
-- `Churn`
-- `Fraude`
+Common examples:
+
+Random Forest
+XGBoost
+LightGBM
+Logistic Regression
+AutoML automatically tests various algorithms.
 
 ---
 
-## 📊 Dataset
+## Target Variable
 
-Conjunto de dados estruturados, geralmente em formato tabular (linhas e colunas), usados para treinar e testar modelos.
+The column that the model attempts to predict.
 
-Formatos suportados:
+Examples:
+
+Survivors (Titanic)
+Price
+Churn (Subscription Cancellation Rate)
+Fraud
+
+---
+
+## Dataset
+
+A set of structured data, usually in tabular format (rows and columns), used to train and test models.
+
+Supported Formats:
+
 - CSV
 - Parquet
+  
+---
+
+## Training
+
+The process by which the model learns patterns from historical data.
+
+Typically involves:
+
+Training data
+Validation data
+Performance metrics
 
 ---
 
-## 🧪 Treinamento (Training)
+## Prediction (Inference)
 
-Processo em que o modelo aprende padrões a partir dos dados históricos.
-
-Normalmente envolve:
-- dados de treino
-- dados de validação
-- métricas de performance
+Using the trained model to generate predictions on **new data**, never seen during training.
 
 ---
 
-## 🔮 Predição (Inference)
+## Classification
 
-Uso do modelo treinado para gerar previsões em **novos dados**, nunca vistos durante o treinamento.
+Type of problem where the model predicts categories.
 
----
+🔹 Binary Classification
+Two possible classes.
 
-## 🟦 Classificação
+Examples:
 
-Tipo de problema em que o modelo prevê **categorias**.
-
-### 🔹 Classificação Binária
-Duas classes possíveis.  
-Exemplos:
-- Sim / Não
-- Fraude / Não fraude
+- Yes / No
+- Fraud / Non-fraud
 - 0 / 1
 
-### 🔹 Classificação Multiclasse
-Mais de duas classes.  
-Exemplos:
-- Tipo de flor
-- Categoria de produto
-- Classe de risco (baixo, médio, alto)
+🔹 Multiclass Classification
+More than two classes.
+
+Examples:
+
+- Type of flower
+- Product category
+- Risk class (low, medium, high)
 
 ---
 
-## 📈 Regressão
+## 📈 Regression
 
-Tipo de problema em que o modelo prevê **valores numéricos contínuos**.
+Type of problem where the model predicts continuous numerical values.
 
-Exemplos:
-- preço de imóveis
-- demanda
-- produção agrícola
-- temperatura
+Examples:
 
----
-
-## 🧠 Agrupamento (Clustering)
-
-Tipo de aprendizado **não supervisionado**, onde o modelo identifica grupos naturais nos dados, sem variável alvo.
-
-Exemplos:
-- segmentação de clientes
-- padrões de comportamento
-- agrupamento geográfico
+- Property prices
+- Demand
+- Agricultural production
+- Temperature
 
 ---
 
-## 🚨 Detecção de Anomalias
+### 🧠 Clustering
 
-Identificação de dados que fogem do padrão esperado.
+A type of unsupervised learning where the model identifies natural groups in the data, without a target variable.
 
-Exemplos:
-- fraudes
-- falhas de sensores
-- comportamentos atípicos
+Examples:
 
----
-
-## ⏱️ Séries Temporais
-
-Problemas em que os dados têm **ordem no tempo**.
-
-Exemplos:
-- vendas mensais
-- consumo energético
-- previsões financeiras
-- produção agrícola ao longo do tempo
+- Customer segmentation
+- Behavioral patterns
+- Geographic clustering
 
 ---
 
-## 📏 Métricas
+### 🚨 Anomaly Detection
+Identification of data that deviates from the expected pattern.
 
-Indicadores usados para avaliar a qualidade do modelo.
+Examples:
 
-### Classificação
-- Accuracy (Acurácia)
+- Fraud
+- Sensor failures
+- Atypical behaviors
+
+---
+
+### ⏱️ Time Series
+Problems where the data has a temporal order.
+
+Examples:
+
+- Monthly sales
+- Energy consumption
+- Financial forecasts
+-  Agricultural production over time
+
+---
+
+### 📏 Metrics
+Indicators used to assess the quality of the model.
+
+Classification
+- Accuracy
 - Precision
 - Recall
 - F1-Score
 - AUC
-
-### Regressão
+  
+Regression
 - R²
 - MAE
 - RMSE
@@ -173,59 +181,57 @@ Indicadores usados para avaliar a qualidade do modelo.
 
 ---
 
-## 🧹 Pré-processamento
+## Preprocessing
 
-Etapas para preparar os dados antes do treinamento, como:
-- tratamento de valores ausentes
-- exclusão de colunas irrelevantes (IDs, leakage)
-- conversão de tipos
-- engenharia de features
+Steps to prepare the data before training, such as:
 
----
-
-## 🧠 Feature (Atributo)
-
-Coluna usada como entrada pelo modelo para aprender padrões.
+- handling missing values
+- excluding irrelevant columns (IDs, data leaks)
+- type conversion
+- feature engineering
 
 ---
 
-## 🧬 Feature Engineering
+## Feature (Attribute)
 
-Criação ou transformação de features para melhorar o desempenho do modelo.
-
-Exemplo:
-- extrair ano/mês de uma data
-- criar indicadores derivados
+Column used as input by the model to learn patterns.
 
 ---
 
-## 🧾 Kaggle Submission
+## Feature Engineering
 
-Arquivo no formato exigido por competições do Kaggle, geralmente contendo:
-- uma coluna de ID
-- uma coluna de predição
+Creation or transformation of features to improve model performance.
 
-O OpenCanvas Pro gera arquivos **Kaggle-ready** automaticamente.
+Example:
 
----
-
-## 🔐 Lock-in de Cloud
-
-Dependência técnica de um provedor específico de nuvem, dificultando migração ou reutilização de modelos.
-
-➡️ O OpenCanvas Pro evita lock-in por design.
+- Extract year/month from a date
+- Create derived indicators
 
 ---
 
-## 🧩 Open Source
+## Data Contract
 
-Software cujo código-fonte é público e pode ser auditado, estudado e reutilizado.
-
-O OpenCanvas Pro é licenciado sob a **MIT License**.
+Structured metadata describing dataset transformations and integrity.
 
 ---
 
-## 🌱 Filosofia OpenCanvas Pro
+## Kaggle Submission
 
-> Tornar Machine Learning acessível, prático e transparente.  
-> Menos fricção. Mais aprendizado. Mais liberdade.
+File in the format required by Kaggle competitions, usually containing:
+
+- an ID column
+- a prediction column
+  
+OpenCanvas Pro automatically generates Kaggle-ready files.
+
+---
+
+## Cloud Dependency
+
+Technical dependence on a specific cloud provider, making it difficult to migrate or reuse templates.
+
+➡️ OpenCanvas Pro avoids cloud dependency by design.
+
+---
+
+© 2026 OpenCanvas Pro — All rights reserved.

@@ -1,164 +1,107 @@
-# 🔐 Política de Privacidade — OpenCanvas Pro
+# 🔐 Privacy Policy — OpenCanvas Pro
 
 ![Privacy](https://img.shields.io/badge/Privacy-LGPD%20%7C%20GDPR-green)
-![Cookies](https://img.shields.io/badge/Cookies-Consent%20Required-blue)
-![Analytics](https://img.shields.io/badge/Analytics-Google%20Analytics%204-orange)
-![Open Source](https://img.shields.io/badge/Open%20Source-MIT-lightgrey)
-![Hosting](https://img.shields.io/badge/Hosting-Streamlit%20Community%20Cloud-purple)
+![Data Sovereignty](https://img.shields.io/badge/Data-Sovereignty-darkgreen)
+![Consent Required](https://img.shields.io/badge/Analytics-Consent%20Based-blue)
+![Security](https://img.shields.io/badge/Security-Best%20Practices-purple)
 
-**Última atualização:** 31 de janeiro de 2026  
+**Last Updated — 23 February 2026**
 
-O **OpenCanvas Pro** respeita a sua privacidade e está comprometido com a transparência no tratamento de dados pessoais, em conformidade com a **Lei Geral de Proteção de Dados (LGPD – Brasil)** e o **Regulamento Geral de Proteção de Dados (GDPR – União Europeia)**.
+OpenCanvas Pro respects user privacy and is committed to transparency in data handling practices, in accordance with:
 
-Ao utilizar a plataforma, você concorda com as práticas descritas nesta Política de Privacidade.
+- Brazil’s General Data Protection Law (LGPD)
+- The European Union’s General Data Protection Regulation (GDPR)
 
----
-
-## 1. Quem somos
-
-O **OpenCanvas Pro** é uma plataforma open-source de AutoML (Machine Learning Automatizado), disponibilizada gratuitamente para fins educacionais, experimentais e de validação de modelos.
-
-- **Website:** https://opencanvaspro.com  
-- **Aplicação:** https://opencanvaspro.streamlit.app  
-- **Repositório:** https://github.com/OpenCanvas-Pro/opencanvaspro-app  
-- **Contato:** contato@opencanvaspro.com  
+By using the platform, you agree to the practices described in this policy.
 
 ---
 
-## 2. Dados que coletamos
+## 1. Who We Are
 
-### 2.1 Dados fornecidos pelo usuário
+OpenCanvas Pro is a privacy-first autonomous machine learning platform.
 
-O OpenCanvas Pro **não exige cadastro** para uso da plataforma.
+Official website:  
+https://opencanvaspro.com
 
-Durante o uso, o usuário pode voluntariamente enviar:
-- Arquivos de dados (`.csv` ou `.parquet`)
-- Parâmetros de treinamento de modelos
-- Arquivos para predição em lote
-
-⚠️ **Importante:**  
-Esses dados são utilizados **exclusivamente para processamento temporário durante a sessão ativa**.
+Contact:  
+contato@opencanvaspro.com
 
 ---
 
-### 2.2 Dados coletados automaticamente
+## 2. Data Collected
 
-Mediante **consentimento explícito**, podemos coletar dados analíticos anonimizados por meio do **Google Analytics 4 (GA4)**, incluindo:
+### 2.1 User-Provided Data
 
-- Tipo de dispositivo e navegador
-- Páginas visitadas
-- Eventos de uso da aplicação (ex.: upload de dataset, início de treino)
-- País/região aproximada (sem identificação individual)
+Users may upload datasets for analytical processing.
 
-❌ Não coletamos:
-- Nome
-- E-mail
-- Endereço IP identificável
-- Dados sensíveis
-- Informações de autenticação
+Important:
+
+- Datasets are processed temporarily
+- No permanent storage of datasets occurs by default
+- No profiling or identity association is performed
 
 ---
 
-## 3. Cookies
+### 2.2 Analytics Data (Optional)
 
-Utilizamos cookies estritamente necessários e, opcionalmente, cookies analíticos.
+With explicit consent, anonymized analytics data may be collected, including:
 
-- **Cookies técnicos:** garantem o funcionamento básico da aplicação  
-- **Cookies analíticos (GA4):** utilizados apenas após consentimento do usuário  
+- Usage events
+- Device type
+- Browser type
+- Approximate geographic region
 
-O consentimento pode ser aceito ou recusado ao acessar a aplicação.
-
-Para mais informações, consulte nossa **Política de Cookies**.
-
----
-
-## 4. Como os dados são utilizados
-
-Os dados são utilizados exclusivamente para:
-
-- Execução de pipelines de Machine Learning
-- Geração de métricas e visualizações
-- Aprimoramento da experiência do usuário
-- Análise estatística agregada de uso da plataforma
-
-❌ Os dados **não são**:
-- Vendidos
-- Compartilhados com terceiros
-- Utilizados para fins comerciais ou publicitários
-- Persistidos após o encerramento da sessão (salvo exceções técnicas temporárias)
+No personally identifiable information is collected.
 
 ---
 
-## 5. Armazenamento e retenção
+## 3. Data Usage
 
-- Os datasets enviados **não são armazenados permanentemente**
-- O processamento ocorre em memória durante a sessão
-- Arquivos e modelos são descartados ao final da sessão ou reinício do serviço
-- Logs técnicos podem existir temporariamente para fins operacionais
+Data is used exclusively for:
 
----
+- Machine learning pipeline execution
+- Metric generation
+- Platform improvement
+- Aggregate usage analysis
 
-## 6. Compartilhamento de dados
-
-O OpenCanvas Pro **não compartilha dados pessoais** com terceiros.
-
-Serviços de infraestrutura utilizados:
-- **Streamlit Community Cloud** (execução da aplicação)
-- **Google Analytics 4** (telemetria anônima, com consentimento)
-- **Cloudflare** (DNS, CDN e segurança)
-
-Cada serviço segue suas próprias políticas de privacidade.
+OpenCanvas Pro does not sell or share personal data.
 
 ---
 
-## 7. Direitos do usuário
+## 4. Data Retention
 
-Você tem direito a:
-- Saber quais dados são coletados
-- Recusar cookies analíticos
-- Solicitar esclarecimentos sobre o tratamento de dados
-
-Como os dados não são persistidos nem associados a identidades,  
-**não realizamos profiling nem identificação individual**.
+- Datasets are processed during active sessions
+- No permanent storage by default
+- Temporary operational logs may exist for stability
 
 ---
 
-## 8. Segurança
+## 5. Third-Party Services
 
-Adotamos medidas técnicas razoáveis para proteger a aplicação, incluindo:
-- HTTPS
-- Isolamento de sessões
-- Infraestrutura gerenciada por provedores confiáveis
+Infrastructure providers may include:
 
-Nenhum acesso humano é realizado aos dados enviados pelos usuários.
+- Hosting providers
+- DNS/CDN services
+- Analytics providers (with consent)
 
----
-
-## 9. Uso responsável
-
-O usuário declara que:
-- Possui direito de uso sobre os dados enviados
-- Não enviará dados pessoais sensíveis ou sigilosos
-- É responsável pelo conteúdo dos datasets utilizados
+Each operates under its own privacy policy.
 
 ---
 
-## 10. Alterações nesta política
+## 6. User Rights
 
-Esta Política de Privacidade pode ser atualizada periodicamente.  
-Alterações relevantes serão refletidas nesta página com nova data de atualização.
+Users have the right to:
 
----
-
-## 11. Contato
-
-Em caso de dúvidas, entre em contato:
-
-📧 **contato@opencanvaspro.com**
+- Withdraw analytics consent
+- Request clarification on data handling
 
 ---
 
-## 🌱 Compromisso OpenCanvas Pro
+## 7. Policy Updates
 
-> Transparência, liberdade tecnológica e aprendizado acessível.  
-> **Valide primeiro. Pague depois — se pagar.**
+This policy may be updated periodically.  
+Changes will be reflected with an updated revision date.
+
+---
+
+© 2026 OpenCanvas Pro — All rights reserved.

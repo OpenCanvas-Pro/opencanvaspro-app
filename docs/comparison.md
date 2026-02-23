@@ -1,82 +1,53 @@
-# 🆚 OpenCanvas Pro vs AWS SageMaker Canvas
+# 🆚 Platform Comparison
 
-![Comparison](https://img.shields.io/badge/Comparison-Enterprise%20Benchmark-orange)
-![AutoML](https://img.shields.io/badge/AutoML-Canvas%20vs%20OpenCanvas-blue)
-![Transparency](https://img.shields.io/badge/Focus-Transparency%20%26%20Freedom-green)
-![No Lock--in](https://img.shields.io/badge/Cloud-No%20Lock--in-lightgrey)
+![Comparison](https://img.shields.io/badge/Comparison-Analytical%20Platform-orange)
+![Governance](https://img.shields.io/badge/Focus-Governance-blue)
+![Privacy First](https://img.shields.io/badge/Privacy-First-2E8B57)
+![Enterprise Ready](https://img.shields.io/badge/Enterprise-Ready-8B0000)
 
-**Última atualização:** 31 de janeiro de 2026
+**Last Updated — 23 February 2026**
 
-Este documento apresenta uma comparação técnica detalhada entre o **OpenCanvas Pro** e o **AWS SageMaker Canvas**, com foco em **usabilidade real**, **transparência**, **custo**, **lock-in** e **experiência do usuário**.
+This document presents a structural comparison between OpenCanvas Pro and cloud-native AutoML solutions.
 
----
-
-## Filosofia de Produto
-
-| Aspecto | OpenCanvas Pro | AWS SageMaker Canvas |
-|------|----------------|----------------------|
-| Filosofia | Open, educacional, transparente | Corporativo, cloud-first |
-| Público principal | Estudantes, profissionais, startups | Empresas AWS-centric |
-| Lock-in | Nenhum | Alto |
-| Código | Open-source (MIT) | Proprietário |
+The objective is not to compete on scale, but on transparency, governance and deployment philosophy.
 
 ---
 
-## Dados & Preparação
+## Philosophy
 
-| Recurso | OpenCanvas Pro | SageMaker Canvas |
-|------|----------------|------------------|
-| Upload CSV | ✅ | ✅ |
-| Upload Parquet | ✅ | ❌ |
-| CSV → Parquet automático | ✅ | ❌ |
-| Confirmação de linhas/tamanho | ✅ | ⚠️ |
-| Estimativa de RAM | ✅ (hard block) | ❌ |
-| Exclusão de colunas | ✅ | ✅ |
-| Imputação por coluna | ✅ | ⚠️ |
-| Tratamento de datas guiado | ✅ | ⚠️ |
+| Aspect | OpenCanvas Pro | Cloud-Native AutoML |
+|--------|----------------|--------------------|
+| Data Control | User-centric | Provider-centric |
+| Deployment | Local-first (Enterprise) | Cloud-first |
+| Governance | Embedded by design | Limited visibility |
+| Vendor Lock-in | Avoided by architecture | Often inherent |
 
 ---
 
-## AutoML & Modelagem
+## Analytical Structure
 
-| Recurso | OpenCanvas Pro | SageMaker Canvas |
-|------|----------------|------------------|
-| Classificação | ✅ | ✅ |
-| Regressão | ✅ | ✅ |
-| Clustering | ✅ | ❌ |
-| Anomalia | ✅ | ❌ |
-| Séries Temporais | ✅ Avançado | ⚠️ Básico |
-| Auto-detecção do problema | ✅ | ⚠️ |
-
----
-
-## Visualizações & Interpretabilidade
-
-| Recurso | OpenCanvas Pro | SageMaker Canvas |
-|------|----------------|------------------|
-| Matriz de Confusão | ✅ | ✅ |
-| ROC / PR Curve | ✅ | ✅ |
-| SHAP | ✅ | ⚠️ |
-| Elbow / Silhouette | ✅ | ❌ |
-| PCA / t-SNE / UMAP | ✅ | ❌ |
+| Feature | OpenCanvas Pro |
+|----------|----------------|
+| Bronze–Silver–Gold Pipeline | ✅ |
+| Data Contracts | ✅ |
+| Dataset Fingerprinting | ✅ |
+| Robustness-aware selection (Planned) | ✅ |
+| Stress testing (Planned) | ✅ |
 
 ---
 
-## Exportação & Uso Real
+## Conclusion
 
-| Recurso | OpenCanvas Pro | SageMaker Canvas |
-|------|----------------|------------------|
-| Exportação do modelo | `.pkl` | ❌ |
-| Batch Prediction | ✅ | ✅ |
-| Export CSV | ✅ | ✅ |
-| Export Parquet | ✅ | ❌ |
-| Kaggle-ready export | 🏆 Sim | ❌ |
+OpenCanvas Pro focuses on:
+
+- Analytical sovereignty
+- Decision reproducibility
+- Structured governance
+- Controlled automation
+
+The objective is not simply model training —  
+but defensible analytical decision-making.
 
 ---
 
-## Conclusão
-
-O **OpenCanvas Pro** não tenta competir com o SageMaker Canvas em escala corporativa massiva.  
-Ele compete **onde o usuário sente dor**: custo, transparência, aprendizado e liberdade.
-
-> *“AutoML não deveria exigir cartão de crédito para aprender.”*
+© 2026 OpenCanvas Pro — All rights reserved.
