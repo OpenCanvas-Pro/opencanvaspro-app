@@ -1,0 +1,16 @@
+# OpenCanvas Pro — Code Owners
+
+# Default owners
+* @OpenCanvas-Pro/maintainers
+
+# Documentation
+/docs/ @OpenCanvas-Pro/maintainers
+README.md @OpenCanvas-Pro/maintainers
+SECURITY.md @OpenCanvas-Pro/maintainers
+CONTRIBUTING.md @OpenCanvas-Pro/maintainers
+CLA.md @OpenCanvas-Pro/maintainers
+NOTICE.txt @OpenCanvas-Pro/maintainers
+LICENSE @OpenCanvas-Pro/maintainers
+
+# GitHub configuration
+/.github/ @OpenCanvas-Pro/maintainers
