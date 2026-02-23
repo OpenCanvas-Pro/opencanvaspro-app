@@ -45,7 +45,7 @@ This structure supports:
 
 ## 🤖 Autopilot Integration
 
-EMILIA Autopilot operates within this lifecycle, enforcing:
+E.M.I.L.I.A. Autopilot operates within this lifecycle, enforcing:
 
 - Guardrails
 - Transformation constraints
