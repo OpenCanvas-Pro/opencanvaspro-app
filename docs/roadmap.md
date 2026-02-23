@@ -1,154 +1,64 @@
-# 🛣️ OpenCanvas Pro — Roadmap Público
+# 🛣️ Product Roadmap — OpenCanvas Pro
 
-![Roadmap](https://img.shields.io/badge/Roadmap-Product%20Vision-blue)
+![Roadmap](https://img.shields.io/badge/Roadmap-Strategic%20Vision-blue)
 ![Status](https://img.shields.io/badge/Status-Active%20Development-green)
-![Startup](https://img.shields.io/badge/Stage-Early%20Stage-orange)
-![Community](https://img.shields.io/badge/Community-Open%20Contributions-purple)
+![Autonomous ML](https://img.shields.io/badge/Focus-Autonomous%20ML-purple)
+![Enterprise Ready](https://img.shields.io/badge/Enterprise-Ready-8B0000)
 
-**Última atualização:** 31 de janeiro de 2026
+**Last Updated — 23 February 2026**
 
-Este roadmap descreve a evolução planejada do **OpenCanvas Pro**, equilibrando:
+This roadmap outlines the strategic evolution of OpenCanvas Pro as a privacy-first autonomous ML platform with embedded governance.
 
-- impacto para o usuário
-- viabilidade técnica
-- sustentabilidade do projeto
-- crescimento como produto e startup
-
-O roadmap é **vivo** e pode evoluir conforme feedback da comunidade.
+The roadmap is dynamic and subject to refinement.
 
 ---
 
-## 🎯 Princípios do Roadmap
+## Phase 1 — Stability & Core Consolidation
 
-- **Usuário em primeiro lugar**
-- **Sem lock-in de cloud**
-- **Transparência técnica**
-- **Escala progressiva**
-- **Open-source como fundação**
-
----
-
-## ✅ Fase Atual — MVP Avançado (Concluída)
-
-> *AutoML funcional, usável e diferenciado*
-
-### Funcionalidades entregues
-
-- AutoML tabular completo:
-  - Classificação
-  - Regressão
-  - Clustering
-  - Anomalia
-  - Séries Temporais
-- Upload CSV e Parquet
-- Conversão automática CSV → Parquet
-- Preparação avançada de dados:
-  - exclusão de colunas (IDs / leakage)
-  - imputação por coluna
-  - tratamento guiado de datas
-- Auto-detecção do tipo de problema
-- Visualizações ricas por tipo de treino
-- Hard block preventivo (memória / tamanho)
-- Exportação de modelo (`.pkl`)
-- Batch prediction
-- Exportação CSV e Parquet
-- **Kaggle-ready export (exclusivo)**
-- Telemetria GA4 com consentimento (LGPD)
-- Código open-source (MIT)
+- Persistent session architecture
+- Structured artifact management
+- PDF reporting
+- Kaggle-ready exports
+- Governance metadata expansion
 
 ---
 
-## 🟡 Fase 1 — Experiência do Usuário & Persistência
+## Phase 2 — Autonomous Workflow
 
-> *Transformar sessões em jornadas contínuas*
-
-### Planejado
-
-- Login OAuth:
-  - Google
-  - Microsoft
-- Persistência de usuários (Firebase)
-- Histórico de experimentos por usuário
-- Reuso de datasets carregados
-- Preferências salvas (idioma, consentimento, defaults)
+- EMILIA Autopilot (Community Lite)
+- Guardrail enforcement
+- Run state machine
+- Structured audit logs
 
 ---
 
-## 🟠 Fase 2 — Escala Técnica
+## Phase 3 — Robustness Framework
 
-> *Preparar o sistema para múltiplos usuários simultâneos*
-
-### Planejado
-
-- Execução assíncrona de treinos
-- Fila de jobs (background workers)
-- Limites por usuário (fair usage)
-- Monitoramento básico de recursos
-- Cache inteligente de resultados
+- Multi-seed evaluation
+- Robust Score computation
+- Stress testing mechanisms
+- Stability-aware ranking
 
 ---
 
-## 🔵 Fase 3 — Produto & Comunidade
+## Phase 4 — Enterprise Deployment
 
-> *Criar ecossistema ao redor do AutoML*
-
-### Planejado
-
-- Marketplace de datasets públicos
-- Templates prontos (Kaggle, cursos, desafios)
-- Compartilhamento de experimentos
-- Modo educacional guiado
-- Documentação interativa
+- Local-first execution model
+- Containerized deployment
+- Controlled infrastructure integration
+- Extended audit compliance tools
 
 ---
 
-## 🟣 Fase 4 — Monetização Sustentável
+## Long-Term Vision
 
-> *Manter o projeto gratuito e saudável*
+To redefine machine learning automation through:
 
-### Possibilidades
-
-- Plano Pro (datasets maiores / prioridade)
-- Execuções dedicadas (on-demand)
-- Patrocínio institucional
-- Parcerias educacionais
-- Apoio da comunidade (Patreon)
-
-> ⚠️ O OpenCanvas Pro **não será paywall-first**.  
-> A gratuidade é parte do DNA do projeto.
+- Embedded governance
+- Decision reproducibility
+- Privacy-first architecture
+- Autonomous analytical workflows
 
 ---
 
-## 🟢 Fase 5 — Integração & Deploy
-
-> *Do experimento à produção*
-
-### Planejado
-
-- Deploy de modelos como API
-- Exportação para pipelines externos
-- Integração com notebooks
-- Integração com MLOps open-source
-- Hooks para CI/CD de modelos
-
----
-
-## 📣 Como contribuir
-
-O roadmap é aberto a contribuições da comunidade.
-
-- Sugestões via Issues
-- Discussões via Pull Requests
-- Feedback de usuários reais é prioridade
-
----
-
-## 📌 Visão de longo prazo
-
-> *Criar a principal plataforma open-source de AutoML educacional e experimental do mundo.*
-
-Sem custos ocultos.  
-Sem lock-in.  
-Sem fricção.
-
-**OpenCanvas Pro**.
+© 2026 OpenCanvas Pro — All rights reserved.
