@@ -176,4 +176,11 @@ Los componentes del motor de producción se mantienen en un repositorio privado.
 
 ---
 
+## 🌐 Sitio web
+
+Sitio oficial:  
+https://opencanvaspro.com
+
+---
+
 © 2026 OpenCanvas Pro — Todos los derechos reservados.
