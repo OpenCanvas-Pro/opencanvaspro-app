@@ -214,7 +214,7 @@ All production engine components are maintained in a private core repository.
 ## 🌐 Website
 
 Official website:  
-https://opencanvaspro.com
+<a href="https://opencanvaspro.com" target="_blank" rel="noopener noreferrer">opencanvaspro.com</a>
 
 ---
 
