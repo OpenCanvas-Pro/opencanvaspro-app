@@ -1,22 +1,24 @@
-# E.M.I.L.I.A. — Autonomous Orchestration & Decision Intelligence Layer
+# E.M.I.L.I.A. — Agentic AutoMLOps Orchestration & Decision Intelligence Layer
 
-**Last Updated — 24 February 2026**
+**Last Updated — 02 March 2026**
 
 ---
 
 ## 1. Introduction
 
-E.M.I.L.I.A. (Engineering of Machine Learning & Artificial Intelligence Assistant) is the orchestration intelligence layer of OpenCanvas Pro.
+E.M.I.L.I.A. (Engineering of Machine Learning & Artificial Intelligence Assistant) is the agentic AutoMLOps orchestration layer of OpenCanvas Pro.
 
-It is not a chatbot.  
+OpenCanvas Pro is an Agentic AutoMLOps platform built around Governance and Traceability.
+
+E.M.I.L.I.A. is not a chatbot.  
 It is not a wrapper around machine learning libraries.  
 
-E.M.I.L.I.A. is a structured decision-guidance system designed to transform automated modeling into governed, defensible analytical decisions.
+It is a governed execution runtime designed to transform automated modeling into traceable, defensible analytical decisions.
 
 Its mission is simple:
 
 > Move from “model trained”  
-> to “decision understood and justified.”
+> to “decision understood, justified and traceable.”
 
 ---
 
@@ -36,7 +38,7 @@ Few optimize for:
 - Reproducibility traceability  
 - Contextual decision explanation  
 
-This creates a gap between technical modeling and organizational decision-making.
+This creates a structural gap between modeling and institutional decision-making.
 
 E.M.I.L.I.A. was designed to close that gap.
 
@@ -61,7 +63,29 @@ Its responsibilities include:
 - Decision framing  
 
 It does not replace modeling.  
-It enhances understanding.
+It enhances analytical accountability.
+
+---
+
+## 3.1 Agentic AutoMLOps Runtime
+
+E.M.I.L.I.A. operates as an Agentic Runtime Engine.
+
+Each execution (run) is treated as an immutable analytical unit containing:
+
+- Dataset snapshot reference  
+- Transformation lineage  
+- Structured execution plan  
+- Skill sequence trace  
+- Evaluation outputs  
+- Governance artifacts  
+
+This ensures:
+
+- Deterministic execution paths  
+- Reproducibility  
+- Audit readiness  
+- Decision traceability  
 
 ---
 
@@ -90,85 +114,44 @@ Beyond performance metrics, E.M.I.L.I.A. interprets:
 - AUC stability  
 - Variance across runs (when enabled)  
 - Risk of overfitting indicators  
-- Sensitivity to dataset perturbation (planned)  
-- Robustness ranking (planned)  
+- Sensitivity to dataset perturbation  
+- Robustness signaling  
 
 It transforms metric tables into decision-oriented insight.
-
-Example conceptual framing:
-
-> “Model A achieves higher accuracy but exhibits lower recall stability.  
-> Model B presents slightly lower accuracy with improved balance across metrics.”
-
-The goal is informed trade-offs.
 
 ---
 
 ## 6. Governance-Aware Reporting
 
-E.M.I.L.I.A. contributes to structured reporting by:
-
-- Translating metrics into explanatory language  
-- Summarizing dataset characteristics  
-- Highlighting transformation steps  
-- Contextualizing risks  
-- Supporting defensible documentation  
-
-Reports generated under its orchestration are intended to be:
+Reports generated under its orchestration are designed to be:
 
 - Auditable  
 - Reproducible  
 - Contextually explainable  
+- Structured for compliance environments  
 
-This aligns modeling with compliance expectations.
-
----
-
-## 7. Autopilot (Conceptual)
-
-In future and advanced editions, E.M.I.L.I.A. Autopilot extends capabilities toward structured automation:
-
-- Guided pipeline configuration  
-- Intelligent defaults based on dataset structure  
-- Automated robustness validation  
-- Stress testing orchestration  
-- Decision integrity scoring  
-
-Autopilot does not eliminate user agency.  
-It provides guardrails.
+Narrative synthesis contextualizes metrics — it does not replace them.
 
 ---
 
-## 8. Editions and Scope
+## 7. Autopilot (Operational Scope)
 
-E.M.I.L.I.A. behaves differently across editions:
+E.M.I.L.I.A. Autopilot introduces controlled agentic automation.
 
-### Community Studio
+It executes structured skill sequences including:
 
-- Guided explanations  
-- Dataset awareness insights  
-- Metric contextualization  
-- Structured reporting support  
+- Problem type inference  
+- Dataset auditing  
+- Transformation orchestration  
+- Competitive model tournament  
+- Robustness validation  
+- Governance artifact generation  
 
-### Journey Edition
-
-- Extended automation controls  
-- Enhanced robustness configuration  
-- Local execution intelligence  
-
-### Enterprise Edition
-
-- Full autonomous orchestration  
-- Multi-run stability analysis  
-- Stress testing mechanisms  
-- Decision integrity scoring  
-- Governance lifecycle management  
-
-Advanced mechanisms are proprietary and not disclosed in this repository.
+Autopilot operates within governance guardrails rather than unconstrained automation.
 
 ---
 
-## 9. Strategic Positioning
+## 8. Strategic Positioning
 
 E.M.I.L.I.A. positions OpenCanvas Pro beyond traditional AutoML.
 
@@ -182,11 +165,11 @@ to
 
 The value proposition is not merely automation.
 
-It is structured analytical responsibility.
+It is governed analytical infrastructure.
 
 ---
 
-## 10. Intellectual Property Notice
+## 9. Intellectual Property Notice
 
 The orchestration logic, scoring methodologies, decision frameworks and robustness mechanisms underlying E.M.I.L.I.A. are proprietary components maintained within private core repositories.
 
@@ -196,10 +179,10 @@ This document describes conceptual behavior only.
 
 ## Closing Statement
 
-E.M.I.L.I.A. represents a shift in how machine learning platforms are designed:
+E.M.I.L.I.A. represents a structural evolution in machine learning systems:
 
-Not as model factories,  
-but as decision architecture systems.
+Not model factories,  
+but governed decision architectures.
 
 OpenCanvas Pro is built around this principle.
 
