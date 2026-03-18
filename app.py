@@ -2,6 +2,11 @@ import streamlit as st
 import base64
 import os
 
+PATH_LOGO = "assets/Cor_sobre_preto.svg"
+PATH_SHIELD = "assets/integrity_shield.png"
+PATH_EMILIA = "assets/Emilia_hires.jpg"
+PATH_FAVICON = "32.png"
+
 # 1. A PRIMEIRA LINHA DEVE SER ESTA (E APENAS UMA VEZ):
 st.set_page_config(
     page_title="OpenCanvas Pro | Cognitive AutoML",
