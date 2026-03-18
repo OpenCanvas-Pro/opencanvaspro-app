@@ -17,7 +17,7 @@ def get_base64_image(image_path):
             return base64.b64encode(img_file.read()).decode()
     return None
 
-img_logo_b64 = get_base64_image("Cor_Preto_Logo_OCP.png")
+img_logo_b64 = get_base64_image("Cor_sobre_preto.svg")
 img_emilia_b64 = get_base64_image("Emilia_hires.jpg")
 
 # --- CSS TOTALMENTE INJETADO (FORÇANDO DARK MODE) ---
