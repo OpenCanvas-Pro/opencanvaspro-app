@@ -1,142 +1,122 @@
 import streamlit as st
-import time
 import base64
-from PIL import Image
+import os
 
-# --- CONFIGURAÇÃO DA PÁGINA ---
+# 1. A PRIMEIRA LINHA DEVE SER ESTA (E APENAS UMA VEZ):
 st.set_page_config(
     page_title="OpenCanvas Pro | Cognitive AutoML",
-    page_icon="🍊",
+    page_icon="32.png",
     layout="wide",
     initial_sidebar_state="collapsed"
 )
 
-# --- FUNÇÕES AUXILIARES ---
-def get_image_base64(path):
-    with open(path, "rb") as img_file:
-        return base64.b64encode(img_file.read()).decode()
+# --- FUNÇÃO PARA CARREGAR IMAGEM LOCAL COM SEGURANÇA ---
+def get_base64_image(image_path):
+    if os.path.exists(image_path):
+        with open(image_path, "rb") as img_file:
+            return base64.b64encode(img_file.read()).decode()
+    return None
 
-# --- CSS CUSTOMIZADO (ESTILO COCKPIT / DARK MODE / NEON ORANGE) ---
+img_logo_b64 = get_base64_image("Cor_Preto_Logo_OCP.png")
+img_emilia_b64 = get_base64_image("Emilia_hires.jpg")
+
+# --- CSS TOTALMENTE INJETADO (FORÇANDO DARK MODE) ---
 st.markdown(f"""
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&family=JetBrains+Mono:wght@500&display=swap');
-    
-    :root {{
-        --ocp-orange: #FF6B00;
-        --ocp-bg: #0D0D0D;
-        --ocp-card: #161616;
-    }}
-
+    /* Forçar fundo preto em tudo */
     .stApp {{
-        background-color: var(--ocp-bg);
-        color: white;
-        font-family: 'Inter', sans-serif;
+        background-color: #0D0D0D !important;
+        color: #FFFFFF !important;
     }}
-
-    /* Esconder Elementos Padrão */
-    #MainMenu, footer, header {{ visibility: hidden; }}
+    
+    /* Esconder elementos nativos que poluem o visual */
+    header, footer, #MainMenu {{visibility: hidden;}}
+    
+    .main-title {{
+        text-align: center;
+        font-size: 3rem;
+        font-weight: 800;
+        margin-bottom: 0px;
+        color: white;
+    }}
+    
+    .highlight-text {{
+        text-align: center;
+        color: #FF6B00;
+        font-weight: 700;
+        font-size: 1.2rem;
+        letter-spacing: 2px;
+        margin-bottom: 30px;
+    }}
 
     /* Grid de Integridade */
-    .shield-container {{
+    .shield-grid {{
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-        gap: 12px;
-        margin-top: 20px;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 10px;
+        padding: 10px;
     }}
 
     .check-card {{
-        background: var(--ocp-card);
+        background: #161616;
         border: 1px solid #333;
         border-radius: 8px;
-        padding: 15px;
+        padding: 12px;
         text-align: center;
-        transition: all 0.3s ease;
+        transition: 0.3s;
     }}
 
     .check-card:hover {{
-        border-color: var(--ocp-orange);
-        transform: translateY(-3px);
-        box-shadow: 0 4px 15px rgba(255, 107, 0, 0.2);
-    }}
-
-    .check-icon {{
-        font-size: 1.2rem;
-        margin-bottom: 8px;
+        border-color: #FF6B00;
+        box-shadow: 0 0 10px rgba(255, 107, 0, 0.3);
     }}
 
     .check-label {{
-        font-size: 0.75rem;
-        font-weight: 600;
-        color: #999;
+        font-size: 0.7rem;
+        color: #AAA;
         text-transform: uppercase;
-        letter-spacing: 0.5px;
+        margin-top: 5px;
     }}
 
-    /* Estilo do Botão Principal */
-    .stButton>button {{
-        background: linear-gradient(90deg, #FF6B00 0%, #FF8533 100%);
-        color: white;
-        border: none;
-        padding: 12px 30px;
-        font-weight: 800;
-        border-radius: 5px;
-        width: 100%;
-        transition: all 0.3s;
-    }}
-
-    .stButton>button:hover {{
-        box-shadow: 0 0 20px rgba(255, 107, 0, 0.4);
-        transform: scale(1.02);
-    }}
-
-    .emilia-box {{
-        background: rgba(255, 107, 0, 0.05);
-        border-left: 4px solid var(--ocp-orange);
-        padding: 20px;
+    .emilia-quote {{
+        background: rgba(255, 107, 0, 0.1);
+        border-left: 4px solid #FF6B00;
+        padding: 15px;
+        font-style: italic;
+        font-size: 0.95rem;
         border-radius: 0 10px 10px 0;
     }}
 </style>
 """, unsafe_allow_html=True)
 
-# --- HEADER / LOGO ---
-col_logo, col_empty = st.columns([1, 4])
-with col_logo:
-    try:
-        st.image("Cor_Preto_Logo_OCP.png", use_container_width=True)
-    except:
-        st.title("🍊 OCP")
+# --- CONTEÚDO ---
 
-# --- HERO SECTION ---
-st.markdown("<h1 style='text-align: center; font-size: 3.5rem; margin-bottom: 0;'>Cognitive AutoML</h1>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center; color: #FF6B00; font-weight: 700; font-size: 1.2rem;'>THE TRUSTED PLATFORM FOR SCIENTIFIC INTEGRITY</p>", unsafe_allow_html=True)
+# Logo customizado via HTML para garantir centralização e cor
+if img_logo_b64:
+    st.markdown(f'<div style="text-align: center;"><img src="data:image/png;base64,{img_logo_b64}" width="200"></div>', unsafe_allow_html=True)
+else:
+    st.markdown("<h2 style='text-align: center; color: #FF6B00;'>OpenCanvas Pro</h2>", unsafe_allow_html=True)
 
-st.write("---")
+st.markdown("<h1 class='main-title'>Cognitive AutoML</h1>", unsafe_allow_html=True)
+st.markdown("<p class='highlight-text'>TRUSTED PLATFORM FOR SCIENTIFIC INTEGRITY</p>", unsafe_allow_html=True)
 
-# --- CONTEÚDO PRINCIPAL (EMILIA + SHIELD) ---
-c1, c2 = st.columns([1, 1.8], gap="large")
+col1, col2 = st.columns([1, 2], gap="large")
 
-with c1:
-    try:
-        st.image("Emilia_hires.jpg", caption="E.M.I.L.I.A. - Your Cognitive Advisor", use_container_width=True)
-    except:
-        st.info("Imagem da E.M.I.L.I.A. carregando...")
-        
+with col1:
+    if img_emilia_b64:
+        st.markdown(f'<img src="data:image/jpeg;base64,{img_emilia_b64}" style="width:100%; border-radius: 15px; border: 1px solid #333;">', unsafe_allow_html=True)
+    
+    st.markdown("<br>", unsafe_allow_html=True)
     st.markdown("""
-    <div class="emilia-box">
-        <h4 style='color: #FF6B00; margin-top:0;'>Mensagem da E.M.I.L.I.A.</h4>
-        <p style='font-size: 0.9rem; line-height: 1.4;'>
-            "Bem-vindo ao cockpit. Enquanto você foca no problema de negócio, 
-            eu monitoro 19 dimensões de integridade científica em tempo real. 
-            Nenhum viés ou vazamento de dados passará pelo meu escudo."
-        </p>
+    <div class="emilia-quote">
+        "Meu escudo de 19 camadas garante que sua IA seja construída sobre ciência, não sobre ruído."
+        <br><b>— E.M.I.L.I.A.</b>
     </div>
     """, unsafe_allow_html=True)
 
-with c2:
-    st.markdown("### 🛡️ Scientific Integrity Shield (v1.0 Preview)")
-    st.markdown("<p style='color: #666;'>A OpenCanvas Pro valida automaticamente cada etapa do seu experimento.</p>", unsafe_allow_html=True)
+with col2:
+    st.markdown("### 🛡️ Scientific Integrity Shield")
     
-    # Matriz dos 19 Checks
     checks = [
         ("⚖️", "Class Imbalance"), ("🚰", "Data Leakage"), ("❓", "Missing Values"),
         ("👥", "Duplicate Rows"), ("📊", "Outlier Risk"), ("🔠", "Cardinality"),
@@ -147,37 +127,28 @@ with c2:
         ("💰", "Monetary Values")
     ]
     
-    shield_html = '<div class="shield-container">'
-    for icon, name in checks:
-        shield_html += f"""
+    grid_html = '<div class="shield-grid">'
+    for icon, label in checks:
+        grid_html += f"""
         <div class="check-card">
-            <div class="check-icon">{icon}</div>
-            <div class="check-label">{name}</div>
+            <div style="font-size: 1.5rem;">{icon}</div>
+            <div class="check-label">{label}</div>
         </div>
         """
-    shield_html += '</div>'
-    st.markdown(shield_html, unsafe_allow_html=True)
+    grid_html += '</div>'
+    st.markdown(grid_html, unsafe_allow_html=True)
 
-# --- ESPAÇADOR ---
-st.write("")
-st.write("")
+# --- FORMULÁRIO ---
+st.markdown("<br><hr style='border-color: #333;'><br>", unsafe_allow_html=True)
+_, center_col, _ = st.columns([1, 2, 1])
 
-# --- WAITLIST FORM (MODERNIZADO) ---
-st.markdown("---")
-col_f1, col_f2, col_f3 = st.columns([1, 1.5, 1])
-with col_f2:
-    st.markdown("<h3 style='text-align: center;'>Junte-se à Revolução Local-First</h3>", unsafe_allow_html=True)
-    with st.form("waitlist_form"):
-        email = st.text_input("Seu melhor e-mail corporativo:", placeholder="exemplo@empresa.com")
-        submit = st.form_submit_button("🚀 SOLICITAR ACESSO ANTECIPADO")
-        
-        if submit:
-            if email and "@" in email:
-                st.toast("E-mail registrado com sucesso!", icon="🔥")
-                st.balloons()
-                st.success(f"Confirmado! **{email}** está na lista prioritária para a v1.0.")
-            else:
-                st.error("Por favor, insira um e-mail válido.")
+with center_col:
+    st.markdown("<h3 style='text-align: center;'>Solicitar Acesso Antecipado</h3>", unsafe_allow_html=True)
+    with st.form("waitlist"):
+        email = st.text_input("E-mail:", placeholder="seu@email.com")
+        btn = st.form_submit_button("RESERVAR MEU LUGAR NA v1.0")
+        if btn and email:
+            st.balloons()
+            st.success("Pronto! Você será avisado em breve.")
 
-# --- FOOTER ---
-st.markdown("<br><p style='text-align: center; color: #444; font-size: 0.8rem;'>OpenCanvas Pro &copy; 2026 | Built for Science. Built for Trust.</p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center; color: #444; margin-top: 50px;'>OpenCanvas Pro © 2026 | Local-First Cognitive Intelligence</p>", unsafe_allow_html=True)
