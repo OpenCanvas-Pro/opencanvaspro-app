@@ -1,9 +1,13 @@
 import os
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+
 import streamlit as st
 
 # =========================================================
 # OpenCanvas Pro — Landing Page
-# VERSION: 1.1.0
+# VERSION: 1.1.1
 # Status: Public Preview
 # =========================================================
 
@@ -11,6 +15,43 @@ ASSETS_DIR = "assets"
 PAGE_ICON_PATH = os.path.join(ASSETS_DIR, "32.png")
 LOGO_PATH = os.path.join(ASSETS_DIR, "Cor_sobre_preto.svg")
 SHIELD_PATH = os.path.join(ASSETS_DIR, "integrity_shield.png")
+
+
+def send_waitlist_email(user_email: str) -> tuple[bool, str]:
+    try:
+        host = st.secrets["EMAIL_HOST"]
+        port = int(st.secrets["EMAIL_PORT"])
+        username = st.secrets["EMAIL_USERNAME"]
+        password = st.secrets["EMAIL_PASSWORD"]
+        waitlist_to = st.secrets.get("WAITLIST_TO", "contato@opencanvaspro.com")
+
+        msg = MIMEMultipart()
+        msg["From"] = username
+        msg["To"] = waitlist_to
+        msg["Subject"] = "Novo cadastro na waitlist — OpenCanvas Pro"
+
+        body = f"""
+Novo interesse registrado na waitlist da OpenCanvas Pro.
+
+E-mail informado: {user_email}
+
+Origem: landing pública
+Produto: OpenCanvas Pro — Cognitive AutoML
+Site: opencanvaspro.com
+CNPJ: 64.918.004/0001-36
+"""
+        msg.attach(MIMEText(body, "plain", "utf-8"))
+
+        server = smtplib.SMTP(host, port)
+        server.starttls()
+        server.login(username, password)
+        server.sendmail(username, waitlist_to, msg.as_string())
+        server.quit()
+
+        return True, "Interesse registrado com sucesso."
+    except Exception as e:
+        return False, str(e)
+
 
 st.set_page_config(
     page_title="OpenCanvas Pro | Cognitive AutoML",
@@ -31,6 +72,8 @@ st.markdown(
             --ocp-white: #FFFFFF;
             --ocp-muted: #D9D9D9;
             --ocp-soft: #BDBDBD;
+            --ocp-success-bg: #0E2B1E;
+            --ocp-success-border: #1F7A4D;
         }
 
         .stApp {
@@ -46,7 +89,7 @@ st.markdown(
         }
 
         .block-container {
-            padding-top: 1.4rem !important;
+            padding-top: 0.5rem !important;
             padding-bottom: 2rem !important;
             max-width: 1500px !important;
         }
@@ -61,7 +104,7 @@ st.markdown(
         }
 
         .hero-logo-wrap {
-            margin-top: 5.5rem;
+            margin-top: 6.2rem;
             margin-left: 0.6rem;
         }
 
@@ -188,8 +231,28 @@ st.markdown(
             margin-top: 0.18rem;
         }
 
+        .hero-equal {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .hero-panel {
+            min-height: 540px;
+        }
+
+        .hero-image-wrap img {
+            width: 100%;
+            height: 540px;
+            object-fit: cover;
+            border-radius: 14px;
+        }
+
         .pillar-card {
-            min-height: 190px;
+            min-height: 250px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
         }
 
         .waitlist-wrap {
@@ -271,11 +334,18 @@ st.markdown(
 
         @media (max-width: 900px) {
             .hero-logo-wrap {
-                margin-top: 0.5rem;
+                margin-top: 3.0rem;
                 margin-left: 0;
             }
+
             .hero-title {
                 font-size: 2.45rem;
+            }
+
+            .hero-panel,
+            .hero-image-wrap img {
+                min-height: auto;
+                height: auto;
             }
         }
     </style>
@@ -302,7 +372,7 @@ with hero_left:
 with hero_center:
     st.markdown(
         '''
-        <div style="padding-top: 4.8rem;">
+        <div style="padding-top: 1.0rem;">
             <div class="hero-title">Cognitive <span class="accent">AutoML</span></div>
             <div class="hero-kicker">TRUSTED PLATFORM FOR SCIENTIFIC INTEGRITY</div>
             <div class="hero-subcopy">
@@ -326,12 +396,15 @@ st.markdown('<div class="ocp-section-rule"></div>', unsafe_allow_html=True)
 col_img, col_txt = st.columns([1.2, 1], gap="large")
 
 with col_img:
+    st.markdown('<div class="hero-equal hero-panel hero-image-wrap">', unsafe_allow_html=True)
     if os.path.exists(SHIELD_PATH):
-        st.image(SHIELD_PATH, use_container_width=True)
+        st.image(SHIELD_PATH, width='stretch')
     else:
         st.info("Aguardando 'integrity_shield.png' na pasta assets.")
+    st.markdown("</div>", unsafe_allow_html=True)
 
 with col_txt:
+    st.markdown('<div class="hero-equal hero-panel">', unsafe_allow_html=True)
     st.markdown('<div class="section-title">Trusted Platform & <span class="accent">Diferenciais</span></div>', unsafe_allow_html=True)
     st.markdown(
         '<div class="section-subtitle">Não somos apenas mais uma interface para treinar modelos. Estamos desenhando uma nova categoria de software: uma plataforma de AutoML cognitiva, auditável e orientada à confiança.</div>',
@@ -340,7 +413,7 @@ with col_txt:
 
     st.markdown(
         """
-        <div class="content-box">
+        <div class="content-box" style="flex:1;">
             <div class="benefit-item">
                 <div class="benefit-label">🧠 Cognitive Navigation (E.M.I.L.I.A.)</div>
                 <div class="benefit-desc">Assistente contextual com grafo de conhecimento para orientar estratégias de treino, identificar riscos e evitar “pântanos estatísticos”.</div>
@@ -365,6 +438,7 @@ with col_txt:
         """,
         unsafe_allow_html=True,
     )
+    st.markdown("</div>", unsafe_allow_html=True)
 
 # =========================================================
 # PILLARS
@@ -440,9 +514,14 @@ with st.form("waitlist_form", clear_on_submit=True):
     with center_col:
         email = st.text_input("Seu e-mail:", placeholder="exemplo@empresa.com")
         submitted = st.form_submit_button("🔔 QUERO SER AVISADO NO LANÇAMENTO")
+
         if submitted:
             if email and "@" in email:
-                st.success("Interesse registrado nesta prévia pública. Em breve abriremos a lista oficial de acesso antecipado.")
+                ok, msg = send_waitlist_email(email)
+                if ok:
+                    st.success("Interesse registrado com sucesso. Em breve entraremos em contato.")
+                else:
+                    st.error(f"Não foi possível registrar agora: {msg}")
             else:
                 st.warning("Por favor, informe um e-mail válido.")
 
