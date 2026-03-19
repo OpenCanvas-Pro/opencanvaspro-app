@@ -31,11 +31,21 @@ st.markdown("""
         border-radius: 15px;
         border: 1px solid #333;
         margin-bottom: 20px;
+        color: #FFFFFF !important; /* Força o texto geral para branco */
+    }
+
+    /* Garante que textos dentro de listas ou parágrafos fiquem brancos */
+    .content-box p, .content-box li, .content-box b, .content-box span {
+        color: #FFFFFF !important;
+    }
+
+    .content-box span, .content-box b, .content-box p {
+    color: #FFFFFF !important;
     }
 
     .stButton>button {
         background: #FF6B00 !important;
-        color: white !important;
+        color: orange !important;
         border: none !important;
         font-weight: bold !important;
         height: 3em;
@@ -54,9 +64,15 @@ st.markdown("""
 if os.path.exists(LOGO_PATH):
     with open(LOGO_PATH, "r") as f:
         svg_content = f.read()
-    st.markdown(f'<div style="text-align: center; width: 250px; margin: 0 auto; padding-top: 20px;">{svg_content}</div>', unsafe_allow_html=True)
-else:
-    st.markdown("<h2 style='text-align: center; color: #FF6B00; padding-top: 20px;'>OpenCanvas Pro</h2>", unsafe_allow_html=True)
+    # Adicionamos um estilo para garantir que o SVG ocupe o espaço e seja visível
+    st.markdown(f'''
+        <div style="text-align: center; margin: 0 auto; padding-top: 20px;">
+            <div style="width: 250px; margin: 0 auto;">
+                {svg_content}
+            </div>
+        </div>
+        <style>svg {{ width: 100%; height: auto; }}</style>
+    ''', unsafe_allow_html=True)
 
 st.markdown("<h1 style='text-align: center; font-size: 3rem; margin-top: 10px;'>Cognitive <span class='orange-text'>AutoML</span></h1>", unsafe_allow_html=True)
 st.markdown("<p style='text-align: center; font-size: 1.2rem; opacity: 0.8;'>A PRÓXIMA GERAÇÃO DE IA LOCAL-FIRST</p>", unsafe_allow_html=True)
@@ -90,42 +106,67 @@ with col_txt:
 st.markdown("### 🚀 Nossos Pilares de Performance")
 p1, p2, p3 = st.columns(3)
 
-with p1:
+with col_txt:
+    st.markdown("### 🛡️ Trusted Platform & Diferenciais")
     st.markdown("""
-    <div class="content-box" style="min-height: 220px;">
-        <h4 class="orange-text">Auditoria Gold Standard</h4>
-        Certificado de Integridade Científica gerado para cada modelo, pronto para auditorias de compliance e segurança.
-    </div>
-    """, unsafe_allow_html=True)
+    <div class="content-box">
+        <p style="margin-bottom: 20px; opacity: 0.9;">
+            Diferente do AutoML tradicional, a <b>OpenCanvas Pro</b> opera como um "sistema imunológico" para seus dados e um gerador de ativos de elite:
+        </p>
 
-with p2:
-    st.markdown("""
-    <div class="content-box" style="min-height: 220px;">
-        <h4 class="orange-text">White-Box AI</h4>
-        Transparência total. Você tem controle absoluto sobre cada etapa do pipeline, do pré-processamento à seleção final.
-    </div>
-    """, unsafe_allow_html=True)
+        <div style="margin-bottom: 18px;">
+            <span style="font-size: 1.2rem;">🧠</span> <b class="orange-text">Navegação Cognitiva (E.M.I.L.I.A.):</b><br>
+            <span style="font-size: 0.9rem; opacity: 0.85;">
+                Assistente com Grafo de Conhecimento que funciona como um GPS para evitar "pântanos estatísticos" e maximizar a performance.
+            </span>
+        </div>
+        
+        <div style="margin-bottom: 18px;">
+            <span style="font-size: 1.2rem;">🔬</span> <b class="orange-text">Scientific Integrity (19+ Checks):</b><br>
+            <span style="font-size: 0.9rem; opacity: 0.85;">
+                Auditoria rigorosa de <b>Target Leakage, Overfitting e Data Poisoning</b> antes mesmo do deploy.
+            </span>
+        </div>
 
-with p3:
-    st.markdown("""
-    <div class="content-box" style="min-height: 220px;">
-        <h4 class="orange-text">Eficiência de Recurso</h4>
-        Otimizado para rodar localmente (Edge Computing), eliminando a dependência de créditos abusivos de nuvens de terceiros.
+        <div style="margin-bottom: 18px;">
+            <span style="font-size: 1.2rem;">📄</span> <b class="orange-text">Artefatos de Elite:</b><br>
+            <span style="font-size: 0.9rem; opacity: 0.85;">
+                Geração automática de <b>Relatórios Executivos em PDF</b> (Business Insights) e Documentação Técnica completa do experimento.
+            </span>
+        </div>
+
+        <div style="margin-bottom: 18px;">
+            <span style="font-size: 1.2rem;">⚙️</span> <b class="orange-text">Predição em Batch & Real-time:</b><br>
+            <span style="font-size: 0.9rem; opacity: 0.85;">
+                Suporte nativo para processamento em lote (Batch) e exportação de modelos otimizados para produção local.
+            </span>
+        </div>
+        
+        <div style="margin-bottom: 5px;">
+            <span style="font-size: 1.2rem;">🏠</span> <b class="orange-text">Soberania Local-First:</b><br>
+            <span style="font-size: 0.9rem; opacity: 0.85;">
+                Processamento 100% na sua infraestrutura. Seus dados nunca saem do seu perímetro. <b>Compliance nativa LGPD/GDPR.</b>
+            </span>
+        </div>
     </div>
     """, unsafe_allow_html=True)
 
 # --- WAITLIST ---
 st.write("---")
 _, center_col, _ = st.columns([1, 1.5, 1])
-with center_col:
-    st.markdown("<h3 style='text-align: center;'>Junte-se à Revolução v1.0</h3>", unsafe_allow_html=True)
+with col_form:
+    st.markdown("<h3 style='text-align: center;'>Não perca o 'Go-Live'</h3>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align: center; font-size: 0.9rem; opacity: 0.7;'>Estamos finalizando os últimos ajustes da v1.0. Deixe seu e-mail para receber o convite assim que virarmos a chave.</p>", unsafe_allow_html=True)
+    
     with st.form("waitlist_final"):
-        email = st.text_input("Seu melhor e-mail:", placeholder="exemplo@empresa.com")
-        submit = st.form_submit_button("🚀 SOLICITAR ACESSO ANTECIPADO")
+        email = st.text_input("E-mail:", placeholder="exemplo@empresa.com")
+        # FRASE ATUALIZADA AQUI:
+        submit = st.form_submit_button("🔔 ME AVISE QUANDO LANÇAR")
+        
         if submit and email:
             if "@" in email:
                 st.balloons()
-                st.success("Confirmado! Você está na lista prioritária.")
+                st.success("Perfeito! Você será um dos primeiros a saber.")
             else:
                 st.error("Por favor, insira um e-mail válido.")
 
