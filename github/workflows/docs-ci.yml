@@ -1,0 +1,31 @@
+name: Docs CI
+
+on:
+  pull_request:
+  push:
+    branches: ["main"]
+
+jobs:
+  markdown:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run markdownlint
+        uses: DavidAnson/markdownlint-cli2-action@v19
+        with:
+          globs: |
+            **/*.md
+
+      # Link check (no external crawling chaos)
+      - name: Check markdown links
+        uses: lycheeverse/lychee-action@v1
+        with:
+          args: >
+            --no-progress
+            --verbose
+            --accept 200,201,202,203,204,206,301,302,303,307,308,429
+            --exclude-mail
+            --timeout 20
+            --max-retries 2
+            **/*.md
