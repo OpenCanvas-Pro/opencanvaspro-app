@@ -21,7 +21,7 @@ LOGO_PATH = os.path.join(ASSETS_DIR, "Cor_sobre_preto.svg")
 SHIELD_PATH = os.path.join(ASSETS_DIR, "integrity_shield.png")
 LINKEDIN_URL = "https://www.linkedin.com/company/opencanvaspro"
 X_URL = "https://x.com/opencanvaspro"
-GITHUB_URL = "https://github.com/OpenCanvas-Pro"
+GITHUB_URL = "https://github.com/OpenCanvas-Pro/opencanvaspro-app"
 
 
 def file_to_data_uri(path: str) -> str:
