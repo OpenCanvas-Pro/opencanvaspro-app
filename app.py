@@ -61,7 +61,7 @@ def send_waitlist_email(user_email: str) -> tuple[bool, str]:
         port = int(st.secrets["EMAIL_PORT"])
         username = st.secrets["EMAIL_USERNAME"]
         password = st.secrets["EMAIL_PASSWORD"]
-        waitlist_to = st.secrets.get("WAITLIST_TO", "contato@opencanvaspro.com")
+        waitlist_to = st.secrets.get("WAITLIST_TO", "opencanvaspro@gmail.com")
 
         msg = MIMEMultipart()
         msg["From"] = username
