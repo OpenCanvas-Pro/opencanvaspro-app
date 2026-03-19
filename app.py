@@ -1,6 +1,8 @@
 import streamlit as st
-import base64
 import os
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 
 # 1. Configuração de Elite
 st.set_page_config(
@@ -15,156 +17,140 @@ ASSETS_DIR = "assets"
 LOGO_PATH = os.path.join(ASSETS_DIR, "Cor_sobre_preto.svg")
 SHIELD_PATH = os.path.join(ASSETS_DIR, "integrity_shield.png")
 
-# --- CSS PARA DARK MODE E TIPOGRAFIA ---
+# --- CSS PARA DARK MODE REAL E CORREÇÕES VISUAIS ---
 st.markdown("""
 <style>
     .stApp { background-color: #0D0D0D !important; }
     [data-testid="stHeader"], [data-testid="stFooter"] { display: none !important; }
     
-    h1, h2, h3, p, li { color: #FFFFFF !important; font-family: 'Inter', sans-serif; }
+    h1, h2, h3, p, li, span, b { color: #FFFFFF !important; font-family: 'Inter', sans-serif; }
     
     .orange-text { color: #FF6B00 !important; font-weight: 800; }
     
     .content-box {
         background: #161616;
-        padding: 25px;
-        border-radius: 15px;
+        padding: 20px;
+        border-radius: 12px;
         border: 1px solid #333;
-        margin-bottom: 20px;
-        color: #FFFFFF !important;
+        margin-bottom: 15px;
     }
 
-    .content-box p, .content-box li, .content-box b, .content-box span {
-        color: #FFFFFF !important;
+    /* Forçar o SVG a ser visível e responsivo */
+    .logo-container svg {
+        width: 100% !important;
+        height: auto !important;
+        max-width: 280px;
+        display: block;
+        margin: 0 auto;
     }
 
-    .stButton>button {
-        background: #FF6B00 !important;
-        color: white !important; /* Corrigido de orange para white para leitura */
-        border: none !important;
+    /* Estilização do Botão de Envio */
+    div.stButton > button {
+        background-color: #FF6B00 !important;
+        color: white !important;
+        border: 2px solid #FF6B00 !important;
         font-weight: bold !important;
-        height: 3em;
+        height: 3.5em;
         width: 100%;
-        transition: 0.3s;
+        border-radius: 8px !important;
+        transition: all 0.3s ease;
     }
-    
-    .stButton>button:hover {
-        box-shadow: 0 0 20px rgba(255, 107, 0, 0.4);
+
+    /* Efeito ao passar o mouse (Hover) */
+    div.stButton > button:hover {
+        background-color: #e66000 !important; /* Um laranja levemente mais escuro */
+        border-color: #FFFFFF !important;
+        color: white !important;
         transform: scale(1.02);
     }
-</style>
-""", unsafe_allow_html=True)
 
-# --- HEADER (Logotipo SVG) ---
+    /* Efeito ao clicar (Active/Focus) */
+    div.stButton > button:active, div.stButton > button:focus {
+        background-color: #FF6B00 !important;
+        color: white !important;
+        box-shadow: 0 0 15px rgba(255, 107, 0, 0.4) !important;
+    }
+
+# --- HEADER (Logotipo SVG com injeção direta de classe) ---
 if os.path.exists(LOGO_PATH):
     with open(LOGO_PATH, "r") as f:
         svg_content = f.read()
-    st.markdown(f'''
-        <div style="text-align: center; margin: 0 auto; padding-top: 20px;">
-            <div style="width: 250px; margin: 0 auto;">
-                {svg_content}
-            </div>
-        </div>
-        <style>svg {{ width: 100%; height: auto; }}</style>
-    ''', unsafe_allow_html=True)
+    # Injetamos o SVG dentro de uma div com a classe que definimos no CSS acima
+    st.markdown(f'<div class="logo-container">{svg_content}</div>', unsafe_allow_html=True)
+else:
+    st.markdown("<h2 style='text-align: center; color: #FF6B00; padding-top: 20px;'>OpenCanvas Pro</h2>", unsafe_allow_html=True)
 
-st.markdown("<h1 style='text-align: center; font-size: 3rem; margin-top: 10px;'>Cognitive <span class='orange-text'>AutoML</span></h1>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center; font-size: 1.2rem; opacity: 0.8;'>A PRÓXIMA GERAÇÃO DE IA LOCAL-FIRST</p>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; font-size: 3rem; margin-top: 5px;'>Cognitive <span class='orange-text'>AutoML</span></h1>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center; font-size: 1.1rem; opacity: 0.7; letter-spacing: 2px;'>TRUSTED PLATFORM FOR SCIENTIFIC INTEGRITY</p>", unsafe_allow_html=True)
 st.write("---")
 
 # --- SEÇÃO PRINCIPAL (IMAGEM + TEXTO) ---
-col_img, col_txt = st.columns([1.3, 1], gap="large")
+col_img, col_txt = st.columns([1.2, 1], gap="large")
 
 with col_img:
     if os.path.exists(SHIELD_PATH):
         st.image(SHIELD_PATH, use_container_width=True)
     else:
-        st.error(f"⚠️ Erro: Arquivo '{SHIELD_PATH}' não encontrado.")
+        st.error(f"⚠️ Verifique se '{SHIELD_PATH}' está no GitHub.")
 
 with col_txt:
     st.markdown("### 🛡️ Trusted Platform & Diferenciais")
-    st.markdown("""
-    <div class="content-box">
-        <p style="margin-bottom: 20px; opacity: 0.9;">
-            A <b>OpenCanvas Pro</b> opera como um "sistema imunológico" para seus dados e um gerador de ativos de elite:
-        </p>
+    
+    # Abrimos uma única box para todos os itens para manter o alinhamento
+    items = [
+        ("🧠", "Navegação Cognitiva (E.M.I.L.I.A.)", "Assistente com Grafo de Conhecimento que funciona como um GPS para evitar pântanos estatísticos."),
+        ("🔬", "Scientific Integrity (19+ Checks)", "Auditoria rigorosa de Target Leakage, Overfitting e inconsistências semânticas."),
+        ("📄", "Artefatos de Elite", "Geração de Relatórios Executivos em PDF e Documentação Técnica completa."),
+        ("⚙️", "Predição em Batch", "Suporte nativo para processamento em lote e exportação de modelos otimizados."),
+        ("🏠", "Soberania Local-First", "Processamento na sua infraestrutura. Compliance nativa LGPD/GDPR.")
+    ]
+    
+    html_diferenciais = '<div class="content-box">'
+    for icon, title, desc in items:
+        html_diferenciais += f"""
+        <div style="margin-bottom: 15px;">
+            <span style="font-size: 1.1rem;">{icon}</span> <b class="orange-text">{title}:</b><br>
+            <span style="font-size: 0.9rem; opacity: 0.8;">{desc}</span>
+        </div>
+        """
+    html_diferenciais += '</div>'
+    st.markdown(html_diferenciais, unsafe_allow_html=True)
 
-        <div style="margin-bottom: 18px;">
-            <span style="font-size: 1.2rem;">🧠</span> <b class="orange-text">Navegação Cognitiva (E.M.I.L.I.A.):</b><br>
-            <span style="font-size: 0.9rem; opacity: 0.85;">
-                Assistente com Grafo de Conhecimento que funciona como um GPS para evitar "pântanos estatísticos".
-            </span>
-        </div>
-        
-        <div style="margin-bottom: 18px;">
-            <span style="font-size: 1.2rem;">🔬</span> <b class="orange-text">Scientific Integrity (19+ Checks):</b><br>
-            <span style="font-size: 0.9rem; opacity: 0.85;">
-                Auditoria rigorosa de <b>Target Leakage, Overfitting e Data Poisoning</b>.
-            </span>
-        </div>
+# --- SEÇÃO DE PILARES (RENDERIZADA DEPOIS DA LINHA) ---
+st.write("---")
+st.markdown("### 🚀 Pilares de Performance")
+p1, p2, p3 = st.columns(3)
 
-        <div style="margin-bottom: 18px;">
-            <span style="font-size: 1.2rem;">📄</span> <b class="orange-text">Artefatos de Elite:</b><br>
-            <span style="font-size: 0.9rem; opacity: 0.85;">
-                Geração automática de <b>Relatórios Executivos em PDF</b> e Documentação Técnica completa.
-            </span>
-        </div>
+pilares = [
+    ("Auditoria Gold Standard", "Certificado de Integridade Científica gerado para cada modelo, pronto para compliance."),
+    ("White-Box AI", "Transparência total. Controle absoluto sobre cada etapa do pipeline, do pré ao deploy."),
+    ("Eficiência de Recurso", "Otimizado para rodar localmente, eliminando a dependência de créditos abusivos.")
+]
 
-        <div style="margin-bottom: 18px;">
-            <span style="font-size: 1.2rem;">⚙️</span> <b class="orange-text">Predição em Batch:</b><br>
-            <span style="font-size: 0.9rem; opacity: 0.85;">
-                Suporte nativo para processamento em lote e exportação de modelos otimizados.
-            </span>
-        </div>
-        
-        <div style="margin-bottom: 5px;">
-            <span style="font-size: 1.2rem;">🏠</span> <b class="orange-text">Soberania Local-First:</b><br>
-            <span style="font-size: 0.9rem; opacity: 0.85;">
-                Processamento na sua infraestrutura. Compliance nativa <b>LGPD/GDPR.</b>
-            </span>
-        </div>
+for col, (title, desc) in zip([p1, p2, p3], pilares):
+    col.markdown(f"""
+    <div class="content-box" style="min-height: 180px;">
+        <h4 class="orange-text">{title}</h4>
+        <p style="font-size: 0.9rem; opacity: 0.9;">{desc}</p>
     </div>
     """, unsafe_allow_html=True)
 
-# --- SEÇÃO DE PILARES ---
-st.markdown("### 🚀 Nossos Pilares de Performance")
-p1, p2, p3 = st.columns(3)
-
-with p1:
-    st.markdown("""<div class="content-box" style="min-height: 200px;">
-        <h4 class="orange-text">Auditoria Gold Standard</h4>
-        Certificado de Integridade Científica gerado para cada modelo, pronto para auditorias de compliance.
-    </div>""", unsafe_allow_html=True)
-
-with p2:
-    st.markdown("""<div class="content-box" style="min-height: 200px;">
-        <h4 class="orange-text">White-Box AI</h4>
-        Transparência total. Controle absoluto sobre cada etapa do pipeline, do pré ao deploy.
-    </div>""", unsafe_allow_html=True)
-
-with p3:
-    st.markdown("""<div class="content-box" style="min-height: 200px;">
-        <h4 class="orange-text">Eficiência de Recurso</h4>
-        Otimizado para rodar localmente, eliminando a dependência de créditos abusivos de nuvem.
-    </div>""", unsafe_allow_html=True)
-
-# --- WAITLIST ---
+# --- FORMULÁRIO FINAL ---
 st.write("---")
 _, center_col, _ = st.columns([1, 1.5, 1])
 
-with center_col: # CORRIGIDO: Agora usamos a coluna central que foi definida
+with center_col:
     st.markdown("<h3 style='text-align: center;'>Não perca o 'Go-Live'</h3>", unsafe_allow_html=True)
-    st.markdown("<p style='text-align: center; font-size: 0.9rem; opacity: 0.7;'>Estamos finalizando os ajustes da v1.0. Deixe seu e-mail para receber o convite.</p>", unsafe_allow_html=True)
-    
-    with st.form("waitlist_final"):
-        email = st.text_input("E-mail:", placeholder="exemplo@empresa.com")
+    with st.form("waitlist_form", clear_on_submit=True):
+        email_input = st.text_input("E-mail:", placeholder="seu@email.com")
         submit = st.form_submit_button("🔔 ME AVISE QUANDO LANÇAR")
         
-        if submit and email:
-            if "@" in email:
+        if submit:
+            if email_input and "@" in email_input:
+                # Aqui você inserirá sua função enviar_lead(email_input) no futuro
                 st.balloons()
-                st.success("Perfeito! Você será um dos primeiros a saber.")
+                st.success("Perfeito! Você será avisado em breve.")
             else:
-                st.error("Por favor, insira um e-mail válido.")
+                st.warning("E-mail inválido.")
 
-st.markdown("<p style='text-align: center; color: #444; margin-top: 50px; font-size: 0.8rem;'>OpenCanvas Pro © 2026 | Built for Science. Built for Trust.</p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center; color: #444; margin-top: 40px; font-size: 0.8rem;'>OpenCanvas Pro © 2026 | Built for Science. Built for Trust.</p>", unsafe_allow_html=True)
