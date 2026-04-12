@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OpenCanvas Pro - Maturity v4.3</title>
+
+<style>
+:root {
+    --cor-laranja: #FF6600; 
+    --cor-chumbo: #2B2B2B;  
+    --cor-preto: #0D0D0D;   
+    --cor-card-bg: #1A1A1A;
+    --cor-texto: #E0E0E0;   
+    --cor-borda: #333333;   
+}
+
+body {
+    background-color: var(--cor-preto);
+    color: var(--cor-texto);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    margin: 0;
+    padding: 40px 20px;
+    min-height: 100vh;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.page-shell {
+    width: 100%;
+    max-width: 1400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+     margin-top: 40px;
+}
+
+/* ================= HEADER ================= */
+.top-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 1400px;
+}
+
+.top-header h1 {
+    color: var(--cor-laranja);
+    font-size: 2.2rem;
+    letter-spacing: -1px;
+    margin: 0;
+    width: 100%;
+    text-align: center;
+}
+
+/* RESPONSIVO HEADER */
+@media (max-width: 700px) {
+    .top-header {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+/* ================= GRID ================= */
+#maturity-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+    width: 100%;
+    max-width: 1400px;
+}
+
+@media (max-width: 1200px) { #maturity-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 850px) { #maturity-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { #maturity-grid { grid-template-columns: 1fr; } }
+
+/* ================= CARDS ================= */
+.card {
+    background-color: var(--cor-card-bg);
+    border: 1px solid var(--cor-borda);
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.4s ease;
+    position: relative;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    border-color: var(--cor-laranja);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 15px rgba(255,102,0,0.1);
+}
+
+.card.active {
+    border: 2px solid var(--cor-laranja);
+    background-color: #141414;
+    box-shadow: 0 0 30px rgba(255,102,0,0.15);
+}
+
+.level-tag {
+    font-size: 0.75rem;
+    font-weight: 900;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+
+.card.active .level-tag { color: var(--cor-laranja); }
+
+.title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    min-height: 68px;
+    display: flex;
+    align-items: flex-start;
+}
+
+.desc {
+    font-size: 0.9rem;
+    color: #AAA;
+    margin-bottom: 20px;
+}
+
+.features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 0.85rem;
+}
+
+.features li {
+    margin-bottom: 8px;
+    padding-left: 15px;
+    position: relative;
+}
+
+.features li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--cor-laranja);
+}
+
+.market-divider {
+    margin: 20px 0 15px 0;
+    border-top: 1px solid #333;
+    padding-top: 15px;
+    font-size: 0.75rem;
+    color: #888;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.market-content {
+    font-size: 0.8rem;
+    color: #777;
+    font-style: italic;
+}
+
+.status-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: var(--cor-laranja);
+    color: #fff;
+    font-size: 0.65rem;
+    font-weight: 900;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+.future-badge {
+    background: transparent;
+    border: 1px solid var(--cor-laranja);
+    color: var(--cor-laranja);
+}
+
+/* ================= FOOTER ================= */
+.footer-cluster {
+    width: 100%;
+    max-width: 1400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.market-break {
+    margin-top: 26px;
+    font-size: 0.9rem;
+    text-align: center;
+    color: var(--cor-laranja);
+    font-weight: 800;
+}
+
+.trajectory {
+    margin-top: 12px;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.pipeline-note {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    text-align: center;
+    color: #8A8A8A;
+}
+
+.highlight-quote {
+    margin-top: 26px;
+    padding: 18px 30px;
+    max-width: 790px;
+    border-left: 4px solid var(--cor-laranja);
+    border-radius: 12px;
+    background: linear-gradient(180deg, rgba(255,102,0,0.10) 0%, rgba(255,102,0,0.04) 100%);
+    color: #F3F3F3;
+    font-size: 1.15rem;
+    font-weight: 700;
+    font-style: italic;
+    letter-spacing: -0.02em;
+    text-align: center;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.28);
+}
+
+.footer-note {
+    margin-top: 28px;
+    padding: 20px;
+    border-top: 1px solid #222;
+    text-align: center;
+    color: #555;
+}
+
+/* ================= EMILIA ================= */
+.emilia-row {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0;
+    margin-bottom: 8px;
+}
+
+.emilia-badge {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    opacity: 0.85;
+    transition: all 0.3s ease;
+}
+
+.emilia-badge img {
+    height: 150px;
+    display: block;
+    margin: 0 auto;
+    filter: none;
+}
+
+.emilia-badge:hover {
+    transform: scale(1.05);
+    opacity: 1;
+}
+
+/* ================= ALINHAMENTO DOS CARDS ================= */
+.desc {
+    font-size: 0.9rem;
+    color: #AAA;
+    margin-bottom: 20px;
+    min-height: 84px;
+    display: flex;
+    align-items: flex-start;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+}
+
+/* bloco de conteúdo cresce */
+.card-content {
+    flex-grow: 1;
+}
+
+/* rodapé fixado */
+.card-footer {
+    margin-top: auto;
+}
+
+b { color: var(--cor-laranja); }
+</style>
+</head>
+
+<body>
+
+<div class="page-shell">
+    <!-- HEADER -->
+    <div class="top-header">
+        <h1>Roadmap de Soberania Tecnológica</h1>
+    </div>
+
+    <!-- GRID -->
+    <div id="maturity-grid">
+
+<!-- Nível 1 -->
+<div class="card">
+    <div class="level-tag">Nível 1</div>
+    <div class="title">Automação Simples</div>
+    <div class="desc">Execução de tarefas repetitivas baseada em regras estáticas.</div>
+    <ul class="features">
+        <li>Scripts de Ingestão (Python)</li>
+        <li>ETL Linear</li>
+    </ul>
+    <div class="card-footer">
+        <div class="market-divider">Plataformas atuais</div>
+        <div class="market-content">ETL Manual / Python</div>
+        <div class="market-content">Jupyter Notebooks</div>
+        <div class="market-content">RPA Tradicional</div>
+    </div>
+    
+</div>
+
+<!-- Nível 2 -->
+<div class="card">
+    <div class="level-tag">Nível 2</div>
+    <div class="title">Inteligência Estatística</div>
+    <div class="desc">Aprendizado de padrões históricos sem noção de contexto.</div>
+    <ul class="features">
+        <li>Modelos Preditivos</li>
+        <li>Classificação & Regressão</li>
+    </ul>
+    <div class="card-footer">
+        <div class="market-divider">Plataformas atuais</div>
+        <!-- <div class="market-content">Bibliotecas Open Source</div> -->
+        <div class="market-content">AutoML Tradicional (H2O, AutoGluon)</div>   
+        <div class="market-content">Notebooks de Ciência de Dados</div>
+    </div>
+</div>
+
+<!-- Nível 3 -->
+<div class="card">
+    <div class="level-tag">Nível 3</div>
+    <div class="title">IA Assistiva</div>
+    <div class="desc">Interface guiada para acelerar fluxos através da facilidade de uso.</div>
+        <ul class="features">
+            <li>Copilotos de Código</li>
+            <li>AutoML No-Code</li>
+        </ul>
+    <div class="card-footer">
+        <div class="market-divider">Plataformas atuais</div>
+        <div class="market-content">AWS SageMaker Canvas</div>
+        <div class="market-content">Google Vertex AI</div>
+        <div class="market-content">MS Azure ML Studio</div>
+    </div>
+</div>
+
+<!-- Nível 4 -->
+<div class="card active">
+    <div class="status-badge">CURRENT STATE</div>
+    <div class="level-tag">Nível 4</div>
+    <div class="title">Cognição & Integridade</div>
+    <div class="desc">Interpreta contexto, integra sinais de qualidade e justifica recomendações com base em evidência estatística.</div>
+        <ul class="features">
+            <li><b>Cognitive Navigation (E.M.I.L.I.A.™)</b></li>
+            <li><b>Knowledge Graphs (Alexandr.I.A.)</b></li>
+            <li>Scientific Integrity Shield</li>
+            <li>Diagnóstico Proativo / White Box ML</li>
+            <li>Auditoria Gold Standard</li>
+            <li>Sovereignty & Model Export</li>   
+            <li>100% No Code</li>
+        </ul>
+    <div class="card-footer">
+        <div class="market-divider">Diferencial OpenCanvas</div>
+        <div class="market-content">Foco em Missão Crítica, Governança Executiva e Transparência Total.</div>
+    </div>
+</div>
+
+<!-- Nível 5 -->
+<div class="card">
+    <div class="status-badge future-badge">LAB STAGE</div>
+    <div class="level-tag">Nível 5</div>
+    <div class="title">Autonomia Agêntica</div>
+    <div class="desc">Execução de objetivos complexos com correção dinâmica de estratégia.</div>
+        <ul class="features">
+            <li>Agentes Multi-step</li>
+            <li>Auto-remediação baseada em feedback de desempenho</li>
+            <li>Evolução contínua orientada por contexto</li>
+        </ul>
+    <div class="card-footer">
+        <div class="market-divider">Mercado</div>
+        <div class="market-content">Teoria acadêmica</div>
+        <div class="market-content">Agentes Genéricos (Experimental)</div>
+        <div class="market-content">Pesquisa de Fronteira</div>                          
+    </div>
+    </div>
+</div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer-cluster">
+        <div class="market-break">A maioria das plataformas para no nível 3.</div>
+
+        <div class="trajectory">Hoje: <b>Nível 4 — Cognição Assistida</b> → Próximo marco: <b>Nível 5 — Autonomia Agêntica</b></div>
+
+        <div class="pipeline-note">Este roadmap já está operacional dentro do pipeline <b>Bronze → Silver → Gold</b> da plataforma.</div>
+
+        <blockquote class="highlight-quote">“Modelos não são aceitos — são auditados.”</blockquote>
+
+        <!-- EMILIA -->
+        <div class="emilia-row">
+            <div class="emilia-badge">
+                <img src="../assets/app/emilia_logo.png" alt="E.M.I.L.I.A. - Engine for Machine Learning Integrity and Auditing">
+            </div>
+        </div>
+
+        <div class="footer-note">
+             OpenCanvas <b>Pro</b>™ | <b>Don’t just build models. Trust them.</b> | v4.0 Strategic Roadmap
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

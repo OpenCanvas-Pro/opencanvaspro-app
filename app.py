@@ -19,6 +19,8 @@ ASSETS_DIR = "assets"
 PAGE_ICON_PATH = os.path.join(ASSETS_DIR, "32.png")
 LOGO_PATH = os.path.join(ASSETS_DIR, "Cor_sobre_preto.svg")
 SHIELD_PATH = os.path.join(ASSETS_DIR, "integrity_shield.png")
+EMILIA_PATH = os.path.join(ASSETS_DIR, "Emilia_hires.png")
+MATURITY_HTML_PATH = "maturidade_ia_opencanvas_v4.3.html"
 LINKEDIN_URL = "https://www.linkedin.com/company/opencanvaspro"
 X_URL = "https://x.com/opencanvaspro"
 GITHUB_URL = "https://github.com/OpenCanvas-Pro/opencanvaspro-app"
@@ -44,6 +46,34 @@ def lucide_icon(name: str) -> str:
         "building": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="16" height="20" x="4" y="2" rx="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M8 10h.01"/><path d="M16 10h.01"/><path d="M8 14h.01"/><path d="M16 14h.01"/></svg>',
     }
     return icons[name]
+
+
+def load_maturity_section() -> str:
+    if not os.path.exists(MATURITY_HTML_PATH):
+        return ""
+
+    with open(MATURITY_HTML_PATH, "r", encoding="utf-8") as f:
+        html = f.read()
+
+    replacements = {
+        "../assets/app/horizontal_logo_branco_transparencia.svg": file_to_data_uri(LOGO_PATH) if os.path.exists(LOGO_PATH) else "",
+        "../assets/app/emilia_logo.png": file_to_data_uri(EMILIA_PATH) if os.path.exists(EMILIA_PATH) else "",
+        "padding: 40px 20px;": "padding: 6px 0 0 0;",
+        "justify-content: center;": "justify-content: flex-start;",
+        "margin-top: 40px;": "margin-top: 0;",
+        "margin-bottom: 20px;": "margin-bottom: 10px;",
+    }
+
+    for old, new in replacements.items():
+        if new:
+            html = html.replace(old, new)
+
+    html = html.replace(
+        '<img src="../assets/app/horizontal_logo_branco_transparencia.svg" class="logo">',
+        ""
+    )
+
+    return html
 
 
 def social_icon(name: str) -> str:
@@ -147,6 +177,7 @@ inject_seo_tags()
 
 logo_uri = file_to_data_uri(LOGO_PATH) if os.path.exists(LOGO_PATH) else ""
 shield_uri = file_to_data_uri(SHIELD_PATH) if os.path.exists(SHIELD_PATH) else ""
+maturity_section_html = load_maturity_section()
 
 st.markdown(
     """
@@ -207,6 +238,29 @@ st.markdown(
             padding-top: 0.1rem;
         }
 
+        .hero-title-row {
+            display: grid;
+            grid-template-columns: 132px 1fr 132px;
+            align-items: center;
+            width: 100%;
+            column-gap: 0.65rem;
+        }
+
+        .hero-title-logo {
+            width: 124px;
+            height: auto;
+            flex: 0 0 124px;
+            display: block;
+            justify-self: start;
+        }
+
+        .hero-title-spacer {
+            width: 124px;
+            flex: 0 0 124px;
+            opacity: 0;
+            justify-self: end;
+        }
+
         .hero-title {
             text-align: center;
             font-size: 3.2rem;
@@ -221,6 +275,10 @@ st.markdown(
             color: var(--ocp-orange) !important;
         }
 
+        .hero-title .white {
+            color: var(--ocp-white) !important;
+        }
+
         .hero-kicker {
             text-align: center;
             color: rgba(255,255,255,0.72) !important;
@@ -231,11 +289,12 @@ st.markdown(
 
         .hero-subcopy {
             text-align: center;
-            color: var(--ocp-soft) !important;
+            color: var(--ocp-orange) !important;
             font-size: 0.98rem;
             max-width: 900px;
             margin: 0.25rem auto 0 auto;
             line-height: 1.68;
+            font-weight: 700;
         }
 
         .hero-highlight {
@@ -581,6 +640,17 @@ st.markdown(
         }
 
         @media (max-width: 900px) {
+            .hero-title-row {
+                grid-template-columns: 88px 1fr 88px;
+                column-gap: 0.35rem;
+            }
+
+            .hero-title-logo,
+            .hero-title-spacer {
+                width: 80px;
+                flex-basis: 80px;
+            }
+
             .hero-logo-wrap {
                 min-height: auto;
                 padding-top: 0.15rem;
@@ -626,44 +696,22 @@ st.markdown(
 # =========================================================
 # HERO
 # =========================================================
-hero_left, hero_center = st.columns([1, 5], gap="small")
-
-with hero_left:
-    if logo_uri:
-        st.markdown(
-            f'''
-            <div class="hero-logo-wrap">
-                <img src="{logo_uri}" class="hero-logo-img" alt="OpenCanvas Pro Logo" />
-            </div>
-            ''',
-            unsafe_allow_html=True,
-        )
-    else:
-        st.markdown(
-            "<div class='hero-logo-wrap'><h3 style='color:#FF6B00;'>OpenCanvas Pro</h3></div>",
-            unsafe_allow_html=True,
-        )
-
-with hero_center:
-    st.markdown(
-        '''
-        <div class="hero-copy-wrap">
-            <div class="hero-title">OpenCanvas <span class="accent">Pro - Cognitive AutoML</span></div>
-            <div class="hero-kicker">TRUSTED PLATFORM FOR SCIENTIFIC INTEGRITY</div>
-            <div class="hero-subcopy">
-                A OpenCanvas Pro é uma startup brasileira em nascimento, construída para transformar
-                automação em confiança: unindo AutoML, governança, integridade científica e auditoria
-                técnica para equipes que precisam de clareza — não apenas métricas bonitas.
-            </div>
+st.markdown(
+    f"""
+    <div class="hero-copy-wrap">
+        <div class="hero-title-row">
+            <img src="{logo_uri}" class="hero-title-logo" alt="OpenCanvas Pro Logo" />
+            <div class="hero-title">OpenCanvas <span class="white">Pro - </span><span class="accent">Cognitive AutoMLOps</span></div>
+            <div class="hero-title-spacer" aria-hidden="true"></div>
         </div>
-
-        <div class="hero-highlight">
+        <div class="hero-kicker">TRUST PLATFORM FOR SCIENTIFIC INTEGRITY</div>
+        <div class="hero-subcopy">
             Projetado para times que não podem errar decisões baseadas em dados
         </div>
-
-        ''',
-        unsafe_allow_html=True,
-    )
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
 
         
 
@@ -679,6 +727,9 @@ st.markdown(
     <div class="feature-intro">
         <div class="section-title">Trusted Platform & <span class="accent">Diferenciais</span></div>
         <div class="section-subtitle">
+            A OpenCanvas Pro é uma startup brasileira em nascimento, construída para transformar automação em confiança:
+            unindo AutoML, governança, integridade científica e auditoria técnica para equipes que precisam de clareza
+            - não apenas métricas bonitas.<br><br>
             Não somos apenas mais uma interface para treinar modelos. Estamos desenhando uma nova categoria de software:
             uma plataforma de AutoML cognitiva, auditável e orientada à confiança.
         </div>
@@ -804,6 +855,13 @@ with p3:
     )
 
 # =========================================================
+# MATURITY ROADMAP
+# =========================================================
+if maturity_section_html:
+    st.markdown('<div class="ocp-section-rule"></div>', unsafe_allow_html=True)
+    components.html(maturity_section_html, height=1120, scrolling=False)
+
+# =========================================================
 # WAITLIST
 # =========================================================
 st.markdown('<div class="ocp-section-rule"></div>', unsafe_allow_html=True)
@@ -843,7 +901,7 @@ with st.form("waitlist_form", clear_on_submit=True):
             if email and "@" in email:
                 ok, msg = send_waitlist_email(email)
                 if ok:
-                    st.success("Interesse registrado com sucesso. Em breve entraremos em contato.")
+                    st.success("✔ Você entrou na lista. Em breve novidades.")
                 else:
                     st.error(f"Não foi possível registrar agora: {msg}")
             else:
@@ -876,10 +934,10 @@ st.markdown("</div>", unsafe_allow_html=True)
 st.markdown(
     """
     <div class="footer-wrap">
-        <div class="footer-main">OpenCanvas <span class="accent" style="color:#FF6B00;">Pro</span> © 2026 • <span class="footer-highlight">Cognitive AutoML Trusted Platform</span></div>
+        <div class="footer-main">© OpenCanvas <span class="accent" style="color:#FF6B00;">Pro™</span>  2026 | <span class="footer-highlight">Cognitive AutoMLOps Trust Platform</span></div>
         <div class="footer-sub">
-            Plataforma em early-stage • CNPJ 64.918.004/0001-36 • opencanvaspro.com<br>
-            Built for Science. Built for Trust. Powered by E.M.I.L.I.A. • <a href="mailto:contato@opencanvaspro.com">contato@opencanvaspro.com</a>
+            Plataforma em early-stage | CNPJ 64.918.004/0001-36 | opencanvaspro.com<br>
+            Built for Science. Built for Trust. Powered by E.M.I.L.I.A.™ | <a href="mailto:contato@opencanvaspro.com">contato@opencanvaspro.com</a>
         </div>
     </div>
     """,
