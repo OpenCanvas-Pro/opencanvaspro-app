@@ -20,6 +20,7 @@ PAGE_ICON_PATH = os.path.join(ASSETS_DIR, "32.png")
 LOGO_PATH = os.path.join(ASSETS_DIR, "Cor_sobre_preto.svg")
 SHIELD_PATH = os.path.join(ASSETS_DIR, "integrity_shield.png")
 EMILIA_PATH = os.path.join(ASSETS_DIR, "Emilia_hires.png")
+NEO4J_PATH = os.path.join(ASSETS_DIR, "Neo4j Logo_FullColor_RGB_TransBG.svg")
 MATURITY_HTML_PATH = "maturidade_ia_opencanvas_v4.3.html"
 LINKEDIN_URL = "https://www.linkedin.com/company/opencanvaspro"
 X_URL = "https://x.com/opencanvaspro"
@@ -59,6 +60,10 @@ I18N = {
         "feature_label_file": "Artefatos de Nível Executivo",
         "feature_label_sliders": "Previsão em Lote e Exportação de Modelo",
         "feature_label_building": "Soberania de IA Local-First",
+        "partner_title": "Neo4j startup accelerator",
+        "partner_subtitle": "A OpenCanvas Pro foi selecionada para o programa de aceleração de startups da Neo4j.",
+        "partner_tag": "Selected by Neo4j",
+        "partner_disclaimer": "Neo4j é uma marca registrada da Neo4j, Inc., utilizada aqui apenas para fins informativos.",
         "waitlist_title": "Entre cedo no radar da OpenCanvas <span class=\"accent\" style=\"color:#FF6B00;\">Pro</span>",
         "waitlist_subtitle": "Estamos abrindo terreno para o lançamento oficial. Cadastre seu e-mail para acompanhar a evolução da plataforma, os previews técnicos e novidades.",
         "waitlist_button": "QUERO SER AVISADO NO LANÇAMENTO",
@@ -97,6 +102,10 @@ I18N = {
         "feature_label_file": "Executive-Grade Artifacts",
         "feature_label_sliders": "Batch Prediction & Model Export",
         "feature_label_building": "Local-First AI Sovereignty",
+        "partner_title": "Neo4j startup accelerator",
+        "partner_subtitle": "OpenCanvas Pro was selected for the Neo4j startup acceleration program.",
+        "partner_tag": "Selected by Neo4j",
+        "partner_disclaimer": "Neo4j is a registered trademark of Neo4j, Inc., used here for informational purposes only.",
         "waitlist_title": "Get early access to the OpenCanvas <span class=\"accent\" style=\"color:#FF6B00;\">Pro</span> radar",
         "waitlist_subtitle": "We are preparing for the official launch. Drop your email to follow the platform's evolution, technical previews and updates.",
         "waitlist_button": "NOTIFY ME WHEN WE LAUNCH",
@@ -135,6 +144,10 @@ I18N = {
         "feature_label_file": "Artefactos de Nivel Ejecutivo",
         "feature_label_sliders": "Predicción por Lotes y Exportación de Modelos",
         "feature_label_building": "Soberanía de IA Local-First",
+        "partner_title": "Aceleradora de startups Neo4j",
+        "partner_subtitle": "OpenCanvas Pro fue seleccionada para el programa de aceleración de startups de Neo4j.",
+        "partner_tag": "Seleccionados por Neo4j",
+        "partner_disclaimer": "Neo4j es una marca registrada de Neo4j, Inc., utilizada aquí solo con fines informativos.",
         "waitlist_title": "Accede antes al radar de OpenCanvas <span class=\"accent\" style=\"color:#FF6B00;\">Pro</span>",
         "waitlist_subtitle": "Estamos preparando el lanzamiento oficial. Deja tu correo para seguir la evolución de la plataforma, los avances técnicos y las novedades.",
         "waitlist_button": "QUIERO RECIBIR AVISO DEL LANZAMIENTO",
@@ -173,6 +186,10 @@ I18N = {
         "feature_label_file": "Artefacts de niveau direction",
         "feature_label_sliders": "Prédiction par lots et export de modèles",
         "feature_label_building": "Souveraineté IA locale d'abord",
+        "partner_title": "Accélérateur de startups Neo4j",
+        "partner_subtitle": "OpenCanvas Pro a été sélectionnée pour le programme d'accélération de startups de Neo4j.",
+        "partner_tag": "Sélectionné par Neo4j",
+        "partner_disclaimer": "Neo4j est une marque déposée de Neo4j, Inc., utilisée ici à des fins d'information uniquement.",
         "waitlist_title": "Soyez parmi les premiers à découvrir OpenCanvas <span class=\"accent\" style=\"color:#FF6B00;\">Pro</span>",
         "waitlist_subtitle": "Nous préparons le lancement officiel. Laissez votre e-mail pour suivre l'évolution de la plateforme, les aperçus techniques et les nouveautés.",
         "waitlist_button": "PRÉVENEZ-MOI AU LANCEMENT",
@@ -211,6 +228,10 @@ I18N = {
         "feature_label_file": "Artefakte auf Leitungsebene",
         "feature_label_sliders": "Batch-Vorhersage und Modellexport",
         "feature_label_building": "Lokale KI-Souveränität",
+        "partner_title": "Neo4j Startup Accelerator",
+        "partner_subtitle": "OpenCanvas Pro wurde für das Startup-Accelerator-Programm von Neo4j ausgewählt.",
+        "partner_tag": "Ausgewählt von Neo4j",
+        "partner_disclaimer": "Neo4j ist eine eingetragene Marke von Neo4j, Inc. und wird hier nur zu Informationszwecken verwendet.",
         "waitlist_title": "Seien Sie früh mit dabei bei OpenCanvas <span class=\"accent\" style=\"color:#FF6B00;\">Pro</span>",
         "waitlist_subtitle": "Wir bereiten den offiziellen Launch vor. Hinterlassen Sie Ihre E-Mail, um die Entwicklung der Plattform, technische Einblicke und Neuigkeiten zu verfolgen.",
         "waitlist_button": "BEIM LAUNCH BENACHRICHTIGEN",
@@ -262,6 +283,10 @@ I18N = {
         "feature_label_file": "कार्यकारी-स्तर के आर्टिफ़ैक्ट्स",
         "feature_label_sliders": "बैच पूर्वानुमान और मॉडल निर्यात",
         "feature_label_building": "स्थानीय-प्रथम एआई संप्रभुता",
+        "partner_title": "Neo4j स्टार्टअप एक्सेलेरेटर",
+        "partner_subtitle": "OpenCanvas Pro को Neo4j के स्टार्टअप एक्सेलेरेशन प्रोग्राम के लिए चुना गया है।",
+        "partner_tag": "Neo4j द्वारा चयनित",
+        "partner_disclaimer": "Neo4j, Neo4j, Inc. का एक पंजीकृत ट्रेडमार्क है, जिसका उपयोग यहाँ केवल सूचना हेतु किया गया है।",
     },
 }
 
@@ -269,8 +294,15 @@ I18N = {
 def file_to_data_uri(path: str) -> str:
     mime_type, _ = mimetypes.guess_type(path)
     mime_type = mime_type or "application/octet-stream"
-    with open(path, "rb") as f:
-        encoded = base64.b64encode(f.read()).decode("utf-8")
+    if path == NEO4J_PATH and path.endswith(".svg"):
+        with open(path, "r", encoding="utf-8") as f:
+            svg = f.read()
+        svg = svg.replace(".st0{fill:#231F20;}", ".st0{fill:#FFFFFF;}")
+        svg = svg.replace(".st1{fill:#014063;}", ".st1{fill:#4EA1F2;}")
+        encoded = base64.b64encode(svg.encode("utf-8")).decode("utf-8")
+    else:
+        with open(path, "rb") as f:
+            encoded = base64.b64encode(f.read()).decode("utf-8")
     return f"data:{mime_type};base64,{encoded}"
 
 
@@ -810,6 +842,7 @@ def inject_seo_tags(lang: str = "pt"):
 
 logo_uri = file_to_data_uri(LOGO_PATH) if os.path.exists(LOGO_PATH) else ""
 shield_uri = file_to_data_uri(SHIELD_PATH) if os.path.exists(SHIELD_PATH) else ""
+neo4j_uri = file_to_data_uri(NEO4J_PATH) if os.path.exists(NEO4J_PATH) else ""
 
 if "ui_lang" not in st.session_state:
     st.session_state.ui_lang = "pt"
@@ -1246,6 +1279,97 @@ st.markdown(
             height: 18px;
         }
 
+        .partner-spotlight {
+            margin-top: 1.05rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .partner-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            border-radius: 16px;
+            border: 1px solid rgba(66, 153, 225, 0.28);
+            background: linear-gradient(180deg, rgba(11, 28, 45, 0.92) 0%, rgba(7, 17, 29, 0.96) 100%);
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.24), 0 0 0 1px rgba(66, 153, 225, 0.08);
+            max-width: 680px;
+            transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease, background 0.24s ease;
+        }
+
+        .partner-badge:hover {
+            transform: translateY(-2px);
+            border-color: rgba(66, 153, 225, 0.45);
+            box-shadow: 0 14px 32px rgba(0, 0, 0, 0.28), 0 0 0 1px rgba(66, 153, 225, 0.14), 0 0 26px rgba(66, 153, 225, 0.24);
+        }
+
+        .partner-badge-logo {
+            width: 122px;
+            height: 46px;
+            flex: 0 0 122px;
+            display: grid;
+            place-items: center;
+            border-radius: 10px;
+            background: transparent;
+            border: 0;
+            overflow: visible;
+            filter: none;
+            transition: transform 0.24s ease, filter 0.24s ease, border-color 0.24s ease, background 0.24s ease;
+        }
+
+        .partner-badge:hover .partner-badge-logo {
+            transform: scale(1.03);
+        }
+
+        .partner-badge-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: left center;
+            display: block;
+            transition: filter 0.24s ease;
+        }
+
+        .partner-badge:hover .partner-badge-logo img {
+            filter: drop-shadow(0 0 12px rgba(66, 153, 225, 0.24));
+        }
+
+        .partner-badge-copy {
+            text-align: left;
+            min-width: 0;
+        }
+
+        .partner-badge-kicker {
+            color: #83BFFF !important;
+            font-size: 0.7rem;
+            letter-spacing: 0.12em;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-bottom: 0.12rem;
+        }
+
+        .partner-badge-title {
+            color: #FFFFFF !important;
+            font-size: 0.95rem;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        .partner-badge-subtitle {
+            color: rgba(255,255,255,0.72) !important;
+            font-size: 0.84rem;
+            line-height: 1.45;
+            margin-top: 0.18rem;
+        }
+
+        .partner-badge-disclaimer {
+            color: rgba(255,255,255,0.46) !important;
+            font-size: 0.72rem;
+            line-height: 1.35;
+            margin-top: 0.22rem;
+        }
+
         div.stButton > button,
         div[data-testid="stFormSubmitButton"] > button {
             background: linear-gradient(90deg, var(--ocp-orange) 0%, var(--ocp-orange-2) 100%) !important;
@@ -1532,7 +1656,7 @@ with p3:
 # =========================================================
 if maturity_section_html:
     st.markdown('<div class="ocp-section-rule"></div>', unsafe_allow_html=True)
-    components.html(maturity_section_html, height=1120, scrolling=False)
+    components.html(maturity_section_html, height=1065, scrolling=False)
 
 # =========================================================
 # WAITLIST
@@ -1593,6 +1717,19 @@ st.markdown(
             <a class="social-link" href="{GITHUB_URL}" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
                 {social_icon("github")}
             </a>
+        </div>
+        <div class="partner-spotlight">
+            <div class="partner-badge">
+                <div class="partner-badge-logo" aria-hidden="true">
+                    <img src="{neo4j_uri}" alt="" />
+                </div>
+                <div class="partner-badge-copy">
+                    <div class="partner-badge-kicker">{tr(lang, "partner_tag")}</div>
+                    <div class="partner-badge-title">{tr(lang, "partner_title")}</div>
+                    <div class="partner-badge-subtitle">{tr(lang, "partner_subtitle")}</div>
+                    <div class="partner-badge-disclaimer">{tr(lang, "partner_disclaimer")}</div>
+                </div>
+            </div>
         </div>
         """
     ).strip(),
