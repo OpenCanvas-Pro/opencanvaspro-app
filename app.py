@@ -39,9 +39,16 @@ I18N = {
     "pt": {
         "hero_subcopy": "Projetado para times que não podem errar decisões baseadas em dados",
         "page_description": "A plataforma de AutoML que une Integridade Científica e Navegação Cognitiva. Desenvolvida para modelos de alta confiança.",
-        "feature_title": "Trusted Platform & <span class=\"accent\">Diferenciais</span>",
-        "feature_subtitle_1": "A OpenCanvas Pro é uma startup brasileira em nascimento, construída para transformar automação em confiança: unindo AutoML, governança, integridade científica e auditoria técnica para equipes que precisam de clareza - não apenas métricas bonitas.",
-        "feature_subtitle_2": "Não somos apenas mais uma interface para treinar modelos. Estamos desenhando uma nova categoria de software: uma plataforma de AutoML cognitiva, auditável e orientada à confiança.",
+        "feature_title": "Pare de confiar cegamente nos seus modelos.",
+        "feature_subtitle_1": (
+            "Transformamos automação em decisões confiáveis. "
+            "Combinando AutoML, integridade científica e governança, "
+            "vamos além de métricas superficiais — revelando riscos, inconsistências e decisões que você não deveria confiar."
+        ),
+        "feature_subtitle_2": (
+            "Isso não é apenas AutoML. "
+            "É uma nova categoria: modelos auditáveis, explicáveis e prontos para decisões reais."
+        ),
         "benefit_brain_desc": "Assistente contextual com grafo de conhecimento para orientar estratégias de treino, identificar riscos e evitar “pântanos estatísticos”.",
         "benefit_shield_desc": "19+ validações avançadas para leakage, overfitting, inconsistências, desequilíbrio, colunas problemáticas e falhas silenciosas de modelagem.",
         "benefit_file_desc": "Relatórios executivos, contratos de auditoria, documentação técnica e rastreabilidade para ambientes que exigem governança real.",
@@ -81,9 +88,9 @@ I18N = {
     "en": {
         "hero_subcopy": "Built for teams that cannot afford to get data-driven decisions wrong",
         "page_description": "The AutoML platform that unites Scientific Integrity and Cognitive Navigation. Built for high-trust models.",
-        "feature_title": "Trusted Platform & <span class=\"accent\">Differentiators</span>",
-        "feature_subtitle_1": "OpenCanvas Pro is a Brazilian startup in the making, designed to turn automation into trust by combining AutoML, governance, scientific integrity and technical auditing for teams that need clarity, not vanity metrics.",
-        "feature_subtitle_2": "We are not just another model-building interface. We are creating a new software category: a cognitive, auditable AutoML platform designed around trust.",
+        "feature_title": "Stop blindly trusting your models.",
+        "feature_subtitle_1": "We turn automation into trustworthy decisions. By combining AutoML, scientific integrity and governance, we go beyond surface-level metrics—surfacing risks, inconsistencies and decisions you should not trust.",
+        "feature_subtitle_2": "This is not just AutoML. It is a new category: auditable, explainable models built for real decisions.",
         "benefit_brain_desc": "A contextual assistant with a knowledge graph that helps shape training strategy, surface risks and keep teams out of statistical dead ends.",
         "benefit_shield_desc": "19+ advanced checks for leakage, overfitting, inconsistencies, class imbalance, problematic columns and silent modeling failures.",
         "benefit_file_desc": "Executive-ready reports, audit contracts, technical documentation and traceability for environments that need real governance.",
@@ -123,9 +130,9 @@ I18N = {
     "es": {
         "hero_subcopy": "Hecho para equipos que no pueden permitirse equivocarse con decisiones basadas en datos",
         "page_description": "La plataforma de AutoML que une Integridad Científica y Navegación Cognitiva. Diseñada para modelos de alta confianza.",
-        "feature_title": "Plataforma de confianza & <span class=\"accent\">Diferenciales</span>",
-        "feature_subtitle_1": "OpenCanvas Pro es una startup brasileña en desarrollo, creada para convertir automatización en confianza combinando AutoML, gobernanza, integridad científica y auditoría técnica para equipos que necesitan claridad, no métricas vacías.",
-        "feature_subtitle_2": "No somos solo otra interfaz para entrenar modelos. Estamos creando una nueva categoría de software: una plataforma de AutoML cognitiva, auditable y diseñada alrededor de la confianza.",
+        "feature_title": "Deja de confiar ciegamente en tus modelos.",
+        "feature_subtitle_1": "Convertimos la automatización en decisiones confiables. Al combinar AutoML, integridad científica y gobernanza, vamos más allá de las métricas superficiales: mostramos riesgos, inconsistencias y decisiones en las que no deberías confiar.",
+        "feature_subtitle_2": "Esto no es solo AutoML. Es una nueva categoría: modelos auditables y explicables, pensados para decisiones reales.",
         "benefit_brain_desc": "Un asistente contextual con un grafo de conocimiento que ayuda a orientar la estrategia de entrenamiento, detectar riesgos y evitar callejones estadísticos.",
         "benefit_shield_desc": "Más de 19 controles avanzados para leakage, overfitting, inconsistencias, desbalance, columnas problemáticas y fallas silenciosas de modelado.",
         "benefit_file_desc": "Informes ejecutivos, contratos de auditoría, documentación técnica y trazabilidad para entornos que necesitan gobernanza real.",
@@ -165,9 +172,9 @@ I18N = {
     "fr": {
         "hero_subcopy": "Conçu pour les équipes qui ne peuvent pas se permettre de se tromper dans leurs décisions fondées sur les données",
         "page_description": "La plateforme AutoML qui unit intégrité scientifique et navigation cognitive. Conçue pour des modèles à forte confiance.",
-        "feature_title": "Plateforme de confiance & <span class=\"accent\">Différenciateurs clés</span>",
-        "feature_subtitle_1": "OpenCanvas Pro est une startup brésilienne en construction, pensée pour transformer l'automatisation en confiance en réunissant AutoML, gouvernance, intégrité scientifique et audit technique pour les équipes qui ont besoin de clarté, pas de métriques flatteuses.",
-        "feature_subtitle_2": "Nous ne sommes pas simplement une autre interface pour entraîner des modèles. Nous construisons une nouvelle catégorie de logiciel : une plateforme AutoML cognitive, auditable et centrée sur la confiance.",
+        "feature_title": "Cessez de faire confiance aveuglément à vos modèles.",
+        "feature_subtitle_1": "Nous transformons l'automatisation en décisions fiables. En réunissant AutoML, intégrité scientifique et gouvernance, nous allons au-delà des métriques de surface en révélant les risques, les incohérences et les décisions auxquelles vous ne devriez pas vous fier.",
+        "feature_subtitle_2": "Ce n'est pas seulement de l'AutoML. C'est une nouvelle catégorie : des modèles auditables, explicables et pensés pour des décisions réelles.",
         "benefit_brain_desc": "Un assistant contextuel doté d'un graphe de connaissances pour orienter la stratégie d'entraînement, faire remonter les risques et éviter les impasses statistiques.",
         "benefit_shield_desc": "Plus de 19 contrôles avancés pour les fuites de données, l'overfitting, les incohérences, le déséquilibre, les colonnes problématiques et les échecs de modélisation silencieux.",
         "benefit_file_desc": "Rapports exécutifs, contrats d'audit, documentation technique et traçabilité pour les environnements qui exigent une gouvernance réelle.",
@@ -207,9 +214,9 @@ I18N = {
     "de": {
         "hero_subcopy": "Für Teams entwickelt, die sich bei datenbasierten Entscheidungen keinen Fehler leisten können",
         "page_description": "Die AutoML-Plattform, die wissenschaftliche Integrität und kognitive Navigation vereint. Für Modelle mit hohem Vertrauen entwickelt.",
-        "feature_title": "Vertrauensplattform & <span class=\"accent\">Kernvorteile</span>",
-        "feature_subtitle_1": "OpenCanvas Pro ist ein brasilianisches Startup im Aufbau, das Automatisierung in Vertrauen verwandeln soll: mit AutoML, Governance, wissenschaftlicher Integrität und technischer Auditierung für Teams, die Klarheit brauchen, nicht nur schöne Kennzahlen.",
-        "feature_subtitle_2": "Wir sind nicht einfach nur eine weitere Oberfläche zum Trainieren von Modellen. Wir bauen eine neue Softwarekategorie: eine kognitive, prüfbare und vertrauenszentrierte AutoML-Plattform.",
+        "feature_title": "Vertrauen Sie Ihren Modellen nicht blind.",
+        "feature_subtitle_1": "Wir verwandeln Automatisierung in belastbare Entscheidungen. Durch die Kombination von AutoML, wissenschaftlicher Integrität und Governance gehen wir über Oberflächenkennzahlen hinaus und machen Risiken, Inkonsistenzen und Entscheidungen sichtbar, denen Sie nicht blind vertrauen sollten.",
+        "feature_subtitle_2": "Das ist nicht nur AutoML. Es ist eine neue Kategorie: prüfbare, erklärbare Modelle für echte Entscheidungen.",
         "benefit_brain_desc": "Ein kontextsensitiver Assistent mit Wissensgraph, der die Trainingsstrategie lenkt, Risiken sichtbar macht und Teams aus statistischen Sackgassen heraushält.",
         "benefit_shield_desc": "19+ erweiterte Prüfungen für Leckagen, Overfitting, Inkonsistenzen, Klassenungleichgewicht, problematische Spalten und stille Modellfehler.",
         "benefit_file_desc": "Führungsreife Berichte, Audit-Verträge, technische Dokumentation und Nachvollziehbarkeit für Umgebungen, die echte Governance verlangen.",
@@ -249,9 +256,9 @@ I18N = {
     "hi": {
         "hero_subcopy": "उन टीमों के लिए बनाया गया है जिन्हें डेटा-आधारित फैसलों में बिल्कुल गलती की गुंजाइश नहीं है",
         "page_description": "वैज्ञानिक अखंडता और संज्ञानात्मक मार्गदर्शन को जोड़ने वाला AutoML प्लेटफ़ॉर्म। उच्च-विश्वास मॉडल के लिए तैयार।",
-        "feature_title": "विश्वसनीय प्लेटफ़ॉर्म & <span class=\"accent\">मुख्य अंतर</span>",
-        "feature_subtitle_1": "OpenCanvas Pro एक उभरती हुई ब्राज़ीलियाई कंपनी है, जो ऑटोमेशन को भरोसे में बदलने के लिए बनाई जा रही है: AutoML, शासन, वैज्ञानिक अखंडता और तकनीकी ऑडिटिंग को एक ही अनुभव में जोड़कर, उन टीमों के लिए जो केवल साफ़ मीट्रिक्स नहीं, असली स्पष्टता चाहती हैं।",
-        "feature_subtitle_2": "हम सिर्फ मॉडल ट्रेन करने का एक और इंटरफ़ेस नहीं हैं। हम एक नई सॉफ़्टवेयर श्रेणी बना रहे हैं: एक संज्ञानात्मक, ऑडिटेबल और भरोसा-केंद्रित AutoML प्लेटफ़ॉर्म।",
+        "feature_title": "अपने मॉडलों पर आँख मूँदकर भरोसा करना बंद कीजिए।",
+        "feature_subtitle_1": "हम ऑटोमेशन को भरोसेमंद फैसलों में बदलते हैं। AutoML, वैज्ञानिक अखंडता और governance को मिलाकर हम सतही मीट्रिक्स से आगे बढ़ते हैं—जोखिम, असंगतियाँ और ऐसे निर्णय सामने लाते हैं जिन पर आपको भरोसा नहीं करना चाहिए।",
+        "feature_subtitle_2": "यह सिर्फ AutoML नहीं है। यह एक नई श्रेणी है: ऑडिटेबल, व्याख्यात्मक मॉडल, जो वास्तविक निर्णयों के लिए बनाए गए हैं।",
         "benefit_brain_desc": "एक संदर्भ-सजग सहायक, जो नॉलेज ग्राफ़ के साथ प्रशिक्षण दिशा तय करने, जोखिम सामने लाने और टीम को सांख्यिकीय भटकावों से बचाने में मदद करता है।",
         "benefit_shield_desc": "लीकेज, ओवरफ़िटिंग, असंगतियों, असंतुलन, समस्याग्रस्त कॉलम और मूक मॉडलिंग विफलताओं के लिए 19+ उन्नत जाँचें।",
         "benefit_file_desc": "कार्यकारी-स्तर की रिपोर्टें, ऑडिट अनुबंध, तकनीकी दस्तावेज़ और ट्रेसबिलिटी - उन वातावरणों के लिए जहाँ असली governance चाहिए।",
