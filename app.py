@@ -7,7 +7,6 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
 import streamlit as st
-import streamlit.components.v1 as components
 
 # =========================================================
 # OpenCanvas Pro — Landing Page
@@ -22,6 +21,8 @@ SHIELD_PATH = os.path.join(ASSETS_DIR, "integrity_shield.png")
 EMILIA_PATH = os.path.join(ASSETS_DIR, "Emilia_hires.png")
 NEO4J_PATH = os.path.join(ASSETS_DIR, "Neo4j Logo_FullColor_RGB_TransBG.svg")
 MATURITY_HTML_PATH = "maturidade_ia_opencanvas_v4.3.html"
+SNIS_MAP_HTML_PATH = os.path.join(ASSETS_DIR, "snis_map.html")
+SNIS_MAP_HEIGHT = 720
 LINKEDIN_URL = "https://www.linkedin.com/company/opencanvaspro"
 X_URL = "https://x.com/opencanvaspro"
 GITHUB_URL = "https://github.com/OpenCanvas-Pro/opencanvaspro-app"
@@ -76,6 +77,11 @@ I18N = {
         "waitlist_button": "QUERO SER AVISADO NO LANÇAMENTO",
         "waitlist_input": "Seu e-mail:",
         "waitlist_placeholder": "exemplo@empresa.com",
+        "snis_map_title": "Mapa interativo do <span class=\"accent\">SNIS</span>",
+        "snis_map_subtitle": "Visualize o mapa que construímos com os dados do SNIS diretamente dentro da landing, sem sair da experiência do Streamlit.",
+        "snis_map_missing": "Mapa SNIS ainda não encontrado. Salve o arquivo HTML exportado em <code>assets/snis_map.html</code> para exibir a visualização aqui.",
+        "snis_map_expand": "Abrir mapa em nova aba",
+        "snis_map_back": "Voltar para a landing",
         "footer_main": "© OpenCanvas <span class=\"accent\" style=\"color:#FF6B00;\">Pro™</span> 2026 | <span class=\"footer-highlight\">Cognitive AutoMLOps Trust Platform</span>",
         "footer_sub": "Plataforma em early-stage | CNPJ 64.918.004/0001-36 | opencanvaspro.com<br>Built for Science. Built for Trust. Powered by E.M.I.L.I.A.™ | <a href=\"mailto:contato@opencanvaspro.com\">contato@opencanvaspro.com</a>",
         "page_title": "OpenCanvas Pro | Cognitive AutoMLOps",
@@ -118,6 +124,11 @@ I18N = {
         "waitlist_button": "NOTIFY ME WHEN WE LAUNCH",
         "waitlist_input": "Your email:",
         "waitlist_placeholder": "example@company.com",
+        "snis_map_title": "Interactive <span class=\"accent\">SNIS</span> map",
+        "snis_map_subtitle": "Embed the SNIS map we built directly into the landing page without breaking the Streamlit experience.",
+        "snis_map_missing": "SNIS map not found yet. Save the exported HTML file at <code>assets/snis_map.html</code> to render it here.",
+        "snis_map_expand": "Open map in new tab",
+        "snis_map_back": "Back to landing page",
         "footer_main": "© OpenCanvas <span class=\"accent\" style=\"color:#FF6B00;\">Pro™</span> 2026 | <span class=\"footer-highlight\">Cognitive AutoMLOps Trust Platform</span>",
         "footer_sub": "Early-stage platform | CNPJ 64.918.004/0001-36 | opencanvaspro.com<br>Built for Science. Built for Trust. Powered by E.M.I.L.I.A.™ | <a href=\"mailto:contato@opencanvaspro.com\">contato@opencanvaspro.com</a>",
         "page_title": "OpenCanvas Pro | Cognitive AutoMLOps",
@@ -160,6 +171,11 @@ I18N = {
         "waitlist_button": "QUIERO RECIBIR AVISO DEL LANZAMIENTO",
         "waitlist_input": "Tu correo:",
         "waitlist_placeholder": "ejemplo@empresa.com",
+        "snis_map_title": "Mapa interactivo del <span class=\"accent\">SNIS</span>",
+        "snis_map_subtitle": "Incorpora el mapa del SNIS que construimos directamente en la landing sin salir de la experiencia de Streamlit.",
+        "snis_map_missing": "El mapa SNIS aún no fue encontrado. Guarda el HTML exportado en <code>assets/snis_map.html</code> para mostrarlo aquí.",
+        "snis_map_expand": "Abrir mapa en nueva pestaña",
+        "snis_map_back": "Volver a la landing",
         "footer_main": "© OpenCanvas <span class=\"accent\" style=\"color:#FF6B00;\">Pro™</span> 2026 | <span class=\"footer-highlight\">Plataforma de Confianza de AutoMLOps</span>",
         "footer_sub": "Plataforma en fase temprana | CNPJ 64.918.004/0001-36 | opencanvaspro.com<br>Construida para la ciencia. Construida para la confianza. Impulsada por E.M.I.L.I.A.™ | <a href=\"mailto:contato@opencanvaspro.com\">contato@opencanvaspro.com</a>",
         "page_title": "OpenCanvas Pro | Cognitive AutoMLOps",
@@ -698,12 +714,32 @@ def apply_replacements(text: str, replacements: list[tuple[str, str]]) -> str:
     return text
 
 
-def load_maturity_section(lang: str) -> str:
-    if not os.path.exists(MATURITY_HTML_PATH):
+def load_embeddable_html(path: str) -> str:
+    if not os.path.exists(path):
         return ""
 
-    with open(MATURITY_HTML_PATH, "r", encoding="utf-8") as f:
-        html = f.read()
+    with open(path, "r", encoding="utf-8") as f:
+        return f.read()
+
+
+def load_maturity_section(lang: str) -> str:
+    html = load_embeddable_html(MATURITY_HTML_PATH)
+    if not html:
+        return ""
+
+    html = html.replace(
+        "</head>",
+        dedent(
+            """
+            <style>
+                html, body {
+                    overflow: hidden !important;
+                }
+            </style>
+            </head>
+            """
+        ).strip(),
+    )
 
     replacements = {
         "../assets/app/horizontal_logo_branco_transparencia.svg": file_to_data_uri(LOGO_PATH) if os.path.exists(LOGO_PATH) else "",
@@ -726,6 +762,15 @@ def load_maturity_section(lang: str) -> str:
     html = apply_replacements(html, maturity_replacements(lang))
 
     return html
+
+
+def build_view_url(view: str | None = None, lang: str | None = None) -> str:
+    params = []
+    if view:
+        params.append(f"view={view}")
+    if lang:
+        params.append(f"lang={lang}")
+    return "?" + "&".join(params) if params else "?"
 
 
 def social_icon(name: str) -> str:
@@ -843,7 +888,7 @@ def inject_seo_tags(lang: str = "pt"):
         "en": "OpenCanvas Pro | Cognitive AutoMLOps Trusted Platform",
         "es": "OpenCanvas Pro | Plataforma de Confianza Cognitive AutoMLOps",
     }.get(lang, tr(lang, "page_title")))
-    components.html(seo_script, height=0)
+    st.html(seo_script, unsafe_allow_javascript=True)
 
 # =========================================================
 
@@ -851,22 +896,33 @@ logo_uri = file_to_data_uri(LOGO_PATH) if os.path.exists(LOGO_PATH) else ""
 shield_uri = file_to_data_uri(SHIELD_PATH) if os.path.exists(SHIELD_PATH) else ""
 neo4j_uri = file_to_data_uri(NEO4J_PATH) if os.path.exists(NEO4J_PATH) else ""
 
-if "ui_lang" not in st.session_state:
-    st.session_state.ui_lang = "pt"
+requested_lang = st.query_params.get("lang", "pt")
+if requested_lang not in LANG_LABELS:
+    requested_lang = "pt"
+map_only_view = st.query_params.get("view") == "snis-map"
 
-lang_bar_left, lang_bar_right = st.columns([9, 1], vertical_alignment="center")
-with lang_bar_right:
-    st.selectbox(
-        "Language",
-        options=list(LANG_LABELS.keys()),
-        format_func=lambda code: LANG_LABELS[code],
-        key="ui_lang",
-        label_visibility="collapsed",
-    )
+if "ui_lang" not in st.session_state:
+    st.session_state.ui_lang = requested_lang
+elif map_only_view:
+    st.session_state.ui_lang = requested_lang
+
+if not map_only_view:
+    lang_bar_left, lang_bar_right = st.columns([9, 1], vertical_alignment="center")
+    with lang_bar_right:
+        st.selectbox(
+            "Language",
+            options=list(LANG_LABELS.keys()),
+            format_func=lambda code: LANG_LABELS[code],
+            key="ui_lang",
+            label_visibility="collapsed",
+        )
 
 lang = st.session_state.ui_lang
 inject_seo_tags(lang)
 maturity_section_html = load_maturity_section(lang)
+snis_map_html = load_embeddable_html(SNIS_MAP_HTML_PATH)
+main_view_url = build_view_url(lang=lang)
+map_view_url = build_view_url(view="snis-map", lang=lang)
 
 st.markdown(
     """
@@ -1192,6 +1248,62 @@ st.markdown(
             background: linear-gradient(180deg, rgba(28,20,14,0.98) 0%, rgba(20,16,12,0.98) 100%);
         }
 
+        .map-section {
+            margin-top: 0.5rem;
+        }
+
+        .map-shell {
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 20px;
+            overflow: hidden;
+            background: linear-gradient(180deg, rgba(18,18,18,0.96) 0%, rgba(11,11,11,0.98) 100%);
+            box-shadow: 0 18px 42px rgba(0,0,0,0.24);
+        }
+
+        .map-open-row {
+            display: flex;
+            justify-content: flex-end;
+            margin: 0.9rem 0 0.8rem 0;
+        }
+
+        .map-open-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 44px;
+            padding: 0 18px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.12);
+            background: linear-gradient(90deg, var(--ocp-orange) 0%, var(--ocp-orange-2) 100%);
+            color: #FFFFFF !important;
+            text-decoration: none !important;
+            font-size: 0.92rem;
+            font-weight: 800;
+            box-shadow: 0 8px 20px rgba(255,107,0,0.18);
+            transition: all 0.25s ease;
+        }
+
+        .map-open-link:hover {
+            background: #0D0D0D !important;
+            color: var(--ocp-orange) !important;
+            border-color: var(--ocp-orange) !important;
+            box-shadow: none !important;
+        }
+
+        .map-fallback {
+            padding: 1rem 1.1rem;
+            color: var(--ocp-soft) !important;
+            line-height: 1.7;
+        }
+
+        .map-fallback code {
+            color: var(--ocp-orange);
+            background: rgba(255,107,0,0.08);
+            border: 1px solid rgba(255,107,0,0.12);
+            padding: 0.12rem 0.35rem;
+            border-radius: 8px;
+        }
+
         .waitlist-wrap {
             max-width: 860px;
             margin: 0 auto;
@@ -1500,6 +1612,81 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
+if map_only_view:
+    st.markdown(
+        """
+        <style>
+            .stApp,
+            [data-testid="stAppViewContainer"],
+            [data-testid="stAppViewContainer"] > .main,
+            [data-testid="stAppViewContainer"] > .main .block-container,
+            [data-testid="stMainBlockContainer"] {
+                background: #0D0D0D !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                max-width: none !important;
+            }
+
+            [data-testid="stAppViewContainer"] > .main .block-container,
+            [data-testid="stMainBlockContainer"] {
+                gap: 0 !important;
+            }
+
+            html, body {
+                overflow: hidden !important;
+            }
+
+            iframe[title="st.iframe"] {
+                border: 0 !important;
+                display: block !important;
+                margin: 0 !important;
+                height: 100vh !important;
+            }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    if snis_map_html:
+        standalone_map_html = snis_map_html.replace(
+            "</head>",
+            dedent(
+                """
+                <script>
+                    function syncStandaloneFrameSize() {
+                        if (window.frameElement) {
+                            const viewportHeight = window.parent ? window.parent.innerHeight : window.innerHeight;
+                            window.frameElement.style.height = `${viewportHeight}px`;
+                            window.frameElement.style.width = "100%";
+                            window.frameElement.style.display = "block";
+                            window.frameElement.style.margin = "0";
+                            window.frameElement.style.padding = "0";
+                            window.frameElement.style.verticalAlign = "top";
+
+                            if (window.frameElement.parentElement) {
+                                window.frameElement.parentElement.style.height = `${viewportHeight}px`;
+                                window.frameElement.parentElement.style.margin = "0";
+                                window.frameElement.parentElement.style.padding = "0";
+                            }
+                        }
+                    }
+
+                    window.addEventListener("load", syncStandaloneFrameSize);
+                    window.addEventListener("resize", syncStandaloneFrameSize);
+                </script>
+                </head>
+                """
+            ).strip(),
+        )
+        st.iframe(standalone_map_html, height="stretch")
+    else:
+        st.markdown(
+            f'<div class="map-shell"><div class="map-fallback">{tr(lang, "snis_map_missing")}</div></div>',
+            unsafe_allow_html=True,
+        )
+
+    st.stop()
+
 # =========================================================
 # HERO
 # =========================================================
@@ -1663,7 +1850,37 @@ with p3:
 # =========================================================
 if maturity_section_html:
     st.markdown('<div class="ocp-section-rule"></div>', unsafe_allow_html=True)
-    components.html(maturity_section_html, height=1065, scrolling=False)
+    st.iframe(maturity_section_html, height=1065)
+
+# =========================================================
+# SNIS MAP
+# =========================================================
+st.markdown('<div class="ocp-section-rule"></div>', unsafe_allow_html=True)
+st.markdown(
+    f"""
+    <div class="map-section">
+        <div class="section-title">{tr(lang, "snis_map_title")}</div>
+        <div class="section-subtitle">{tr(lang, "snis_map_subtitle")}</div>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
+
+if snis_map_html:
+    st.markdown(
+        f"""
+        <div class="map-open-row">
+            <a class="map-open-link" href="{map_view_url}" target="_blank" rel="noopener noreferrer">{tr(lang, "snis_map_expand")}</a>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+    st.iframe(snis_map_html, height=SNIS_MAP_HEIGHT)
+else:
+    st.markdown(
+        f'<div class="map-shell"><div class="map-fallback">{tr(lang, "snis_map_missing")}</div></div>',
+        unsafe_allow_html=True,
+    )
 
 # =========================================================
 # WAITLIST
