@@ -1,4 +1,5 @@
 import base64
+import html as html_lib
 import mimetypes
 import os
 import smtplib
@@ -10,7 +11,7 @@ import streamlit as st
 
 # =========================================================
 # OpenCanvas Pro — Landing Page
-# VERSION: 1.1.2
+# VERSION: 2.0.0
 # Status: Public Preview
 # =========================================================
 
@@ -26,6 +27,7 @@ SNIS_MAP_HEIGHT = 720
 LINKEDIN_URL = "https://www.linkedin.com/company/opencanvaspro"
 X_URL = "https://x.com/opencanvaspro"
 GITHUB_URL = "https://github.com/OpenCanvas-Pro/opencanvaspro-app"
+YOUTUBE_URL = "https://www.youtube.com/@OpenCanvasPro"
 
 LANG_LABELS = {
     "pt": "Português",
@@ -39,16 +41,39 @@ LANG_LABELS = {
 I18N = {
     "pt": {
         "hero_subcopy": "Projetado para times que não podem errar decisões baseadas em dados",
-        "page_description": "A plataforma de AutoML que une Integridade Científica e Navegação Cognitiva. Desenvolvida para modelos de alta confiança.",
-        "feature_title": "Pare de confiar cegamente nos seus modelos.",
+        "page_description": "Plataforma de AutoML auditável com governança científica, rastreabilidade, explicabilidade e contratos auditáveis para decisões reais.",
+        "hero_tagline": "Don’t just build models. Trust them.",
+        "hero_title": "AutoML auditável para transformar dados em modelos, predições e decisões confiáveis.",
+        "hero_description": "A OpenCanvas Pro™ é uma plataforma de Cognitive AutoMLOps que automatiza fluxos de Machine Learning com governança científica, rastreabilidade e explicabilidade. Ela prepara dados, treina modelos, compara algoritmos, executa checks de integridade, gera predições e entrega contratos auditáveis para decisões reais.",
+        "hero_pipeline": "Classificação, Regressão, Agrupamento, Detecção de Anomalias e Séries Temporais em um pipeline único: Bronze → Silver → Gold → Modelo → Predição → Relatório.",
+        "capabilities_title": "O que a plataforma faz",
+        "capabilities_subtitle": "Cinco frentes analíticas em um fluxo unificado de AutoML auditável, preparado para operação, governança e decisões que exigem lastro técnico.",
+        "capability_1_title": "Classificação",
+        "capability_1_desc": "Preveja classes, risco, churn, aprovação, fraude ou qualquer evento categórico com validação científica.",
+        "capability_2_title": "Regressão",
+        "capability_2_desc": "Modele valores contínuos, estimativas, demanda, perdas, custos e indicadores operacionais.",
+        "capability_3_title": "Agrupamento",
+        "capability_3_desc": "Descubra perfis e segmentos ocultos em bases sem rótulo, com leitura operacional dos grupos.",
+        "capability_4_title": "Detecção de Anomalias",
+        "capability_4_desc": "Identifique comportamentos atípicos, alertas prioritários e desvios operacionais em grandes volumes de dados.",
+        "capability_5_title": "Séries Temporais",
+        "capability_5_desc": "Prepare previsões temporais para demanda, indicadores, operação e planejamento.",
+        "audit_title": "Pipeline auditável",
+        "audit_subtitle": "Bronze → Silver → Gold → Modelo → Predição → Audit Contract",
+        "audit_body": "Cada execução gera evidências: dados ingeridos, transformações aplicadas, modelos testados, métricas, checks de integridade, predições e artefatos exportáveis.",
+        "audit_step_bronze": "Bronze",
+        "audit_step_silver": "Silver",
+        "audit_step_gold": "Gold",
+        "audit_step_model": "Modelo",
+        "audit_step_prediction": "Predição",
+        "audit_step_contract": "Contrato de Auditoria",
+        "feature_title": "Diferenciais da Plataforma",
         "feature_subtitle_1": (
-            "Transformamos automação em decisões confiáveis. "
-            "Combinando AutoML, integridade científica e governança, "
-            "vamos além de métricas superficiais — revelando riscos, inconsistências e decisões que você não deveria confiar."
+            "A OpenCanvas Pro vai além do AutoML tradicional. "
+            "Ela estrutura um ambiente auditável para treinamento, validação, explicação, exportação e governança de modelos."
         ),
         "feature_subtitle_2": (
-            "Isso não é apenas AutoML. "
-            "É uma nova categoria: modelos auditáveis, explicáveis e prontos para decisões reais."
+            "O foco não é só automatizar experimentos: é transformar dados em ativos confiáveis para operação, compliance e tomada de decisão."
         ),
         "benefit_brain_desc": "Assistente contextual com grafo de conhecimento para orientar estratégias de treino, identificar riscos e evitar “pântanos estatísticos”.",
         "benefit_shield_desc": "19+ validações avançadas para leakage, overfitting, inconsistências, desequilíbrio, colunas problemáticas e falhas silenciosas de modelagem.",
@@ -77,8 +102,9 @@ I18N = {
         "waitlist_button": "QUERO SER AVISADO NO LANÇAMENTO",
         "waitlist_input": "Seu e-mail:",
         "waitlist_placeholder": "exemplo@empresa.com",
-        "snis_map_title": "Mapa interativo do <span class=\"accent\">SNIS</span>",
-        "snis_map_subtitle": "Visualize o mapa que construímos com os dados do SNIS diretamente dentro da landing, sem sair da experiência do Streamlit.",
+        "snis_map_title": "Mapa Inteligente do <span class=\"accent\">Saneamento Brasileiro</span>",
+        "snis_map_subtitle": "Uma demonstração pública de como a OpenCanvas Pro transforma dados públicos em inteligência territorial explorável.",
+        "snis_map_subtitle_2": "Rodamos o serviço de clustering (agrupamento) na plataforma para mapear o saneamento nacional a partir de dados públicos do Sistema Nacional de Informações do Saneamento. O resultado foi o mapa interativo abaixo, que traz o perfil de cada um dos municípios do Brasil.",
         "snis_map_missing": "Mapa SNIS ainda não encontrado. Salve o arquivo HTML exportado em <code>assets/snis_map.html</code> para exibir a visualização aqui.",
         "snis_map_expand": "Abrir mapa em nova aba",
         "snis_map_back": "Voltar para a landing",
@@ -93,10 +119,35 @@ I18N = {
     },
     "en": {
         "hero_subcopy": "Built for teams that cannot afford to get data-driven decisions wrong",
-        "page_description": "The AutoML platform that unites Scientific Integrity and Cognitive Navigation. Built for high-trust models.",
-        "feature_title": "Stop blindly trusting your models.",
-        "feature_subtitle_1": "We turn automation into trustworthy decisions. By combining AutoML, scientific integrity and governance, we go beyond surface-level metrics—surfacing risks, inconsistencies and decisions you should not trust.",
-        "feature_subtitle_2": "This is not just AutoML. It is a new category: auditable, explainable models built for real decisions.",
+        "page_description": "Auditable AutoML platform with scientific governance, traceability, explainability and exportable audit contracts for real decisions.",
+        "hero_tagline": "Don’t just build models. Trust them.",
+        "hero_title": "Auditable AutoML to turn data into trustworthy models, predictions, and decisions.",
+        "hero_description": "OpenCanvas Pro™ is a Cognitive AutoMLOps platform that automates Machine Learning workflows with scientific governance, traceability, and explainability. It prepares data, trains models, compares algorithms, runs integrity checks, generates predictions, and delivers auditable contracts for real decisions.",
+        "hero_pipeline": "Classification, Regression, Clustering, Anomaly Detection, and Time Series in a single pipeline: Bronze → Silver → Gold → Model → Prediction → Report.",
+        "capabilities_title": "What the platform does",
+        "capabilities_subtitle": "Five analytical fronts in one unified auditable AutoML flow, ready for operations, governance, and decisions that need technical backing.",
+        "capability_1_title": "Classification",
+        "capability_1_desc": "Predict classes, risk, churn, approval, fraud, or any categorical event with scientific validation.",
+        "capability_2_title": "Regression",
+        "capability_2_desc": "Model continuous values, estimates, demand, losses, costs, and operational indicators.",
+        "capability_3_title": "Clustering",
+        "capability_3_desc": "Discover hidden profiles and segments in unlabeled datasets with operational reading of the groups.",
+        "capability_4_title": "Anomaly Detection",
+        "capability_4_desc": "Identify atypical behavior, priority alerts, and operational deviations across large volumes of data.",
+        "capability_5_title": "Time Series",
+        "capability_5_desc": "Prepare temporal forecasts for demand, indicators, operations, and planning.",
+        "audit_title": "Auditable pipeline",
+        "audit_subtitle": "Bronze → Silver → Gold → Model → Prediction → Audit Contract",
+        "audit_body": "Every run generates evidence: ingested data, applied transformations, tested models, metrics, integrity checks, predictions, and exportable artifacts.",
+        "audit_step_bronze": "Bronze",
+        "audit_step_silver": "Silver",
+        "audit_step_gold": "Gold",
+        "audit_step_model": "Model",
+        "audit_step_prediction": "Prediction",
+        "audit_step_contract": "Audit Contract",
+        "feature_title": "Platform Differentiators",
+        "feature_subtitle_1": "OpenCanvas Pro goes beyond traditional AutoML. It structures an auditable environment for model training, validation, explanation, export, and governance.",
+        "feature_subtitle_2": "The goal is not just to automate experiments, but to turn data into trustworthy assets for operations, compliance, and decision-making.",
         "benefit_brain_desc": "A contextual assistant with a knowledge graph that helps shape training strategy, surface risks and keep teams out of statistical dead ends.",
         "benefit_shield_desc": "19+ advanced checks for leakage, overfitting, inconsistencies, class imbalance, problematic columns and silent modeling failures.",
         "benefit_file_desc": "Executive-ready reports, audit contracts, technical documentation and traceability for environments that need real governance.",
@@ -124,8 +175,9 @@ I18N = {
         "waitlist_button": "NOTIFY ME WHEN WE LAUNCH",
         "waitlist_input": "Your email:",
         "waitlist_placeholder": "example@company.com",
-        "snis_map_title": "Interactive <span class=\"accent\">SNIS</span> map",
-        "snis_map_subtitle": "Embed the SNIS map we built directly into the landing page without breaking the Streamlit experience.",
+        "snis_map_title": "Smart Map of <span class=\"accent\">Brazilian Sanitation</span>",
+        "snis_map_subtitle": "A public demonstration of how OpenCanvas Pro turns public data into explorable territorial intelligence.",
+        "snis_map_subtitle_2": "We ran the platform's clustering service to map national sanitation using public data from Brazil's National Sanitation Information System. The result is the interactive map below, which shows the profile of each municipality in Brazil.",
         "snis_map_missing": "SNIS map not found yet. Save the exported HTML file at <code>assets/snis_map.html</code> to render it here.",
         "snis_map_expand": "Open map in new tab",
         "snis_map_back": "Back to landing page",
@@ -140,10 +192,35 @@ I18N = {
     },
     "es": {
         "hero_subcopy": "Hecho para equipos que no pueden permitirse equivocarse con decisiones basadas en datos",
-        "page_description": "La plataforma de AutoML que une Integridad Científica y Navegación Cognitiva. Diseñada para modelos de alta confianza.",
-        "feature_title": "Deja de confiar ciegamente en tus modelos.",
-        "feature_subtitle_1": "Convertimos la automatización en decisiones confiables. Al combinar AutoML, integridad científica y gobernanza, vamos más allá de las métricas superficiales: mostramos riesgos, inconsistencias y decisiones en las que no deberías confiar.",
-        "feature_subtitle_2": "Esto no es solo AutoML. Es una nueva categoría: modelos auditables y explicables, pensados para decisiones reales.",
+        "page_description": "Plataforma de AutoML auditable con gobernanza científica, trazabilidad, explicabilidad y contratos auditables para decisiones reales.",
+        "hero_tagline": "Don’t just build models. Trust them.",
+        "hero_title": "AutoML auditable para transformar datos en modelos, predicciones y decisiones confiables.",
+        "hero_description": "OpenCanvas Pro™ es una plataforma de Cognitive AutoMLOps que automatiza flujos de Machine Learning con gobernanza científica, trazabilidad y explicabilidad. Prepara datos, entrena modelos, compara algoritmos, ejecuta verificaciones de integridad, genera predicciones y entrega contratos auditables para decisiones reales.",
+        "hero_pipeline": "Clasificación, Regresión, Agrupamiento, Detección de Anomalías y Series Temporales en un solo pipeline: Bronze → Silver → Gold → Modelo → Predicción → Informe.",
+        "capabilities_title": "Qué hace la plataforma",
+        "capabilities_subtitle": "Cinco frentes analíticos en un flujo unificado de AutoML auditable, listo para operación, gobernanza y decisiones con respaldo técnico.",
+        "capability_1_title": "Clasificación",
+        "capability_1_desc": "Predice clases, riesgo, churn, aprobación, fraude o cualquier evento categórico con validación científica.",
+        "capability_2_title": "Regresión",
+        "capability_2_desc": "Modela valores continuos, estimaciones, demanda, pérdidas, costos e indicadores operativos.",
+        "capability_3_title": "Agrupamiento",
+        "capability_3_desc": "Descubre perfiles y segmentos ocultos en bases sin etiqueta, con lectura operacional de los grupos.",
+        "capability_4_title": "Detección de Anomalías",
+        "capability_4_desc": "Identifica comportamientos atípicos, alertas prioritarias y desvíos operativos en grandes volúmenes de datos.",
+        "capability_5_title": "Series Temporales",
+        "capability_5_desc": "Prepara previsiones temporales para demanda, indicadores, operación y planificación.",
+        "audit_title": "Pipeline auditable",
+        "audit_subtitle": "Bronze → Silver → Gold → Modelo → Predicción → Audit Contract",
+        "audit_body": "Cada ejecución genera evidencias: datos ingeridos, transformaciones aplicadas, modelos probados, métricas, checks de integridad, predicciones y artefactos exportables.",
+        "audit_step_bronze": "Bronze",
+        "audit_step_silver": "Silver",
+        "audit_step_gold": "Gold",
+        "audit_step_model": "Modelo",
+        "audit_step_prediction": "Predicción",
+        "audit_step_contract": "Contrato de Auditoría",
+        "feature_title": "Diferenciales de la Plataforma",
+        "feature_subtitle_1": "OpenCanvas Pro va más allá del AutoML tradicional. Estructura un entorno auditable para entrenamiento, validación, explicación, exportación y gobernanza de modelos.",
+        "feature_subtitle_2": "El foco no es solo automatizar experimentos, sino transformar datos en activos confiables para operación, compliance y toma de decisiones.",
         "benefit_brain_desc": "Un asistente contextual con un grafo de conocimiento que ayuda a orientar la estrategia de entrenamiento, detectar riesgos y evitar callejones estadísticos.",
         "benefit_shield_desc": "Más de 19 controles avanzados para leakage, overfitting, inconsistencias, desbalance, columnas problemáticas y fallas silenciosas de modelado.",
         "benefit_file_desc": "Informes ejecutivos, contratos de auditoría, documentación técnica y trazabilidad para entornos que necesitan gobernanza real.",
@@ -171,8 +248,9 @@ I18N = {
         "waitlist_button": "QUIERO RECIBIR AVISO DEL LANZAMIENTO",
         "waitlist_input": "Tu correo:",
         "waitlist_placeholder": "ejemplo@empresa.com",
-        "snis_map_title": "Mapa interactivo del <span class=\"accent\">SNIS</span>",
-        "snis_map_subtitle": "Incorpora el mapa del SNIS que construimos directamente en la landing sin salir de la experiencia de Streamlit.",
+        "snis_map_title": "Mapa Inteligente del <span class=\"accent\">Saneamiento Brasileño</span>",
+        "snis_map_subtitle": "Una demostración pública de cómo OpenCanvas Pro transforma datos públicos en inteligencia territorial explorable.",
+        "snis_map_subtitle_2": "Ejecutamos el servicio de clustering (agrupamiento) en la plataforma para mapear el saneamiento nacional a partir de datos públicos del Sistema Nacional de Información sobre Saneamiento. El resultado es el mapa interactivo de abajo, que muestra el perfil de cada municipio de Brasil.",
         "snis_map_missing": "El mapa SNIS aún no fue encontrado. Guarda el HTML exportado en <code>assets/snis_map.html</code> para mostrarlo aquí.",
         "snis_map_expand": "Abrir mapa en nueva pestaña",
         "snis_map_back": "Volver a la landing",
@@ -187,10 +265,35 @@ I18N = {
     },
     "fr": {
         "hero_subcopy": "Conçu pour les équipes qui ne peuvent pas se permettre de se tromper dans leurs décisions fondées sur les données",
-        "page_description": "La plateforme AutoML qui unit intégrité scientifique et navigation cognitive. Conçue pour des modèles à forte confiance.",
-        "feature_title": "Cessez de faire confiance aveuglément à vos modèles.",
-        "feature_subtitle_1": "Nous transformons l'automatisation en décisions fiables. En réunissant AutoML, intégrité scientifique et gouvernance, nous allons au-delà des métriques de surface en révélant les risques, les incohérences et les décisions auxquelles vous ne devriez pas vous fier.",
-        "feature_subtitle_2": "Ce n'est pas seulement de l'AutoML. C'est une nouvelle catégorie : des modèles auditables, explicables et pensés pour des décisions réelles.",
+        "page_description": "Plateforme AutoML auditable avec gouvernance scientifique, traçabilité, explicabilité et contrats d'audit exportables pour de vraies décisions.",
+        "hero_tagline": "Don’t just build models. Trust them.",
+        "hero_title": "AutoML auditable pour transformer les données en modèles, prédictions et décisions fiables.",
+        "hero_description": "OpenCanvas Pro™ est une plateforme de Cognitive AutoMLOps qui automatise les flux de Machine Learning avec gouvernance scientifique, traçabilité et explicabilité. Elle prépare les données, entraîne les modèles, compare les algorithmes, exécute des contrôles d'intégrité, génère des prédictions et délivre des contrats auditables pour des décisions réelles.",
+        "hero_pipeline": "Classification, Régression, Clustering, Détection d'anomalies et Séries temporelles dans un pipeline unique : Bronze → Silver → Gold → Modèle → Prédiction → Rapport.",
+        "capabilities_title": "Ce que fait la plateforme",
+        "capabilities_subtitle": "Cinq fronts analytiques dans un flux AutoML auditable unifié, prêt pour l'exploitation, la gouvernance et les décisions qui exigent une base technique solide.",
+        "capability_1_title": "Classification",
+        "capability_1_desc": "Prédisez des classes, le risque, le churn, l'approbation, la fraude ou tout événement catégoriel avec validation scientifique.",
+        "capability_2_title": "Régression",
+        "capability_2_desc": "Modélisez des valeurs continues, des estimations, la demande, les pertes, les coûts et les indicateurs opérationnels.",
+        "capability_3_title": "Clustering",
+        "capability_3_desc": "Découvrez des profils et segments cachés dans des bases non étiquetées, avec une lecture opérationnelle des groupes.",
+        "capability_4_title": "Détection d'anomalies",
+        "capability_4_desc": "Identifiez des comportements atypiques, des alertes prioritaires et des écarts opérationnels sur de grands volumes de données.",
+        "capability_5_title": "Séries temporelles",
+        "capability_5_desc": "Préparez des prévisions temporelles pour la demande, les indicateurs, l'exploitation et la planification.",
+        "audit_title": "Pipeline auditable",
+        "audit_subtitle": "Bronze → Silver → Gold → Modèle → Prédiction → Audit Contract",
+        "audit_body": "Chaque exécution génère des preuves : données ingérées, transformations appliquées, modèles testés, métriques, contrôles d'intégrité, prédictions et artefacts exportables.",
+        "audit_step_bronze": "Bronze",
+        "audit_step_silver": "Silver",
+        "audit_step_gold": "Gold",
+        "audit_step_model": "Modèle",
+        "audit_step_prediction": "Prédiction",
+        "audit_step_contract": "Contrat d'audit",
+        "feature_title": "Différenciateurs de la plateforme",
+        "feature_subtitle_1": "OpenCanvas Pro va au-delà de l'AutoML traditionnel. Elle structure un environnement auditable pour l'entraînement, la validation, l'explication, l'export et la gouvernance des modèles.",
+        "feature_subtitle_2": "L'objectif n'est pas seulement d'automatiser les expérimentations, mais de transformer les données en actifs fiables pour les opérations, la conformité et la prise de décision.",
         "benefit_brain_desc": "Un assistant contextuel doté d'un graphe de connaissances pour orienter la stratégie d'entraînement, faire remonter les risques et éviter les impasses statistiques.",
         "benefit_shield_desc": "Plus de 19 contrôles avancés pour les fuites de données, l'overfitting, les incohérences, le déséquilibre, les colonnes problématiques et les échecs de modélisation silencieux.",
         "benefit_file_desc": "Rapports exécutifs, contrats d'audit, documentation technique et traçabilité pour les environnements qui exigent une gouvernance réelle.",
@@ -218,6 +321,12 @@ I18N = {
         "waitlist_button": "PRÉVENEZ-MOI AU LANCEMENT",
         "waitlist_input": "Votre e-mail :",
         "waitlist_placeholder": "exemple@entreprise.com",
+        "snis_map_title": "Carte intelligente de <span class=\"accent\">l'assainissement brésilien</span>",
+        "snis_map_subtitle": "Une démonstration publique de la manière dont OpenCanvas Pro transforme des données publiques en intelligence territoriale explorable.",
+        "snis_map_subtitle_2": "Nous avons exécuté le service de clustering de la plateforme afin de cartographier l'assainissement national à partir des données publiques du Système national d'information sur l'assainissement du Brésil. Le résultat est la carte interactive ci-dessous, qui présente le profil de chacune des municipalités du pays.",
+        "snis_map_missing": "La carte SNIS est introuvable pour le moment. Enregistrez le fichier HTML exporté dans <code>assets/snis_map.html</code> pour l'afficher ici.",
+        "snis_map_expand": "Ouvrir la carte dans un nouvel onglet",
+        "snis_map_back": "Retour à la landing page",
         "footer_main": "© OpenCanvas <span class=\"accent\" style=\"color:#FF6B00;\">Pro™</span> 2026 | <span class=\"footer-highlight\">Plateforme de Confiance AutoMLOps</span>",
         "footer_sub": "Plateforme en phase initiale | CNPJ 64.918.004/0001-36 | opencanvaspro.com<br>Conçue pour la science. Conçue pour la confiance. Propulsée par E.M.I.L.I.A.™ | <a href=\"mailto:contato@opencanvaspro.com\">contato@opencanvaspro.com</a>",
         "page_title": "OpenCanvas Pro | Cognitive AutoMLOps",
@@ -229,10 +338,35 @@ I18N = {
     },
     "de": {
         "hero_subcopy": "Für Teams entwickelt, die sich bei datenbasierten Entscheidungen keinen Fehler leisten können",
-        "page_description": "Die AutoML-Plattform, die wissenschaftliche Integrität und kognitive Navigation vereint. Für Modelle mit hohem Vertrauen entwickelt.",
-        "feature_title": "Vertrauen Sie Ihren Modellen nicht blind.",
-        "feature_subtitle_1": "Wir verwandeln Automatisierung in belastbare Entscheidungen. Durch die Kombination von AutoML, wissenschaftlicher Integrität und Governance gehen wir über Oberflächenkennzahlen hinaus und machen Risiken, Inkonsistenzen und Entscheidungen sichtbar, denen Sie nicht blind vertrauen sollten.",
-        "feature_subtitle_2": "Das ist nicht nur AutoML. Es ist eine neue Kategorie: prüfbare, erklärbare Modelle für echte Entscheidungen.",
+        "page_description": "Prüfbare AutoML-Plattform mit wissenschaftlicher Governance, Nachvollziehbarkeit, Erklärbarkeit und exportierbaren Audit-Verträgen für reale Entscheidungen.",
+        "hero_tagline": "Don’t just build models. Trust them.",
+        "hero_title": "Prüfbares AutoML, das Daten in vertrauenswürdige Modelle, Vorhersagen und Entscheidungen verwandelt.",
+        "hero_description": "OpenCanvas Pro™ ist eine Cognitive-AutoMLOps-Plattform, die Machine-Learning-Workflows mit wissenschaftlicher Governance, Nachvollziehbarkeit und Erklärbarkeit automatisiert. Sie bereitet Daten auf, trainiert Modelle, vergleicht Algorithmen, führt Integritätsprüfungen aus, erzeugt Vorhersagen und liefert auditierbare Verträge für reale Entscheidungen.",
+        "hero_pipeline": "Klassifikation, Regression, Clustering, Anomalieerkennung und Zeitreihen in einer einzigen Pipeline: Bronze → Silver → Gold → Modell → Vorhersage → Bericht.",
+        "capabilities_title": "Was die Plattform leistet",
+        "capabilities_subtitle": "Fünf analytische Arbeitsfelder in einem einheitlichen, prüfbaren AutoML-Flow – bereit für Betrieb, Governance und Entscheidungen mit technischer Grundlage.",
+        "capability_1_title": "Klassifikation",
+        "capability_1_desc": "Sagen Sie Klassen, Risiko, Churn, Genehmigung, Betrug oder jedes andere kategoriale Ereignis mit wissenschaftlicher Validierung voraus.",
+        "capability_2_title": "Regression",
+        "capability_2_desc": "Modellieren Sie kontinuierliche Werte, Schätzungen, Nachfrage, Verluste, Kosten und operative Kennzahlen.",
+        "capability_3_title": "Clustering",
+        "capability_3_desc": "Entdecken Sie verborgene Profile und Segmente in unbeschrifteten Datensätzen mit operativer Lesbarkeit der Gruppen.",
+        "capability_4_title": "Anomalieerkennung",
+        "capability_4_desc": "Erkennen Sie atypisches Verhalten, priorisierte Warnungen und operative Abweichungen in großen Datenmengen.",
+        "capability_5_title": "Zeitreihen",
+        "capability_5_desc": "Erstellen Sie zeitbezogene Prognosen für Nachfrage, Kennzahlen, Betrieb und Planung.",
+        "audit_title": "Auditierbare Pipeline",
+        "audit_subtitle": "Bronze → Silver → Gold → Modell → Vorhersage → Audit Contract",
+        "audit_body": "Jeder Durchlauf erzeugt Nachweise: eingelesene Daten, angewandte Transformationen, getestete Modelle, Metriken, Integritätsprüfungen, Vorhersagen und exportierbare Artefakte.",
+        "audit_step_bronze": "Bronze",
+        "audit_step_silver": "Silver",
+        "audit_step_gold": "Gold",
+        "audit_step_model": "Modell",
+        "audit_step_prediction": "Vorhersage",
+        "audit_step_contract": "Audit-Vertrag",
+        "feature_title": "Plattform-Differenzierungsmerkmale",
+        "feature_subtitle_1": "OpenCanvas Pro geht über traditionelles AutoML hinaus. Die Plattform strukturiert eine auditierbare Umgebung für Training, Validierung, Erklärung, Export und Governance von Modellen.",
+        "feature_subtitle_2": "Es geht nicht nur darum, Experimente zu automatisieren, sondern Daten in vertrauenswürdige Assets für Betrieb, Compliance und Entscheidungsfindung zu verwandeln.",
         "benefit_brain_desc": "Ein kontextsensitiver Assistent mit Wissensgraph, der die Trainingsstrategie lenkt, Risiken sichtbar macht und Teams aus statistischen Sackgassen heraushält.",
         "benefit_shield_desc": "19+ erweiterte Prüfungen für Leckagen, Overfitting, Inkonsistenzen, Klassenungleichgewicht, problematische Spalten und stille Modellfehler.",
         "benefit_file_desc": "Führungsreife Berichte, Audit-Verträge, technische Dokumentation und Nachvollziehbarkeit für Umgebungen, die echte Governance verlangen.",
@@ -260,6 +394,12 @@ I18N = {
         "waitlist_button": "BEIM LAUNCH BENACHRICHTIGEN",
         "waitlist_input": "Ihre E-Mail:",
         "waitlist_placeholder": "beispiel@firma.de",
+        "snis_map_title": "Intelligente Karte der <span class=\"accent\">brasilianischen Sanitärversorgung</span>",
+        "snis_map_subtitle": "Eine öffentliche Demonstration, wie OpenCanvas Pro öffentliche Daten in erkundbare territoriale Intelligenz verwandelt.",
+        "snis_map_subtitle_2": "Wir haben den Clustering-Dienst der Plattform ausgeführt, um die nationale Sanitärversorgung auf Basis öffentlicher Daten des brasilianischen Nationalen Informationssystems für Sanitärversorgung zu kartieren. Das Ergebnis ist die interaktive Karte unten, die das Profil jeder brasilianischen Gemeinde zeigt.",
+        "snis_map_missing": "Die SNIS-Karte wurde noch nicht gefunden. Speichern Sie die exportierte HTML-Datei unter <code>assets/snis_map.html</code>, um sie hier anzuzeigen.",
+        "snis_map_expand": "Karte in neuem Tab öffnen",
+        "snis_map_back": "Zurück zur Landingpage",
         "footer_main": "© OpenCanvas <span class=\"accent\" style=\"color:#FF6B00;\">Pro™</span> 2026 | <span class=\"footer-highlight\">Cognitive AutoMLOps Trust Platform</span>",
         "footer_sub": "Plattform in der Frühphase | CNPJ 64.918.004/0001-36 | opencanvaspro.com<br>Für Wissenschaft gebaut. Für Vertrauen gebaut. Angetrieben von E.M.I.L.I.A.™ | <a href=\"mailto:contato@opencanvaspro.com\">contato@opencanvaspro.com</a>",
         "page_title": "OpenCanvas Pro | Cognitive AutoMLOps",
@@ -271,10 +411,35 @@ I18N = {
     },
     "hi": {
         "hero_subcopy": "उन टीमों के लिए बनाया गया है जिन्हें डेटा-आधारित फैसलों में बिल्कुल गलती की गुंजाइश नहीं है",
-        "page_description": "वैज्ञानिक अखंडता और संज्ञानात्मक मार्गदर्शन को जोड़ने वाला AutoML प्लेटफ़ॉर्म। उच्च-विश्वास मॉडल के लिए तैयार।",
-        "feature_title": "अपने मॉडलों पर आँख मूँदकर भरोसा करना बंद कीजिए।",
-        "feature_subtitle_1": "हम ऑटोमेशन को भरोसेमंद फैसलों में बदलते हैं। AutoML, वैज्ञानिक अखंडता और governance को मिलाकर हम सतही मीट्रिक्स से आगे बढ़ते हैं—जोखिम, असंगतियाँ और ऐसे निर्णय सामने लाते हैं जिन पर आपको भरोसा नहीं करना चाहिए।",
-        "feature_subtitle_2": "यह सिर्फ AutoML नहीं है। यह एक नई श्रेणी है: ऑडिटेबल, व्याख्यात्मक मॉडल, जो वास्तविक निर्णयों के लिए बनाए गए हैं।",
+        "page_description": "वैज्ञानिक शासन, ट्रेसबिलिटी, एक्सप्लेनेबिलिटी और वास्तविक निर्णयों के लिए निर्यातयोग्य ऑडिट अनुबंधों वाला ऑडिटेबल AutoML प्लेटफ़ॉर्म।",
+        "hero_tagline": "Don’t just build models. Trust them.",
+        "hero_title": "डेटा को भरोसेमंद मॉडल, प्रेडिक्शन और निर्णयों में बदलने वाला ऑडिटेबल AutoML।",
+        "hero_description": "OpenCanvas Pro™ एक Cognitive AutoMLOps प्लेटफ़ॉर्म है जो वैज्ञानिक शासन, ट्रेसबिलिटी और एक्सप्लेनेबिलिटी के साथ Machine Learning वर्कफ़्लो को स्वचालित करता है। यह डेटा तैयार करता है, मॉडल ट्रेन करता है, एल्गोरिद्म की तुलना करता है, इंटीग्रिटी चेक चलाता है, प्रेडिक्शन बनाता है और वास्तविक निर्णयों के लिए ऑडिटेबल अनुबंध प्रदान करता है।",
+        "hero_pipeline": "क्लासिफ़िकेशन, रिग्रेशन, क्लस्टरिंग, एनोमली डिटेक्शन और टाइम सीरीज़ एक ही पाइपलाइन में: Bronze → Silver → Gold → Model → Prediction → Report.",
+        "capabilities_title": "प्लेटफ़ॉर्म क्या करता है",
+        "capabilities_subtitle": "ऑडिटेबल AutoML के एकीकृत फ्लो में पाँच विश्लेषणात्मक क्षमताएँ, जो संचालन, शासन और तकनीकी आधार वाली निर्णय-प्रक्रिया के लिए तैयार हैं।",
+        "capability_1_title": "क्लासिफ़िकेशन",
+        "capability_1_desc": "वैज्ञानिक सत्यापन के साथ क्लास, जोखिम, churn, अनुमोदन, धोखाधड़ी या किसी भी श्रेणीगत घटना का पूर्वानुमान लगाएँ।",
+        "capability_2_title": "रिग्रेशन",
+        "capability_2_desc": "सतत मानों, अनुमानों, मांग, हानियों, लागतों और परिचालन संकेतकों का मॉडल बनाइए।",
+        "capability_3_title": "क्लस्टरिंग",
+        "capability_3_desc": "बिना लेबल वाले डेटा में छिपे प्रोफ़ाइल और सेगमेंट खोजिए, समूहों की परिचालन व्याख्या के साथ।",
+        "capability_4_title": "एनोमली डिटेक्शन",
+        "capability_4_desc": "बड़े डेटा वॉल्यूम में असामान्य व्यवहार, प्राथमिकता वाले अलर्ट और परिचालन विचलन पहचानिए।",
+        "capability_5_title": "टाइम सीरीज़",
+        "capability_5_desc": "मांग, संकेतक, संचालन और योजना के लिए समय-आधारित पूर्वानुमान तैयार कीजिए।",
+        "audit_title": "ऑडिटेबल पाइपलाइन",
+        "audit_subtitle": "Bronze → Silver → Gold → Model → Prediction → Audit Contract",
+        "audit_body": "हर रन साक्ष्य उत्पन्न करता है: ingest किया गया डेटा, लागू transformations, परीक्षण किए गए मॉडल, metrics, integrity checks, predictions और exportable artifacts।",
+        "audit_step_bronze": "ब्रॉन्ज़",
+        "audit_step_silver": "सिल्वर",
+        "audit_step_gold": "गोल्ड",
+        "audit_step_model": "मॉडल",
+        "audit_step_prediction": "प्रेडिक्शन",
+        "audit_step_contract": "ऑडिट कॉन्ट्रैक्ट",
+        "feature_title": "प्लेटफ़ॉर्म की विशिष्टताएँ",
+        "feature_subtitle_1": "OpenCanvas Pro पारंपरिक AutoML से आगे जाता है। यह मॉडल ट्रेनिंग, वैलिडेशन, व्याख्या, निर्यात और शासन के लिए एक ऑडिटेबल वातावरण तैयार करता है।",
+        "feature_subtitle_2": "लक्ष्य केवल प्रयोगों को स्वचालित करना नहीं है, बल्कि डेटा को संचालन, अनुपालन और निर्णय-निर्माण के लिए भरोसेमंद परिसंपत्तियों में बदलना है।",
         "benefit_brain_desc": "एक संदर्भ-सजग सहायक, जो नॉलेज ग्राफ़ के साथ प्रशिक्षण दिशा तय करने, जोखिम सामने लाने और टीम को सांख्यिकीय भटकावों से बचाने में मदद करता है।",
         "benefit_shield_desc": "लीकेज, ओवरफ़िटिंग, असंगतियों, असंतुलन, समस्याग्रस्त कॉलम और मूक मॉडलिंग विफलताओं के लिए 19+ उन्नत जाँचें।",
         "benefit_file_desc": "कार्यकारी-स्तर की रिपोर्टें, ऑडिट अनुबंध, तकनीकी दस्तावेज़ और ट्रेसबिलिटी - उन वातावरणों के लिए जहाँ असली governance चाहिए।",
@@ -293,6 +458,12 @@ I18N = {
         "waitlist_button": "लॉन्च पर मुझे बताइए",
         "waitlist_input": "आपका ईमेल:",
         "waitlist_placeholder": "example@company.com",
+        "snis_map_title": "<span class=\"accent\">ब्राज़ीलियाई स्वच्छता</span> का स्मार्ट मानचित्र",
+        "snis_map_subtitle": "एक सार्वजनिक प्रदर्शन कि OpenCanvas Pro सार्वजनिक डेटा को खोजयोग्य क्षेत्रीय बुद्धिमत्ता में कैसे बदलता है।",
+        "snis_map_subtitle_2": "हमने प्लेटफ़ॉर्म की clustering सेवा चलाकर ब्राज़ील की राष्ट्रीय स्वच्छता व्यवस्था को Sistema Nacional de Informações do Saneamento के सार्वजनिक डेटा के आधार पर मैप किया। इसका परिणाम नीचे दिया गया इंटरैक्टिव मानचित्र है, जो ब्राज़ील की हर नगरपालिका की प्रोफ़ाइल दिखाता है।",
+        "snis_map_missing": "SNIS मानचित्र अभी नहीं मिला। इसे यहाँ दिखाने के लिए निर्यात की गई HTML फ़ाइल को <code>assets/snis_map.html</code> में सहेजें।",
+        "snis_map_expand": "मानचित्र नए टैब में खोलें",
+        "snis_map_back": "लैंडिंग पेज पर वापस जाएँ",
         "footer_main": "© OpenCanvas <span class=\"accent\" style=\"color:#FF6B00;\">Pro™</span> 2026 | <span class=\"footer-highlight\">Cognitive AutoMLOps Trust Platform</span>",
         "footer_sub": "शुरुआती चरण का प्लेटफ़ॉर्म | CNPJ 64.918.004/0001-36 | opencanvaspro.com<br>विज्ञान के लिए बनाया गया। भरोसे के लिए बनाया गया। E.M.I.L.I.A.™ द्वारा संचालित | <a href=\"mailto:contato@opencanvaspro.com\">contato@opencanvaspro.com</a>",
         "page_title": "OpenCanvas Pro | Cognitive AutoMLOps",
@@ -764,6 +935,122 @@ def load_maturity_section(lang: str) -> str:
     return html
 
 
+def render_responsive_roadmap_iframe(html_content: str, frame_id: str = "ocp-roadmap-frame") -> str:
+    embedded_script = dedent(
+        f"""
+        <script>
+        (function() {{
+            function publishHeight() {{
+                const body = document.body;
+                const doc = document.documentElement;
+                const height = Math.max(
+                    body ? body.scrollHeight : 0,
+                    body ? body.offsetHeight : 0,
+                    doc ? doc.scrollHeight : 0,
+                    doc ? doc.offsetHeight : 0
+                );
+                parent.postMessage({{
+                    type: "ocp-roadmap-height",
+                    frameId: "{frame_id}",
+                    height: height
+                }}, "*");
+            }}
+
+            window.addEventListener("load", function() {{
+                publishHeight();
+                setTimeout(publishHeight, 200);
+                setTimeout(publishHeight, 800);
+            }});
+
+            window.addEventListener("resize", publishHeight);
+
+            if (document.fonts && document.fonts.ready) {{
+                document.fonts.ready.then(function() {{
+                    publishHeight();
+                    setTimeout(publishHeight, 300);
+                }});
+            }}
+
+            const observer = new ResizeObserver(function() {{
+                publishHeight();
+            }});
+            observer.observe(document.documentElement);
+            observer.observe(document.body);
+        }})();
+        </script>
+        """
+    ).strip()
+
+    if "</body>" in html_content:
+        html_content = html_content.replace("</body>", embedded_script + "\n</body>")
+    else:
+        html_content = html_content + embedded_script
+
+    escaped_srcdoc = html_lib.escape(html_content, quote=True)
+
+    return dedent(
+        f"""
+        <div class="ocp-roadmap-embed">
+          <iframe
+            id="{frame_id}"
+            title="OpenCanvas Pro Roadmap"
+            srcdoc="{escaped_srcdoc}"
+            loading="lazy"
+          ></iframe>
+        </div>
+        <script>
+        (function() {{
+            const frameId = "{frame_id}";
+            const iframe = document.getElementById(frameId);
+            if (!iframe) return;
+
+            function fallbackHeight() {{
+                const width = window.innerWidth;
+                if (width <= 480) return 5000;
+                if (width <= 700) return 4100;
+                if (width <= 900) return 3100;
+                if (width <= 1100) return 2200;
+                return 1180;
+            }}
+
+            function applyHeight(height) {{
+                const resolved = Math.max(Number(height) || 0, fallbackHeight());
+                iframe.style.height = resolved + "px";
+            }}
+
+            window.addEventListener("message", function(event) {{
+                const data = event.data || {{}};
+                if (data.type === "ocp-roadmap-height" && data.frameId === frameId) {{
+                    applyHeight(data.height);
+                }}
+            }});
+
+            iframe.addEventListener("load", function() {{
+                applyHeight(fallbackHeight());
+                try {{
+                    const doc = iframe.contentWindow && iframe.contentWindow.document;
+                    if (doc) {{
+                        const measured = Math.max(
+                            doc.body ? doc.body.scrollHeight : 0,
+                            doc.documentElement ? doc.documentElement.scrollHeight : 0
+                        );
+                        applyHeight(measured);
+                    }}
+                }} catch (e) {{
+                    applyHeight(fallbackHeight());
+                }}
+            }});
+
+            applyHeight(fallbackHeight());
+            window.addEventListener("resize", function() {{
+                applyHeight(fallbackHeight());
+            }});
+        }})();
+        </script>
+        """
+    ).strip()
+
+
 def build_view_url(view: str | None = None, lang: str | None = None) -> str:
     params = []
     if view:
@@ -778,6 +1065,7 @@ def social_icon(name: str) -> str:
         "linkedin": '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.94 8.5H3.56V19h3.38zM5.25 3A1.97 1.97 0 1 0 5.3 6.94 1.97 1.97 0 0 0 5.25 3M20.44 11.12c0-2.93-1.56-4.3-3.65-4.3a3.16 3.16 0 0 0-2.87 1.58h-.05V8.5H10.5c.04.62 0 10.5 0 10.5h3.38v-5.86c0-.31.02-.62.12-.84.25-.62.82-1.27 1.77-1.27 1.25 0 1.75.96 1.75 2.37V19H21z"/></svg>',
         "x": '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.9 2H22l-6.77 7.74L23.2 22h-6.26l-4.9-7.39L5.58 22H2.47l7.24-8.27L1.8 2h6.42l4.43 6.75zm-1.1 18h1.73L7.3 3.9H5.45z"/></svg>',
         "github": '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.79 23.39c.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.42-4.04-1.42-.55-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.72.08-.72 1.2.08 1.84 1.24 1.84 1.24 1.08 1.83 2.82 1.3 3.5.99.11-.78.42-1.3.76-1.6-2.67-.31-5.47-1.33-5.47-5.92 0-1.31.47-2.38 1.24-3.22-.12-.31-.54-1.56.12-3.26 0 0 1.01-.32 3.3 1.23A11.5 11.5 0 0 1 12 6.32c1.02 0 2.05.14 3.01.41 2.29-1.55 3.29-1.23 3.29-1.23.67 1.7.25 2.95.13 3.26.77.84 1.24 1.91 1.24 3.22 0 4.6-2.8 5.6-5.48 5.91.43.37.82 1.1.82 2.22v3.2c0 .32.22.7.83.58A12 12 0 0 0 12 .5"/></svg>',
+        "youtube": '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.4 3.5 12 3.5 12 3.5s-7.4 0-9.4.6A3 3 0 0 0 .5 6.2 31.5 31.5 0 0 0 0 12a31.5 31.5 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c2 .6 9.4.6 9.4.6s7.4 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.5 31.5 0 0 0 24 12a31.5 31.5 0 0 0-.5-5.8ZM9.6 15.6V8.4l6.3 3.6-6.3 3.6Z"/></svg>',
     }
     return icons[name]
 
@@ -928,6 +1216,7 @@ st.markdown(
     """
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,400,0,0");
+        @import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap");
         @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap");
 
         :root {
@@ -954,18 +1243,20 @@ st.markdown(
         }
 
         .block-container {
-            padding-top: 0.30rem !important;
-            padding-bottom: 2rem !important;
-            max-width: 1500px !important;
+            padding-top: 0.9rem !important;
+            padding-bottom: 4.5rem !important;
+            padding-left: 2.5rem !important;
+            padding-right: 2.5rem !important;
+            max-width: 1360px !important;
         }
 
         h1, h2, h3, h4, h5, h6, p, li, span, label, div {
-            font-family: "Inter", "Noto Sans Devanagari", sans-serif !important;
+            font-family: "Lato", "Noto Sans Devanagari", sans-serif !important;
         }
 
         .ocp-section-rule {
             border-top: 1px solid rgba(255,255,255,0.06);
-            margin: 1.15rem 0 1.35rem 0;
+            margin: 4.5rem 0 4.5rem 0;
         }
 
         .hero-logo-wrap {
@@ -983,15 +1274,20 @@ st.markdown(
         }
 
         .hero-copy-wrap {
-            padding-top: 0.1rem;
+            padding-top: 0.25rem;
+            padding-bottom: 1.15rem;
+            max-width: none;
+            width: 100%;
+            margin: 0 auto;
         }
 
         .hero-title-row {
             display: grid;
-            grid-template-columns: 132px 1fr 132px;
+            grid-template-columns: 132px 1fr;
             align-items: center;
             width: 100%;
-            column-gap: 0.65rem;
+            column-gap: 1rem;
+            margin-bottom: 1.15rem;
         }
 
         .hero-title-logo {
@@ -1010,13 +1306,13 @@ st.markdown(
         }
 
         .hero-title {
-            text-align: center;
-            font-size: 3.2rem;
-            font-weight: 800;
+            text-align: left;
+            font-size: 2.2rem;
+            font-weight: 700;
             color: var(--ocp-white);
-            margin: 0 0 0.2rem 0;
-            letter-spacing: -0.03em;
-            line-height: 1.08;
+            margin: 0;
+            letter-spacing: -0.015em;
+            line-height: 1.12;
         }
 
         .hero-title .accent {
@@ -1027,39 +1323,47 @@ st.markdown(
             color: var(--ocp-white) !important;
         }
 
-        .hero-kicker {
-            text-align: center;
-            color: rgba(255,255,255,0.72) !important;
-            letter-spacing: 2px;
-            font-size: 1.02rem;
-            margin-bottom: 0.38rem;
-        }
-
         .hero-subcopy {
             text-align: center;
-            color: var(--ocp-orange) !important;
-            font-size: 0.98rem;
-            max-width: 900px;
-            margin: 0.25rem auto 0 auto;
-            line-height: 1.68;
-            font-weight: 700;
+            color: var(--ocp-white) !important;
+            font-size: 3.3rem;
+            max-width: 940px;
+            margin: 0 auto;
+            line-height: 1.2;
+            font-weight: 900;
+            letter-spacing: -0.03em;
+            word-break: normal;
+            overflow-wrap: normal;
+            hyphens: none;
         }
 
         .hero-highlight {
             text-align: center;
+            color: var(--ocp-soft) !important;
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 0;
+            line-height: 1.62;
+            margin: 1.2rem auto 0 auto;
+            max-width: 820px;
+        }
+
+        .hero-pipeline-line {
+            text-align: center;
             color: var(--ocp-orange) !important;
-            font-size: 0.98rem;
+            font-size: 1.02rem;
             font-weight: 700;
-            letter-spacing: 0.01em;
-            margin-top: 0.75rem;
+            line-height: 1.7;
+            max-width: 860px;
+            margin: 1.15rem auto 0 auto;
         }
 
         .section-title {
             color: var(--ocp-white) !important;
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-weight: 800;
-            margin-bottom: 0.28rem;
-            line-height: 1.15;
+            margin-bottom: 0.55rem;
+            line-height: 1.18;
         }
 
         .section-title .accent {
@@ -1068,22 +1372,27 @@ st.markdown(
 
         .section-subtitle {
             color: var(--ocp-soft) !important;
-            font-size: 1rem;
-            line-height: 1.62;
-            margin-bottom: 1rem;
-            max-width: none;
+            font-size: 1.03rem;
+            line-height: 1.7;
+            margin-bottom: 1.4rem;
+            max-width: 1120px;
         }
 
         .feature-intro {
-            margin-bottom: 0.7rem;
-            text-align: center;
+            margin-bottom: 1.15rem;
+            text-align: left;
+            width: 100%;
+        }
+
+        .feature-intro .section-subtitle.feature-subtitle-wide {
+            max-width: none;
             width: 100%;
         }
 
         .content-box {
             background: linear-gradient(180deg, rgba(22,22,22,0.98) 0%, rgba(18,18,18,0.98) 100%);
-            padding: 24px;
-            border-radius: 16px;
+            padding: 28px;
+            border-radius: 20px;
             border: 1px solid var(--ocp-border);
             box-shadow: 0 0 0 1px rgba(255,255,255,0.02) inset;
             height: 100%;
@@ -1092,9 +1401,10 @@ st.markdown(
         .content-box h4 {
             color: var(--ocp-white) !important;
             margin-top: 0;
-            margin-bottom: 0.45rem;
+            margin-bottom: 0.5rem;
             font-size: 1.35rem;
             font-weight: 800;
+            line-height: 1.2;
         }
 
         .content-box p,
@@ -1103,8 +1413,8 @@ st.markdown(
         .pillar-body {
             color: var(--ocp-muted) !important;
             opacity: 1 !important;
-            line-height: 1.65;
-            font-size: 0.98rem;
+            line-height: 1.7;
+            font-size: 1rem;
         }
 
         .mini-kicker {
@@ -1122,6 +1432,194 @@ st.markdown(
 
         .benefit-item:last-child {
             margin-bottom: 0;
+        }
+
+        .section-shell-soft {
+            background: linear-gradient(180deg, rgba(18,18,18,0.84) 0%, rgba(14,14,14,0.84) 100%);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 24px;
+            padding: 2rem;
+            box-shadow: 0 20px 48px rgba(0,0,0,0.2);
+        }
+
+        .capability-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(220px, 1fr));
+            gap: 24px;
+        }
+
+        .capability-card {
+            background: linear-gradient(180deg, rgba(24,24,24,0.98) 0%, rgba(17,17,17,0.98) 100%);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 20px;
+            padding: 28px;
+            min-height: 245px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.18);
+            transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+            word-break: normal;
+            overflow-wrap: normal;
+            hyphens: none;
+        }
+
+        .capability-topline {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+            margin-bottom: 0.95rem;
+        }
+
+        .capability-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255,107,0,0.34);
+            box-shadow: 0 18px 34px rgba(255,107,0,0.08), 0 0 0 1px rgba(255,107,0,0.05) inset;
+        }
+
+        .capability-index {
+            color: var(--ocp-orange) !important;
+            font-size: 0.88rem;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            line-height: 1;
+        }
+
+        .capability-icon {
+            width: 22px;
+            height: 22px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--ocp-orange) !important;
+            font-family: "Material Symbols Outlined" !important;
+            font-weight: 400;
+            font-style: normal;
+            font-size: 22px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            white-space: nowrap;
+            direction: ltr;
+            font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .capability-title {
+            color: var(--ocp-white) !important;
+            font-size: 1.35rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 0.8rem;
+            word-break: normal;
+            overflow-wrap: normal;
+            hyphens: none;
+        }
+
+        .capability-desc {
+            color: var(--ocp-muted) !important;
+            font-size: 0.98rem;
+            line-height: 1.65;
+            word-break: normal;
+            overflow-wrap: normal;
+            hyphens: none;
+        }
+
+        .audit-shell {
+            background: linear-gradient(180deg, rgba(16,16,16,0.98) 0%, rgba(12,12,12,0.98) 100%);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 24px;
+            padding: 34px 30px 32px 30px;
+            box-shadow: 0 18px 42px rgba(0,0,0,0.18);
+        }
+
+        .audit-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin: 1.7rem 0 1.9rem 0;
+        }
+
+        .audit-step {
+            padding: 0.75rem 1rem;
+            border-radius: 999px;
+            border: 1px solid rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.02);
+            color: var(--ocp-white) !important;
+            font-size: 0.92rem;
+            font-weight: 700;
+            white-space: nowrap;
+            transition: transform 0.22s ease, border-color 0.22s ease, background 0.22s ease, color 0.22s ease, box-shadow 0.22s ease;
+        }
+
+        .audit-step:hover {
+            transform: translateY(-2px);
+        }
+
+        .audit-step.is-bronze:hover {
+            border-color: rgba(205, 127, 50, 0.58);
+            background: rgba(205, 127, 50, 0.16);
+            color: #D9A066 !important;
+            box-shadow: 0 10px 24px rgba(205, 127, 50, 0.14);
+        }
+
+        .audit-step.is-silver:hover {
+            border-color: rgba(192, 192, 192, 0.62);
+            background: rgba(192, 192, 192, 0.14);
+            color: #E3E3E3 !important;
+            box-shadow: 0 10px 24px rgba(192, 192, 192, 0.12);
+        }
+
+        .audit-step.is-gold:hover {
+            border-color: rgba(255, 215, 0, 0.56);
+            background: rgba(255, 215, 0, 0.16);
+            color: #FFD84D !important;
+            box-shadow: 0 10px 24px rgba(255, 215, 0, 0.12);
+        }
+
+        .audit-step.is-model:hover {
+            border-color: rgba(52, 199, 89, 0.6);
+            background: rgba(52, 199, 89, 0.16);
+            color: #7EE2A0 !important;
+            box-shadow: 0 10px 24px rgba(52, 199, 89, 0.14);
+        }
+
+        .audit-step.is-prediction:hover {
+            border-color: rgba(64, 156, 255, 0.62);
+            background: rgba(64, 156, 255, 0.16);
+            color: #7EB7FF !important;
+            box-shadow: 0 10px 24px rgba(64, 156, 255, 0.14);
+        }
+
+        .audit-step.is-accent {
+            border-color: rgba(255,107,0,0.28);
+            background: rgba(255,107,0,0.08);
+            color: var(--ocp-orange) !important;
+        }
+
+        .audit-step.is-accent:hover {
+            border-color: rgba(255,107,0,0.52);
+            background: rgba(255,107,0,0.14);
+            color: var(--ocp-orange-2) !important;
+            box-shadow: 0 10px 24px rgba(255,107,0,0.16);
+        }
+
+        .audit-arrow {
+            color: rgba(255,255,255,0.32) !important;
+            font-size: 1.1rem;
+            font-weight: 900;
+        }
+
+        .audit-copy {
+            color: var(--ocp-muted) !important;
+            font-size: 1rem;
+            line-height: 1.7;
+            max-width: 100%;
+            text-align: justify;
+            margin: 0;
         }
 
         .benefit-label {
@@ -1217,7 +1715,7 @@ st.markdown(
         .feature-card-shell {
             display: flex;
             align-items: stretch;
-            gap: 22px;
+            gap: 26px;
             height: 100%;
         }
 
@@ -1252,6 +1750,51 @@ st.markdown(
             margin-top: 0.5rem;
         }
 
+        .map-section .section-subtitle.map-subtitle-wide {
+            max-width: none;
+            width: 100%;
+        }
+
+        .map-wide-shell {
+            width: min(calc(100vw - 64px), 1360px);
+            margin: 0 auto;
+            position: relative;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .performance-wide-shell {
+            width: min(calc(100vw - 64px), 1360px);
+            margin: 0 auto;
+            position: relative;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .roadmap-wide-shell {
+            width: min(calc(100vw - 64px), 1420px);
+            margin: 0 auto;
+            position: relative;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .ocp-roadmap-embed iframe {
+            display: block;
+            width: 100%;
+            min-height: 1180px;
+            border: 0;
+            background: transparent;
+        }
+
+        .roadmap-wide-shell [data-testid="stIFrame"] {
+            height: 1180px !important;
+        }
+
+        .roadmap-wide-shell [data-testid="stIFrame"] iframe {
+            height: 100% !important;
+        }
+
         .map-shell {
             border: 1px solid rgba(255,255,255,0.08);
             border-radius: 20px;
@@ -1263,7 +1806,7 @@ st.markdown(
         .map-open-row {
             display: flex;
             justify-content: flex-end;
-            margin: 0.9rem 0 0.8rem 0;
+            margin: 1rem 0 0 0;
         }
 
         .map-open-link {
@@ -1369,37 +1912,39 @@ st.markdown(
             justify-content: center;
             align-items: center;
             gap: 0.85rem;
-            margin-top: 0.9rem;
+            margin-top: 2rem;
         }
 
         .social-link {
-            width: 42px;
-            height: 42px;
+            width: 46px;
+            height: 46px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             border-radius: 999px;
             border: 1px solid rgba(255,255,255,0.12);
-            background: rgba(255,255,255,0.02);
+            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 45%, rgba(255,255,255,0.015) 100%);
             color: var(--ocp-soft) !important;
             text-decoration: none;
-            transition: transform 0.22s ease, border-color 0.22s ease, color 0.22s ease, background 0.22s ease;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.18), 0 0 0 1px rgba(255,255,255,0.015) inset;
+            transition: transform 0.24s ease, border-color 0.24s ease, color 0.24s ease, background 0.24s ease, box-shadow 0.24s ease;
         }
 
         .social-link:hover {
-            transform: translateY(-2px);
-            border-color: rgba(255,107,0,0.5);
-            background: rgba(255,107,0,0.08);
+            transform: translateY(-3px) scale(1.03);
+            border-color: rgba(255,107,0,0.55);
+            background: radial-gradient(circle at 30% 30%, rgba(255,149,64,0.22) 0%, rgba(255,107,0,0.12) 48%, rgba(255,107,0,0.08) 100%);
             color: var(--ocp-orange) !important;
+            box-shadow: 0 14px 28px rgba(255,107,0,0.16), 0 0 18px rgba(255,107,0,0.14), 0 0 0 1px rgba(255,107,0,0.08) inset;
         }
 
         .social-link svg {
-            width: 18px;
-            height: 18px;
+            width: 19px;
+            height: 19px;
         }
 
         .partner-spotlight {
-            margin-top: 1.05rem;
+            margin-top: 2.25rem;
             display: flex;
             justify-content: center;
         }
@@ -1560,8 +2105,8 @@ st.markdown(
 
         @media (max-width: 900px) {
             .hero-title-row {
-                grid-template-columns: 88px 1fr 88px;
-                column-gap: 0.35rem;
+                grid-template-columns: 88px 1fr;
+                column-gap: 0.75rem;
             }
 
             .hero-title-logo,
@@ -1581,7 +2126,16 @@ st.markdown(
             }
 
             .hero-title {
-                font-size: 2.45rem;
+                font-size: 1.75rem;
+            }
+
+            .hero-subcopy {
+                font-size: 2.3rem;
+            }
+
+            .hero-highlight,
+            .hero-pipeline-line {
+                font-size: 0.98rem;
             }
 
             .feature-media-wrap,
@@ -1605,6 +2159,57 @@ st.markdown(
             .feature-media {
                 height: auto;
                 max-height: 220px;
+            }
+
+            .capability-grid {
+                grid-template-columns: repeat(2, minmax(220px, 1fr));
+            }
+
+            .audit-shell {
+                padding: 24px;
+            }
+
+            .map-wide-shell {
+                width: 100%;
+                left: auto;
+                transform: none;
+            }
+
+            .performance-wide-shell {
+                width: 100%;
+                left: auto;
+                transform: none;
+            }
+
+            .roadmap-wide-shell {
+                width: 100%;
+                left: auto;
+                transform: none;
+            }
+
+            .roadmap-wide-shell [data-testid="stIFrame"] {
+                height: 2850px !important;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .block-container {
+                padding-left: 1.25rem !important;
+                padding-right: 1.25rem !important;
+            }
+
+            .capability-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .roadmap-wide-shell [data-testid="stIFrame"] {
+                height: 5600px !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .roadmap-wide-shell [data-testid="stIFrame"] {
+                height: 6400px !important;
             }
         }
     </style>
@@ -1687,6 +2292,83 @@ if map_only_view:
 
     st.stop()
 
+capabilities_section_html = dedent(
+    f"""
+    <div class="section-shell-soft">
+        <div class="feature-intro">
+            <div class="section-title">{tr(lang, "capabilities_title")}</div>
+            <div class="section-subtitle">{tr(lang, "capabilities_subtitle")}</div>
+        </div>
+        <div class="capability-grid">
+            <div class="capability-card">
+                <div class="capability-topline">
+                    <div class="capability-index">01</div>
+                    <span class="capability-icon" aria-hidden="true">fact_check</span>
+                </div>
+                <div class="capability-title">{tr(lang, "capability_1_title")}</div>
+                <div class="capability-desc">{tr(lang, "capability_1_desc")}</div>
+            </div>
+            <div class="capability-card">
+                <div class="capability-topline">
+                    <div class="capability-index">02</div>
+                    <span class="capability-icon" aria-hidden="true">show_chart</span>
+                </div>
+                <div class="capability-title">{tr(lang, "capability_2_title")}</div>
+                <div class="capability-desc">{tr(lang, "capability_2_desc")}</div>
+            </div>
+            <div class="capability-card">
+                <div class="capability-topline">
+                    <div class="capability-index">03</div>
+                    <span class="capability-icon" aria-hidden="true">hub</span>
+                </div>
+                <div class="capability-title">{tr(lang, "capability_3_title")}</div>
+                <div class="capability-desc">{tr(lang, "capability_3_desc")}</div>
+            </div>
+            <div class="capability-card">
+                <div class="capability-topline">
+                    <div class="capability-index">04</div>
+                    <span class="capability-icon" aria-hidden="true">warning</span>
+                </div>
+                <div class="capability-title">{tr(lang, "capability_4_title")}</div>
+                <div class="capability-desc">{tr(lang, "capability_4_desc")}</div>
+            </div>
+            <div class="capability-card">
+                <div class="capability-topline">
+                    <div class="capability-index">05</div>
+                    <span class="capability-icon" aria-hidden="true">timeline</span>
+                </div>
+                <div class="capability-title">{tr(lang, "capability_5_title")}</div>
+                <div class="capability-desc">{tr(lang, "capability_5_desc")}</div>
+            </div>
+        </div>
+    </div>
+    """
+).strip()
+
+audit_section_html = dedent(
+    f"""
+    <div class="audit-shell">
+        <div class="feature-intro" style="margin-bottom:0.95rem;">
+            <div class="section-title">{tr(lang, "audit_title")}</div>
+        </div>
+        <div class="audit-flow">
+            <div class="audit-step is-bronze">{tr(lang, "audit_step_bronze")}</div>
+            <div class="audit-arrow">→</div>
+            <div class="audit-step is-silver">{tr(lang, "audit_step_silver")}</div>
+            <div class="audit-arrow">→</div>
+            <div class="audit-step is-gold">{tr(lang, "audit_step_gold")}</div>
+            <div class="audit-arrow">→</div>
+            <div class="audit-step is-model">{tr(lang, "audit_step_model")}</div>
+            <div class="audit-arrow">→</div>
+            <div class="audit-step is-prediction">{tr(lang, "audit_step_prediction")}</div>
+            <div class="audit-arrow">→</div>
+            <div class="audit-step is-accent">{tr(lang, "audit_step_contract")}</div>
+        </div>
+        <div class="audit-copy">{tr(lang, "audit_body")}</div>
+    </div>
+    """
+).strip()
+
 # =========================================================
 # HERO
 # =========================================================
@@ -1695,12 +2377,16 @@ st.markdown(
     <div class="hero-copy-wrap">
         <div class="hero-title-row">
             <img src="{logo_uri}" class="hero-title-logo" alt="OpenCanvas Pro Logo" />
-            <div class="hero-title">OpenCanvas <span class="white"> </span><span class="accent">Pro - Cognitive AutoMLOps</span></div>
-            <div class="hero-title-spacer" aria-hidden="true"></div>
+            <div class="hero-title">OpenCanvas <span class="accent">Pro™</span></div>
         </div>
-        <div class="hero-kicker">TRUST PLATFORM FOR SCIENTIFIC INTEGRITY</div>
         <div class="hero-subcopy">
-            {tr(lang, "hero_subcopy")}
+            {tr(lang, "hero_title")}
+        </div>
+        <div class="hero-highlight">
+            {tr(lang, "hero_description")}
+        </div>
+        <div class="hero-pipeline-line">
+            {tr(lang, "hero_pipeline")}
         </div>
     </div>
     """,
@@ -1714,13 +2400,27 @@ st.markdown('<div class="ocp-section-rule"></div>', unsafe_allow_html=True)
         
 
 # =========================================================
-# MAIN VALUE SECTION
+# WHAT THE PLATFORM DOES
+# =========================================================
+st.markdown(capabilities_section_html, unsafe_allow_html=True)
+
+st.markdown('<div class="ocp-section-rule"></div>', unsafe_allow_html=True)
+
+# =========================================================
+# AUDITABLE PIPELINE
+# =========================================================
+st.markdown(audit_section_html, unsafe_allow_html=True)
+
+st.markdown('<div class="ocp-section-rule"></div>', unsafe_allow_html=True)
+
+# =========================================================
+# DIFFERENTIALS
 # =========================================================
 st.markdown(
     '''
     <div class="feature-intro">
         <div class="section-title">''' + tr(lang, "feature_title") + '''</div>
-        <div class="section-subtitle">
+        <div class="section-subtitle feature-subtitle-wide">
             ''' + tr(lang, "feature_subtitle_1") + '''<br><br>
             ''' + tr(lang, "feature_subtitle_2") + '''
         </div>
@@ -1791,6 +2491,7 @@ st.markdown(
 # =========================================================
 # PILLARS
 # =========================================================
+st.markdown('<div class="performance-wide-shell">', unsafe_allow_html=True)
 st.markdown('<div class="ocp-section-rule"></div>', unsafe_allow_html=True)
 st.markdown(
     f'<div class="section-title"><span class="section-title-icon" aria-hidden="true">rocket_launch</span> {tr(lang, "pillars_title")}</div>',
@@ -1844,29 +2545,35 @@ with p3:
         """,
         unsafe_allow_html=True,
     )
+st.markdown("</div>", unsafe_allow_html=True)
 
 # =========================================================
 # MATURITY ROADMAP
 # =========================================================
 if maturity_section_html:
+    st.markdown('<div class="roadmap-wide-shell">', unsafe_allow_html=True)
     st.markdown('<div class="ocp-section-rule"></div>', unsafe_allow_html=True)
-    st.iframe(maturity_section_html, height=1065)
+    st.iframe(maturity_section_html, height=1180)
+    st.markdown("</div>", unsafe_allow_html=True)
 
 # =========================================================
 # SNIS MAP
 # =========================================================
+st.markdown('<div class="map-wide-shell">', unsafe_allow_html=True)
 st.markdown('<div class="ocp-section-rule"></div>', unsafe_allow_html=True)
 st.markdown(
     f"""
     <div class="map-section">
         <div class="section-title">{tr(lang, "snis_map_title")}</div>
-        <div class="section-subtitle">{tr(lang, "snis_map_subtitle")}</div>
+        <div class="section-subtitle map-subtitle-wide">{tr(lang, "snis_map_subtitle")}</div>
+        <div class="section-subtitle map-subtitle-wide" style="margin-top:-0.55rem; margin-bottom:1.35rem;">{tr(lang, "snis_map_subtitle_2")}</div>
     </div>
     """,
     unsafe_allow_html=True,
 )
 
 if snis_map_html:
+    st.iframe(snis_map_html, height=SNIS_MAP_HEIGHT)
     st.markdown(
         f"""
         <div class="map-open-row">
@@ -1875,12 +2582,12 @@ if snis_map_html:
         """,
         unsafe_allow_html=True,
     )
-    st.iframe(snis_map_html, height=SNIS_MAP_HEIGHT)
 else:
     st.markdown(
         f'<div class="map-shell"><div class="map-fallback">{tr(lang, "snis_map_missing")}</div></div>',
         unsafe_allow_html=True,
     )
+st.markdown("</div>", unsafe_allow_html=True)
 
 # =========================================================
 # WAITLIST
@@ -1934,6 +2641,9 @@ st.markdown(
         <div class="social-row">
             <a class="social-link" href="{LINKEDIN_URL}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
                 {social_icon("linkedin")}
+            </a>
+            <a class="social-link" href="{YOUTUBE_URL}" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                {social_icon("youtube")}
             </a>
             <a class="social-link" href="{X_URL}" target="_blank" rel="noopener noreferrer" aria-label="X">
                 {social_icon("x")}
