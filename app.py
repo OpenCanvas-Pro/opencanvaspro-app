@@ -935,6 +935,197 @@ def load_maturity_section(lang: str) -> str:
     return html
 
 
+ROADMAP_LEVELS = [
+    {
+        "level": "Nível 1",
+        "title": "Automação Simples",
+        "desc": "Execução de tarefas repetitivas baseada em regras estáticas.",
+        "features": [
+            "Scripts de Ingestão (Python)",
+            "ETL Linear",
+        ],
+        "footer_label": "Plataformas atuais",
+        "footer_items": [
+            "ETL Manual / Python",
+            "Jupyter Notebooks",
+            "RPA Tradicional",
+        ],
+    },
+    {
+        "level": "Nível 2",
+        "title": "Inteligência Estatística",
+        "desc": "Aprendizado de padrões históricos sem noção de contexto.",
+        "features": [
+            "Modelos Preditivos",
+            "Classificação & Regressão",
+        ],
+        "footer_label": "Plataformas atuais",
+        "footer_items": [
+            "AutoML Tradicional (H2O, AutoGluon)",
+            "Notebooks de Ciência de Dados",
+        ],
+    },
+    {
+        "level": "Nível 3",
+        "title": "IA Assistiva",
+        "desc": "Interface guiada para acelerar fluxos através da facilidade de uso.",
+        "features": [
+            "Copilotos de Código",
+            "AutoML No-Code",
+        ],
+        "footer_label": "Plataformas atuais",
+        "footer_items": [
+            "AWS SageMaker Canvas",
+            "Google Vertex AI",
+            "MS Azure ML Studio",
+        ],
+    },
+    {
+        "level": "Nível 4",
+        "title": "Cognição & Integridade",
+        "desc": "Interpreta contexto, integra sinais de qualidade e justifica recomendações com base em evidência estatística.",
+        "features": [
+            "<b>Cognitive Navigation (E.M.I.L.I.A.™)</b>",
+            "<b>Knowledge Graphs (Alexandr.I.A.)</b>",
+            "Scientific Integrity Shield",
+            "Diagnóstico Proativo / White Box ML",
+            "Auditoria Gold Standard",
+            "Sovereignty & Model Export",
+            "100% No Code",
+        ],
+        "footer_label": "Diferencial OpenCanvas",
+        "footer_items": [
+            "Foco em Missão Crítica, Governança Executiva e Transparência Total.",
+        ],
+        "status": "CURRENT STATE",
+        "active": True,
+    },
+    {
+        "level": "Nível 5",
+        "title": "Autonomia Agêntica",
+        "desc": "Execução de objetivos complexos com correção dinâmica de estratégia.",
+        "features": [
+            "Agentes Multi-step",
+            "Auto-remediação baseada em feedback de desempenho",
+            "Evolução contínua orientada por contexto",
+        ],
+        "footer_label": "Mercado",
+        "footer_items": [
+            "Teoria acadêmica",
+            "Agentes Genéricos (Experimental)",
+            "Pesquisa de Fronteira",
+        ],
+        "status": "LAB STAGE",
+        "future": True,
+    },
+]
+
+
+def roadmap_t(lang: str, text: str) -> str:
+    if lang == "pt":
+        return text
+    for old, new in maturity_replacements(lang):
+        if old == text:
+            return new
+    return text
+
+
+def roadmap_t_html(lang: str, text: str) -> str:
+    if lang == "pt":
+        return text
+    return apply_replacements(text, maturity_replacements(lang))
+
+
+def render_native_roadmap(lang: str) -> str:
+    cards_html = []
+    for item in ROADMAP_LEVELS:
+        card_classes = "roadmap-card"
+        if item.get("active"):
+            card_classes += " active"
+
+        badge_html = ""
+        if item.get("status"):
+            badge_class = "roadmap-status-badge"
+            if item.get("future"):
+                badge_class += " future"
+            badge_html = f'<div class="{badge_class}">{html_lib.escape(roadmap_t(lang, item["status"]))}</div>'
+
+        features = []
+        for feature in item["features"]:
+            translated_feature = roadmap_t_html(lang, feature)
+            features.append(f"<li>{translated_feature}</li>")
+
+        footer_items = "".join(
+            f'<div class="roadmap-market-content">{html_lib.escape(roadmap_t(lang, footer_item))}</div>'
+            for footer_item in item["footer_items"]
+        )
+
+        cards_html.append(
+            f"""
+            <div class="{card_classes}">
+                {badge_html}
+                <div class="roadmap-level-tag">{html_lib.escape(roadmap_t(lang, item["level"]))}</div>
+                <div class="roadmap-card-title">{html_lib.escape(roadmap_t(lang, item["title"]))}</div>
+                <div class="roadmap-card-desc">{html_lib.escape(roadmap_t(lang, item["desc"]))}</div>
+                <ul class="roadmap-features">
+                    {''.join(features)}
+                </ul>
+                <div class="roadmap-card-footer">
+                    <div class="roadmap-market-divider">{html_lib.escape(roadmap_t(lang, item["footer_label"]))}</div>
+                    {footer_items}
+                </div>
+            </div>
+            """
+        )
+
+    trajectory = roadmap_t_html(
+        lang,
+        "Hoje: <b>Nível 4 — Cognição Assistida</b> → Próximo marco: <b>Nível 5 — Autonomia Agêntica</b>",
+    )
+    pipeline_note = roadmap_t_html(
+        lang,
+        "Este roadmap já está operacional dentro do pipeline <b>Bronze → Silver → Gold</b> da plataforma.",
+    )
+    quote = roadmap_t_html(lang, "“Modelos não são aceitos — são auditados.”")
+    footer_note = roadmap_t_html(
+        lang,
+        "OpenCanvas <b>Pro</b>™ | <b>Don’t just build models. Trust them.</b> | v4.0 Strategic Roadmap",
+    )
+
+    emilia_src = file_to_data_uri(EMILIA_PATH) if os.path.exists(EMILIA_PATH) else ""
+    emilia_html = (
+        f"""
+        <div class="roadmap-emilia-row">
+            <div class="roadmap-emilia-badge">
+                <img src="{emilia_src}" alt="E.M.I.L.I.A. - Engine for Machine Learning Integrity and Auditing">
+            </div>
+        </div>
+        """
+        if emilia_src
+        else ""
+    )
+
+    return dedent(
+        f"""
+        <div class="roadmap-native">
+            <div class="ocp-section-rule"></div>
+            <div class="roadmap-native-header">{html_lib.escape(roadmap_t(lang, "Roadmap de Soberania Tecnológica"))}</div>
+            <div class="roadmap-native-grid">
+                {''.join(cards_html)}
+            </div>
+            <div class="roadmap-native-footer">
+                <div class="roadmap-market-break">{html_lib.escape(roadmap_t(lang, "A maioria das plataformas para no nível 3."))}</div>
+                <div class="roadmap-trajectory">{trajectory}</div>
+                <div class="roadmap-pipeline-note">{pipeline_note}</div>
+                <blockquote class="roadmap-highlight-quote">{quote}</blockquote>
+                {emilia_html}
+                <div class="roadmap-footer-note">{footer_note}</div>
+            </div>
+        </div>
+        """
+    ).strip()
+
+
 def render_responsive_roadmap_iframe(html_content: str, frame_id: str = "ocp-roadmap-frame") -> str:
     embedded_script = dedent(
         f"""
@@ -1057,7 +1248,7 @@ def build_view_url(view: str | None = None, lang: str | None = None) -> str:
         params.append(f"view={view}")
     if lang:
         params.append(f"lang={lang}")
-    return "?" + "&".join(params) if params else "?"
+    return "/?" + "&".join(params) if params else "/"
 
 
 def social_icon(name: str) -> str:
@@ -1207,7 +1398,6 @@ if not map_only_view:
 
 lang = st.session_state.ui_lang
 inject_seo_tags(lang)
-maturity_section_html = load_maturity_section(lang)
 snis_map_html = load_embeddable_html(SNIS_MAP_HTML_PATH)
 main_view_url = build_view_url(lang=lang)
 map_view_url = build_view_url(view="snis-map", lang=lang)
@@ -1746,6 +1936,214 @@ st.markdown(
             background: linear-gradient(180deg, rgba(28,20,14,0.98) 0%, rgba(20,16,12,0.98) 100%);
         }
 
+        .roadmap-native {
+            margin-top: 0.25rem;
+        }
+
+        .roadmap-native-header {
+            color: var(--ocp-orange) !important;
+            font-size: clamp(2rem, 3.4vw, 3.1rem);
+            line-height: 1.08;
+            letter-spacing: -0.04em;
+            font-weight: 800;
+            text-align: center;
+            margin: 0 0 2.2rem 0;
+        }
+
+        .roadmap-native-grid {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .roadmap-card {
+            position: relative;
+            background: var(--ocp-card);
+            border: 1px solid var(--ocp-border);
+            border-radius: 18px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100%;
+            box-shadow: 0 0 0 1px rgba(255,255,255,0.02) inset;
+        }
+
+        .roadmap-card.active {
+            border: 2px solid var(--ocp-orange);
+            background: #141414;
+            box-shadow: 0 0 30px rgba(255,107,0,0.12);
+        }
+
+        .roadmap-level-tag {
+            font-size: 0.75rem;
+            font-weight: 900;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .roadmap-card.active .roadmap-level-tag {
+            color: var(--ocp-orange) !important;
+        }
+
+        .roadmap-card-title {
+            font-size: 1.45rem;
+            line-height: 1.12;
+            font-weight: 800;
+            color: #F7F7F7;
+            margin-bottom: 12px;
+            min-height: 68px;
+        }
+
+        .roadmap-card-desc {
+            font-size: 0.95rem;
+            color: #AAAAAA;
+            line-height: 1.45;
+            margin-bottom: 20px;
+            min-height: 86px;
+        }
+
+        .roadmap-features {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            font-size: 0.88rem;
+        }
+
+        .roadmap-features li {
+            position: relative;
+            margin-bottom: 8px;
+            padding-left: 15px;
+            color: #D7D7D7;
+            line-height: 1.35;
+        }
+
+        .roadmap-features li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--ocp-orange);
+        }
+
+        .roadmap-card-footer {
+            margin-top: auto;
+        }
+
+        .roadmap-market-divider {
+            margin: 20px 0 15px 0;
+            border-top: 1px solid #333;
+            padding-top: 15px;
+            font-size: 0.75rem;
+            color: #888;
+            text-transform: uppercase;
+            font-weight: 800;
+            letter-spacing: 0.02em;
+        }
+
+        .roadmap-market-content {
+            font-size: 0.8rem;
+            color: #777;
+            font-style: italic;
+            line-height: 1.35;
+        }
+
+        .roadmap-status-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--ocp-orange);
+            color: #FFFFFF;
+            font-size: 0.65rem;
+            font-weight: 900;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        .roadmap-status-badge.future {
+            background: transparent;
+            border: 1px solid var(--ocp-orange);
+            color: var(--ocp-orange);
+        }
+
+        .roadmap-native-footer {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 1.8rem;
+        }
+
+        .roadmap-market-break {
+            margin-top: 0.2rem;
+            font-size: 0.96rem;
+            text-align: center;
+            color: var(--ocp-orange);
+            font-weight: 800;
+        }
+
+        .roadmap-trajectory {
+            margin-top: 1rem;
+            font-size: 1rem;
+            text-align: center;
+            line-height: 1.55;
+        }
+
+        .roadmap-pipeline-note {
+            margin-top: 1rem;
+            font-size: 0.92rem;
+            text-align: center;
+            color: #8A8A8A;
+            line-height: 1.6;
+        }
+
+        .roadmap-highlight-quote {
+            margin-top: 1.9rem;
+            padding: 18px 30px;
+            max-width: 790px;
+            border-left: 4px solid var(--ocp-orange);
+            border-radius: 12px;
+            background: linear-gradient(180deg, rgba(255,102,0,0.10) 0%, rgba(255,102,0,0.04) 100%);
+            color: #F3F3F3;
+            font-size: 1.15rem;
+            font-weight: 700;
+            font-style: italic;
+            letter-spacing: -0.02em;
+            text-align: center;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.28);
+        }
+
+        .roadmap-emilia-row {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 0.15rem;
+        }
+
+        .roadmap-emilia-badge {
+            opacity: 0.85;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .roadmap-emilia-badge:hover {
+            transform: scale(1.05);
+            opacity: 1;
+        }
+
+        .roadmap-emilia-badge img {
+            height: 150px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .roadmap-footer-note {
+            margin-top: 0.35rem;
+            text-align: center;
+            color: #555;
+            line-height: 1.5;
+        }
+
         .map-section {
             margin-top: 0.5rem;
         }
@@ -2190,6 +2588,10 @@ st.markdown(
             .roadmap-wide-shell [data-testid="stIFrame"] {
                 height: 2850px !important;
             }
+
+            .roadmap-native-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
         }
 
         @media (max-width: 700px) {
@@ -2205,11 +2607,40 @@ st.markdown(
             .roadmap-wide-shell [data-testid="stIFrame"] {
                 height: 5600px !important;
             }
+
+            .roadmap-native-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .roadmap-native-header {
+                margin-bottom: 1.7rem;
+            }
         }
 
         @media (max-width: 480px) {
             .roadmap-wide-shell [data-testid="stIFrame"] {
                 height: 6400px !important;
+            }
+
+            .roadmap-native-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .roadmap-card-title {
+                min-height: auto;
+            }
+
+            .roadmap-card-desc {
+                min-height: auto;
+            }
+
+            .roadmap-highlight-quote {
+                padding: 16px 18px;
+                font-size: 1.02rem;
+            }
+
+            .roadmap-emilia-badge img {
+                height: 132px;
             }
         }
     </style>
@@ -2550,11 +2981,9 @@ st.markdown("</div>", unsafe_allow_html=True)
 # =========================================================
 # MATURITY ROADMAP
 # =========================================================
-if maturity_section_html:
-    st.markdown('<div class="roadmap-wide-shell">', unsafe_allow_html=True)
-    st.markdown('<div class="ocp-section-rule"></div>', unsafe_allow_html=True)
-    st.iframe(maturity_section_html, height=1180)
-    st.markdown("</div>", unsafe_allow_html=True)
+st.markdown('<div class="roadmap-wide-shell">', unsafe_allow_html=True)
+st.html(render_native_roadmap(lang))
+st.markdown("</div>", unsafe_allow_html=True)
 
 # =========================================================
 # SNIS MAP
