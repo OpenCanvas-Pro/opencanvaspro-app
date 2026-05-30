@@ -7,6 +7,7 @@ import smtplib
 from textwrap import dedent
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from urllib.parse import quote
 
 import streamlit as st
 from translations import I18N, LANG_LABELS
@@ -23,6 +24,7 @@ LOGO_PATH = os.path.join(ASSETS_DIR, "Cor_sobre_preto.svg")
 SHIELD_PATH = os.path.join(ASSETS_DIR, "integrity_shield.png")
 EMILIA_PATH = os.path.join(ASSETS_DIR, "Emilia_hires.png")
 NEO4J_PATH = os.path.join(ASSETS_DIR, "Neo4j Logo_FullColor_RGB_TransBG.svg")
+DESAFIX_BANNER_PATH = os.path.join(ASSETS_DIR, "BannerDesafio2026empresaacelerada.png")
 MATURITY_HTML_PATH = "maturidade_ia_opencanvas_v4.3.html"
 SNIS_MAP_HTML_PATH = os.path.join(ASSETS_DIR, "snis_map.html")
 SNIS_MAP_HEIGHT = 720
@@ -30,6 +32,7 @@ LINKEDIN_URL = "https://www.linkedin.com/company/opencanvaspro"
 X_URL = "https://x.com/opencanvaspro"
 GITHUB_URL = "https://github.com/OpenCanvas-Pro/opencanvaspro-app"
 YOUTUBE_URL = "https://www.youtube.com/@OpenCanvasPro"
+CONTACT_EMAIL = "contato@opencanvaspro.com"
 
 @st.cache_data(show_spinner=False)
 def file_to_data_uri(path: str) -> str:
@@ -70,6 +73,32 @@ def material_icon(name: str) -> str:
 
 def tr(lang: str, key: str) -> str:
     return I18N.get(lang, I18N["pt"]).get(key, I18N["pt"].get(key, ""))
+
+
+def get_mailto_link(plan_name: str, lang: str) -> str:
+    if lang == "pt":
+        subject = quote(f"Interesse na versão {plan_name} - OpenCanvas Pro")
+        body = quote(
+            f"Olá, equipe OpenCanvas Pro.\n\n"
+            f"Tenho interesse em saber mais sobre a versão {plan_name}.\n\n"
+            f"Gostaria de receber informações sobre recursos, disponibilidade, implantação e próximos passos.\n\n"
+            f"Nome:\n"
+            f"Empresa:\n"
+            f"Telefone:\n"
+            f"Mensagem:\n"
+        )
+    else:
+        subject = quote(f"Interest in {plan_name} version - OpenCanvas Pro")
+        body = quote(
+            f"Hello, OpenCanvas Pro team.\n\n"
+            f"I am interested in learning more about the {plan_name} version.\n\n"
+            f"I would like to receive information about features, availability, deployment, and next steps.\n\n"
+            f"Name:\n"
+            f"Company:\n"
+            f"Phone:\n"
+            f"Message:\n"
+        )
+    return f"mailto:{CONTACT_EMAIL}?subject={subject}&body={body}"
 
 
 def maturity_replacements(lang: str) -> list[tuple[str, str]]:
@@ -583,94 +612,108 @@ def roadmap_t_html(lang: str, text: str) -> str:
     return apply_replacements(text, maturity_replacements(lang))
 
 
-def render_native_roadmap(lang: str) -> str:
+def render_native_roadmap(lang: str, title_text: str = None, subtitle_text: str = None, items: list = None, cols: int = 5, show_footer: bool = True) -> str:
+    roadmap_items = items if items is not None else ROADMAP_LEVELS
+    roadmap_title = title_text if title_text is not None else roadmap_t(lang, "Roadmap de Soberania Tecnológica")
+    roadmap_subtitle = f'<div class="section-subtitle" style="text-align:center; margin: -2.8rem auto 3.8rem auto;">{html_lib.escape(subtitle_text)}</div>' if subtitle_text else ""
     cards_html = []
-    for item in ROADMAP_LEVELS:
+    for item in roadmap_items:
         card_classes = "roadmap-card"
         if item.get("active"):
             card_classes += " active"
 
         badge_html = ""
+        price_html = ""
+        
         if item.get("status"):
-            badge_class = "roadmap-status-badge"
-            if item.get("future"):
-                badge_class += " future"
-            badge_html = f'<div class="{badge_class}">{html_lib.escape(roadmap_t(lang, item["status"]))}</div>'
+            if show_footer:
+                badge_class = "roadmap-status-badge"
+                if item.get("future"):
+                    badge_class += " future"
+                badge_html = f'<div class="{badge_class}">{html_lib.escape(roadmap_t(lang, item["status"]))}</div>'
+            else:
+                price_html = f'<div class="roadmap-card-price">{html_lib.escape(roadmap_t(lang, item["status"]))}</div>'
 
         features = []
         for feature in item["features"]:
             translated_feature = roadmap_t_html(lang, feature)
             features.append(f"<li>{translated_feature}</li>")
 
-        footer_items = "".join(
-            f'<div class="roadmap-market-content">{html_lib.escape(roadmap_t(lang, footer_item))}</div>'
-            for footer_item in item["footer_items"]
+        footer_els = []
+        for fi in item["footer_items"]:
+            if isinstance(fi, dict):
+                label = roadmap_t(lang, fi.get("label", ""))
+                link = fi.get("link", "#")
+                if not show_footer:
+                    footer_els.append(f'<a href="{link}" class="map-open-link" style="width:100%; margin-top:10px; text-decoration:none; display:flex;">{html_lib.escape(label)}</a>')
+                else:
+                    footer_els.append(f'<div class="roadmap-market-content">{html_lib.escape(label)}</div>')
+            else:
+                label = roadmap_t(lang, fi)
+                if not show_footer:
+                    footer_els.append(f'<div class="map-open-link" style="width:100%; margin-top:10px; cursor:default;">{html_lib.escape(label)}</div>')
+                else:
+                    footer_els.append(f'<div class="roadmap-market-content">{html_lib.escape(label)}</div>')
+        footer_items = "".join(footer_els)
+
+        card_item = (
+            f'<div class="{card_classes}">'
+            f'{badge_html}'
+            f'<div class="roadmap-level-tag">{html_lib.escape(roadmap_t(lang, item["level"]))}</div>'
+            f'<div class="roadmap-card-title">{html_lib.escape(roadmap_t(lang, item["title"]))}</div>'
+            f'{price_html}'
+            f'<div class="roadmap-card-desc">{html_lib.escape(roadmap_t(lang, item["desc"]))}</div>'
+            f'<ul class="roadmap-features">{"".join(features)}</ul>'
+            f'<div class="roadmap-card-footer">'
+            f'<div class="roadmap-market-divider">{html_lib.escape(roadmap_t(lang, item["footer_label"]))}</div>'
+            f'{footer_items}'
+            f'</div>'
+            f'</div>'
+        )
+        cards_html.append(card_item)
+
+    footer_html = ""
+    if show_footer:
+        trajectory = roadmap_t_html(
+            lang,
+            "Hoje: <b>Nível 4 — Cognição Assistida</b> → Próximo marco: <b>Nível 5 — Autonomia Agêntica</b>",
+        )
+        pipeline_note = roadmap_t_html(
+            lang,
+            "Este roadmap já está operacional dentro do pipeline <b>Bronze → Silver → Gold</b> da plataforma.",
+        )
+        quote = roadmap_t_html(lang, "“Modelos não são aceitos — são auditados.”")
+        footer_note = roadmap_t_html(
+            lang,
+            "OpenCanvas <b>Pro</b>™ | <b>Don’t just build models. Trust them.</b> | v4.0 Strategic Roadmap",
+        )
+        emilia_src = file_to_data_uri(EMILIA_PATH) if os.path.exists(EMILIA_PATH) else ""
+        emilia_html = (
+            f'<div class="roadmap-emilia-row"><div class="roadmap-emilia-badge">'
+            f'<img src="{emilia_src}" alt="E.M.I.L.I.A. - Engine for Machine Learning Integrity and Auditing">'
+            f'</div></div>'
+            if emilia_src else ""
+        )
+        footer_html = (
+            f'<div class="roadmap-native-footer">'
+            f'<div class="roadmap-market-break">{html_lib.escape(roadmap_t(lang, "A maioria das plataformas para no nível 3."))}</div>'
+            f'<div class="roadmap-trajectory">{trajectory}</div>'
+            f'<div class="roadmap-pipeline-note">{pipeline_note}</div>'
+            f'<blockquote class="roadmap-highlight-quote">{quote}</blockquote>'
+            f'{emilia_html}'
+            f'<div class="roadmap-footer-note">{footer_note}</div>'
+            f'</div>'
         )
 
-        cards_html.append(
-            f"""
-            <div class="{card_classes}">
-                {badge_html}
-                <div class="roadmap-level-tag">{html_lib.escape(roadmap_t(lang, item["level"]))}</div>
-                <div class="roadmap-card-title">{html_lib.escape(roadmap_t(lang, item["title"]))}</div>
-                <div class="roadmap-card-desc">{html_lib.escape(roadmap_t(lang, item["desc"]))}</div>
-                <ul class="roadmap-features">
-                    {''.join(features)}
-                </ul>
-                <div class="roadmap-card-footer">
-                    <div class="roadmap-market-divider">{html_lib.escape(roadmap_t(lang, item["footer_label"]))}</div>
-                    {footer_items}
-                </div>
-            </div>
-            """
-        )
-
-    trajectory = roadmap_t_html(
-        lang,
-        "Hoje: <b>Nível 4 — Cognição Assistida</b> → Próximo marco: <b>Nível 5 — Autonomia Agêntica</b>",
+    return (
+        f'<div class="roadmap-native" style="--roadmap-cols: {cols};">'
+        f'<div class="ocp-section-rule"></div>'
+        f'<div class="roadmap-native-header">{html_lib.escape(roadmap_title)}</div>'
+        f'{roadmap_subtitle}'
+        f'<div class="roadmap-native-grid">{"".join(cards_html)}</div>'
+        f'{footer_html}'
+        f'</div>'
     )
-    pipeline_note = roadmap_t_html(
-        lang,
-        "Este roadmap já está operacional dentro do pipeline <b>Bronze → Silver → Gold</b> da plataforma.",
-    )
-    quote = roadmap_t_html(lang, "“Modelos não são aceitos — são auditados.”")
-    footer_note = roadmap_t_html(
-        lang,
-        "OpenCanvas <b>Pro</b>™ | <b>Don’t just build models. Trust them.</b> | v4.0 Strategic Roadmap",
-    )
-
-    emilia_src = file_to_data_uri(EMILIA_PATH) if os.path.exists(EMILIA_PATH) else ""
-    emilia_html = (
-        f"""
-        <div class="roadmap-emilia-row">
-            <div class="roadmap-emilia-badge">
-                <img src="{emilia_src}" alt="E.M.I.L.I.A. - Engine for Machine Learning Integrity and Auditing">
-            </div>
-        </div>
-        """
-        if emilia_src
-        else ""
-    )
-
-    return dedent(
-        f"""
-        <div class="roadmap-native">
-            <div class="ocp-section-rule"></div>
-            <div class="roadmap-native-header">{html_lib.escape(roadmap_t(lang, "Roadmap de Soberania Tecnológica"))}</div>
-            <div class="roadmap-native-grid">
-                {''.join(cards_html)}
-            </div>
-            <div class="roadmap-native-footer">
-                <div class="roadmap-market-break">{html_lib.escape(roadmap_t(lang, "A maioria das plataformas para no nível 3."))}</div>
-                <div class="roadmap-trajectory">{trajectory}</div>
-                <div class="roadmap-pipeline-note">{pipeline_note}</div>
-                <blockquote class="roadmap-highlight-quote">{quote}</blockquote>
-                {emilia_html}
-                <div class="roadmap-footer-note">{footer_note}</div>
-            </div>
-        </div>
-        """
-    ).strip()
 
 
 def render_responsive_roadmap_iframe(html_content: str, frame_id: str = "ocp-roadmap-frame") -> str:
@@ -914,13 +957,14 @@ def inject_seo_tags(lang: str = "pt"):
         "en": "OpenCanvas Pro | Cognitive AutoMLOps Trusted Platform",
         "es": "OpenCanvas Pro | Plataforma de Confianza Cognitive AutoMLOps",
     }.get(lang, tr(lang, "page_title")))
-    st.html(seo_script, unsafe_allow_javascript=True)
+    st.components.v1.html(seo_script, height=0)
 
 # =========================================================
 
 logo_uri = file_to_data_uri(LOGO_PATH) if os.path.exists(LOGO_PATH) else ""
 shield_uri = file_to_data_uri(SHIELD_PATH) if os.path.exists(SHIELD_PATH) else ""
 neo4j_uri = file_to_data_uri(NEO4J_PATH) if os.path.exists(NEO4J_PATH) else ""
+desafix_uri = file_to_data_uri(DESAFIX_BANNER_PATH) if os.path.exists(DESAFIX_BANNER_PATH) else ""
 
 requested_lang = st.query_params.get("lang", "pt")
 if requested_lang not in LANG_LABELS:
@@ -1598,13 +1642,13 @@ st.markdown(
 
         .roadmap-native-grid {
             display: grid;
-            grid-template-columns: repeat(5, minmax(0, 1fr));
+            grid-template-columns: repeat(var(--roadmap-cols, 5), minmax(0, 1fr));
             gap: 20px;
         }
 
         .roadmap-card {
             position: relative;
-            background: var(--ocp-card);
+            background: #1E1E1E;
             border: 1px solid var(--ocp-border);
             border-radius: 18px;
             padding: 24px;
@@ -1623,7 +1667,7 @@ st.markdown(
 
         .roadmap-card.active {
             border: 2px solid var(--ocp-orange);
-            background: #141414;
+            background: #252525;
             box-shadow: 0 0 30px rgba(255,107,0,0.12);
         }
 
@@ -1646,7 +1690,14 @@ st.markdown(
             font-weight: 800;
             color: #F7F7F7;
             margin-bottom: 12px;
-            min-height: 68px;
+        }
+
+        .roadmap-card-price {
+            font-size: 1.9rem;
+            line-height: 1;
+            font-weight: 900;
+            color: var(--ocp-orange);
+            margin-bottom: 20px;
         }
 
         .roadmap-card-desc {
@@ -1678,7 +1729,7 @@ st.markdown(
         }
 
         .roadmap-features li::before {
-            content: "→";
+            content: "•";
             position: absolute;
             left: 0;
             color: var(--ocp-orange);
@@ -2003,7 +2054,9 @@ st.markdown(
         .partner-spotlight {
             margin-top: 2.25rem;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
         }
 
         .partner-badge {
@@ -2089,6 +2142,26 @@ st.markdown(
             font-size: 0.72rem;
             line-height: 1.35;
             margin-top: 0.22rem;
+        }
+
+        .desafix-banner {
+            max-width: 680px;
+            width: 100%;
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.24);
+            overflow: hidden;
+            transition: transform 0.24s ease, box-shadow 0.24s ease;
+        }
+        .desafix-banner:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 32px rgba(0, 0, 0, 0.35);
+            border-color: rgba(255, 107, 0, 0.3);
+        }
+        .desafix-banner img {
+            width: 100%;
+            height: auto;
+            display: block;
         }
 
         div.stButton > button,
@@ -2399,11 +2472,10 @@ if map_only_view:
                 overflow: hidden !important;
             }
 
-            iframe[title="st.iframe"] {
+            iframe[title="st.components.v1.html"] {
                 border: 0 !important;
                 display: block !important;
                 margin: 0 !important;
-                height: 100vh !important;
             }
         </style>
         """,
@@ -2441,7 +2513,7 @@ if map_only_view:
                 """
             ).strip(),
         )
-        st.iframe(standalone_map_html, height="stretch")
+        st.components.v1.html(standalone_map_html, height=1200)
     else:
         st.markdown(
             f'<div class="map-shell"><div class="map-fallback">{tr(lang, "snis_map_missing")}</div></div>',
@@ -2754,7 +2826,7 @@ with p3:
 # =========================================================
 # MATURITY ROADMAP
 # =========================================================
-st.html(render_native_roadmap(lang))
+st.markdown(render_native_roadmap(lang), unsafe_allow_html=True)
 
 # =========================================================
 # SNIS MAP
@@ -2772,7 +2844,7 @@ st.markdown(
 )
 
 if snis_map_html:
-    st.iframe(snis_map_html, height=SNIS_MAP_HEIGHT)
+    st.components.v1.html(snis_map_html, height=SNIS_MAP_HEIGHT)
     st.markdown(
         f"""
         <div class="map-open-row">
@@ -2786,6 +2858,42 @@ else:
         f'<div class="map-shell"><div class="map-fallback">{tr(lang, "snis_map_missing")}</div></div>',
         unsafe_allow_html=True,
     )
+
+# =========================================================
+# VERSÕES E PREÇOS
+# =========================================================
+pricing_items = [
+    {
+        "level": "Free Starter",
+        "title": tr(lang, "pricing_c1_title"),
+        "desc": tr(lang, "pricing_c1_desc"),
+        "features": [tr(lang, f"pricing_c1_f{i}") for i in range(1, 11)],
+        "footer_label": "",
+        "footer_items": ["EM BREVE"],
+        "status": f"{tr(lang, 'pricing_c1_price')} ({tr(lang, 'pricing_c1_period')})",
+        "active": True
+    },
+    {
+        "level": "Pro Workspace",
+        "title": tr(lang, "pricing_c2_title"),
+        "desc": tr(lang, "pricing_c2_desc"),
+        "features": [tr(lang, f"pricing_c2_f{i}") for i in range(1, 10)],
+        "footer_label": "Next Step",
+        "footer_items": [{"label": tr(lang, "pricing_c2_cta"), "link": get_mailto_link("Journey", lang)}],
+        "status": tr(lang, "pricing_c2_price"),
+        "future": True
+    },
+    {
+        "level": "Corporate",
+        "title": tr(lang, "pricing_c3_title"),
+        "desc": tr(lang, "pricing_c3_desc"),
+        "features": [tr(lang, f"pricing_c3_f{i}") for i in range(1, 11)],
+        "footer_label": "Enterprise",
+        "footer_items": [{"label": tr(lang, "pricing_c3_cta"), "link": get_mailto_link("Enterprise", lang)}],
+        "status": tr(lang, "pricing_c3_price")
+    }
+]
+st.markdown(render_native_roadmap(lang, title_text=tr(lang, "pricing_title"), subtitle_text=tr(lang, "pricing_subtitle"), items=pricing_items, cols=3, show_footer=False), unsafe_allow_html=True)
 
 # =========================================================
 # FAQ SECTION
@@ -2862,37 +2970,36 @@ with st.form("waitlist_form", clear_on_submit=True):
                 st.warning(tr(lang, "warning_msg"))
 
 st.markdown(
-    dedent(
-        f"""
-        <div class="social-row">
-            <a class="social-link" href="{LINKEDIN_URL}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                {social_icon("linkedin")}
-            </a>
-            <a class="social-link" href="{YOUTUBE_URL}" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
-                {social_icon("youtube")}
-            </a>
-            <a class="social-link" href="{X_URL}" target="_blank" rel="noopener noreferrer" aria-label="X">
-                {social_icon("x")}
-            </a>
-            <a class="social-link" href="{GITHUB_URL}" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-                {social_icon("github")}
-            </a>
-        </div>
-        <div class="partner-spotlight">
-            <div class="partner-badge">
-                <div class="partner-badge-logo" aria-hidden="true">
-                    <img src="{neo4j_uri}" alt="" />
-                </div>
-                <div class="partner-badge-copy">
-                    <div class="partner-badge-kicker">{tr(lang, "partner_tag")}</div>
-                    <div class="partner-badge-title">{tr(lang, "partner_title")}</div>
-                    <div class="partner-badge-subtitle">{tr(lang, "partner_subtitle")}</div>
-                    <div class="partner-badge-disclaimer">{tr(lang, "partner_disclaimer")}</div>
-                </div>
+    f"""
+    <div class="social-row">
+        <a class="social-link" href="{LINKEDIN_URL}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+            {social_icon("linkedin")}
+        </a>
+        <a class="social-link" href="{YOUTUBE_URL}" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+            {social_icon("youtube")}
+        </a>
+        <a class="social-link" href="{X_URL}" target="_blank" rel="noopener noreferrer" aria-label="X">
+            {social_icon("x")}
+        </a>
+        <a class="social-link" href="{GITHUB_URL}" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+            {social_icon("github")}
+        </a>
+    </div>
+    <div class="partner-spotlight">
+        <div class="partner-badge">
+            <div class="partner-badge-logo" aria-hidden="true">
+                <img src="{neo4j_uri}" alt="" />
+            </div>
+            <div class="partner-badge-copy">
+                <div class="partner-badge-kicker">{tr(lang, "partner_tag")}</div>
+                <div class="partner-badge-title">{tr(lang, "partner_title")}</div>
+                <div class="partner-badge-subtitle">{tr(lang, "partner_subtitle")}</div>
+                <div class="partner-badge-disclaimer">{tr(lang, "partner_disclaimer")}</div>
             </div>
         </div>
-        """
-    ).strip(),
+        {f'<div class="desafix-banner"><img src="{desafix_uri}" alt="Desafio 2026" /></div>' if desafix_uri else ""}
+    </div>
+    """,
     unsafe_allow_html=True,
 )
 
@@ -2900,13 +3007,9 @@ st.markdown(
 # FOOTER
 # =========================================================
 st.markdown(
-    """
-    <div class="footer-wrap">
-        <div class="footer-main">""" + tr(lang, "footer_main") + """</div>
-        <div class="footer-sub">
-            """ + tr(lang, "footer_sub") + """
-        </div>
-    </div>
-    """,
+    f'<div class="footer-wrap">'
+    f'<div class="footer-main">{tr(lang, "footer_main")}</div>'
+    f'<div class="footer-sub">{tr(lang, "footer_sub")}</div>'
+    f'</div>',
     unsafe_allow_html=True,
 )
