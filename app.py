@@ -958,7 +958,10 @@ def inject_seo_tags(lang: str = "pt"):
           { name: "description", content: "__DESCRIPTION__" },
           { name: "keywords", content: "__KEYWORDS__" },
           { name: "author", content: "OpenCanvas Pro" },
+          { name: "robots", content: "index,follow" },
+          { name: "theme-color", content: "#0D0D0D" },
           { property: "og:type", content: "website" },
+          { property: "og:site_name", content: "OpenCanvas Pro" },
           { property: "og:url", content: "https://opencanvaspro.com/" },
           { property: "og:title", content: "__TITLE__" },
           { property: "og:description", content: "__OG_DESCRIPTION__" },
@@ -971,6 +974,7 @@ def inject_seo_tags(lang: str = "pt"):
         ];
 
         document.title = "__DOCUMENT_TITLE__";
+        const canonicalHref = "https://opencanvaspro.com/";
 
         metaTags.forEach((attrs) => {
           const selector = attrs.name
@@ -985,6 +989,14 @@ def inject_seo_tags(lang: str = "pt"):
 
           Object.entries(attrs).forEach(([key, value]) => tag.setAttribute(key, value));
         });
+
+        let canonical = parent.document.head.querySelector('link[rel="canonical"]');
+        if (!canonical) {
+          canonical = parent.document.createElement("link");
+          canonical.setAttribute("rel", "canonical");
+          parent.document.head.appendChild(canonical);
+        }
+        canonical.setAttribute("href", canonicalHref);
         </script>
         """
     ).strip()
@@ -2485,6 +2497,44 @@ st.markdown(
             .roadmap-native-header {
                 margin-bottom: 1.7rem;
             }
+
+            .map-open-row {
+                justify-content: stretch;
+            }
+
+            .map-open-link {
+                width: 100%;
+            }
+
+            .partner-spotlight {
+                gap: 1rem;
+            }
+
+            .partner-spotlight-note {
+                font-size: 0.88rem;
+                line-height: 1.4;
+            }
+
+            .partner-badge {
+                width: 100%;
+                padding: 1rem;
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .partner-badge-logo {
+                width: 144px;
+                height: 54px;
+                flex: 0 0 auto;
+            }
+
+            .partner-badge-logo img {
+                object-position: center center;
+            }
+
+            .partner-badge-copy {
+                text-align: center;
+            }
         }
 
         @media (max-width: 480px) {
@@ -2511,6 +2561,14 @@ st.markdown(
 
             .roadmap-emilia-badge img {
                 height: 132px;
+            }
+
+            .partner-spotlight-note {
+                font-size: 0.82rem;
+            }
+
+            .desafix-banner img {
+                transform: scale(1.05);
             }
         }
     </style>
