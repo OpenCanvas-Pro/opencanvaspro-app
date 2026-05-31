@@ -7,6 +7,7 @@ import smtplib
 from textwrap import dedent
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from typing import Final, TypeAlias, TypedDict, cast
 from urllib.parse import quote
 
 import streamlit as st
@@ -24,7 +25,7 @@ LOGO_PATH = os.path.join(ASSETS_DIR, "Cor_sobre_preto.svg")
 SHIELD_PATH = os.path.join(ASSETS_DIR, "integrity_shield.png")
 EMILIA_PATH = os.path.join(ASSETS_DIR, "Emilia_hires.png")
 NEO4J_PATH = os.path.join(ASSETS_DIR, "Neo4j Logo_FullColor_RGB_TransBG.svg")
-DESAFIX_BANNER_PATH = os.path.join(ASSETS_DIR, "BannerDesafio2026empresaacelerada.png")
+DESAFIX_BANNER_PATH = os.path.join(ASSETS_DIR, "Banner_Desafio_2026_empresa_acelerada.png")
 MATURITY_HTML_PATH = "maturidade_ia_opencanvas_v4.3.html"
 SNIS_MAP_HTML_PATH = os.path.join(ASSETS_DIR, "snis_map.html")
 SNIS_MAP_HEIGHT = 720
@@ -33,6 +34,21 @@ X_URL = "https://x.com/opencanvaspro"
 GITHUB_URL = "https://github.com/OpenCanvas-Pro/opencanvaspro-app"
 YOUTUBE_URL = "https://www.youtube.com/@OpenCanvasPro"
 CONTACT_EMAIL = "contato@opencanvaspro.com"
+
+FooterLink: TypeAlias = dict[str, str]
+RoadmapFooterItem: TypeAlias = str | FooterLink
+
+
+class RoadmapItem(TypedDict, total=False):
+    level: str
+    title: str
+    desc: str
+    features: list[str]
+    footer_label: str
+    footer_items: list[RoadmapFooterItem]
+    status: str
+    future: bool
+    active: bool
 
 @st.cache_data(show_spinner=False)
 def file_to_data_uri(path: str) -> str:
@@ -51,7 +67,7 @@ def file_to_data_uri(path: str) -> str:
 
 
 def lucide_icon(name: str) -> str:
-    icons = {
+    icons: Final[dict[str, str]] = {
         "brain": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.5 2a3.5 3.5 0 0 0-2.847 5.534A4 4 0 0 0 6 15.5V16a3 3 0 0 0 5.24 2"/><path d="M14.5 2a3.5 3.5 0 0 1 2.847 5.534A4 4 0 0 1 18 15.5V16a3 3 0 0 1-5.24 2"/><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M9 12H6"/><path d="M18 12h-3"/><path d="M12 12h.01"/></svg>',
         "bell-ring": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.674C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/><path d="M4 2C2.8 3.7 2 5.7 2 8"/><path d="M22 8a9.9 9.9 0 0 0-2-6"/></svg>',
         "send": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.536 21.686a.5.5 0 0 0 .937-.025l6.5-19a.5.5 0 0 0-.63-.63l-19 6.5a.5.5 0 0 0-.025.937l7.876 3.438a2 2 0 0 1 1.02 1.02z"/><path d="m21.854 2.147-10.94 10.939"/></svg>',
@@ -65,7 +81,7 @@ def lucide_icon(name: str) -> str:
 
 
 def material_icon(name: str) -> str:
-    icons = {
+    icons: Final[dict[str, str]] = {
         "rocket-launch": "rocket_launch",
     }
     return icons[name]
@@ -469,6 +485,29 @@ def load_embeddable_html(path: str) -> str:
         return f.read()
 
 
+def make_snis_logo_clickable(html_content: str) -> str:
+    pattern = re.compile(
+        r"(<style>#opencanvas-map-logo svg\{width:100%;height:100%;display:block;\}</style>)"
+        r"(<div id='opencanvas-map-logo'[^>]*>.*?</svg></div>)",
+        re.DOTALL,
+    )
+    replacement = (
+        r"\1"
+        r"<a href='https://www.opencanvaspro.com' target='_blank' rel='noopener noreferrer' "
+        r"aria-label='OpenCanvas Pro' "
+        r"style='position: fixed; top: 16px; right: 24px; z-index: 10000; display:block; "
+        r"width: 138px; height: 138px; cursor:pointer; text-decoration:none;'>"
+        r"\2"
+        r"</a>"
+    )
+    return pattern.sub(replacement, html_content, count=1)
+
+
+def get_query_param_str(name: str, default: str = "") -> str:
+    value = st.query_params.get(name, default)
+    return value if isinstance(value, str) else default
+
+
 def load_maturity_section(lang: str) -> str:
     html = load_embeddable_html(MATURITY_HTML_PATH)
     if not html:
@@ -511,7 +550,7 @@ def load_maturity_section(lang: str) -> str:
     return html
 
 
-ROADMAP_LEVELS = [
+ROADMAP_LEVELS: list[RoadmapItem] = [
     {
         "level": "Nível 1",
         "title": "Automação Simples",
@@ -612,12 +651,26 @@ def roadmap_t_html(lang: str, text: str) -> str:
     return apply_replacements(text, maturity_replacements(lang))
 
 
-def render_native_roadmap(lang: str, title_text: str = None, subtitle_text: str = None, items: list = None, cols: int = 5, show_footer: bool = True) -> str:
+def render_native_roadmap(
+    lang: str,
+    title_text: str | None = None,
+    subtitle_text: str | None = None,
+    items: list[RoadmapItem] | None = None,
+    cols: int = 5,
+    show_footer: bool = True,
+) -> str:
     roadmap_items = items if items is not None else ROADMAP_LEVELS
     roadmap_title = title_text if title_text is not None else roadmap_t(lang, "Roadmap de Soberania Tecnológica")
     roadmap_subtitle = f'<div class="section-subtitle" style="text-align:center; margin: -2.8rem auto 3.8rem auto;">{html_lib.escape(subtitle_text)}</div>' if subtitle_text else ""
     cards_html = []
     for item in roadmap_items:
+        level = item.get("level", "")
+        title = item.get("title", "")
+        desc = item.get("desc", "")
+        status = item.get("status", "")
+        features_list = item.get("features", [])
+        footer_label = item.get("footer_label", "")
+
         card_classes = "roadmap-card"
         if item.get("active"):
             card_classes += " active"
@@ -625,22 +678,22 @@ def render_native_roadmap(lang: str, title_text: str = None, subtitle_text: str 
         badge_html = ""
         price_html = ""
         
-        if item.get("status"):
+        if status:
             if show_footer:
                 badge_class = "roadmap-status-badge"
                 if item.get("future"):
                     badge_class += " future"
-                badge_html = f'<div class="{badge_class}">{html_lib.escape(roadmap_t(lang, item["status"]))}</div>'
+                badge_html = f'<div class="{badge_class}">{html_lib.escape(roadmap_t(lang, status))}</div>'
             else:
-                price_html = f'<div class="roadmap-card-price">{html_lib.escape(roadmap_t(lang, item["status"]))}</div>'
+                price_html = f'<div class="roadmap-card-price">{html_lib.escape(roadmap_t(lang, status))}</div>'
 
         features = []
-        for feature in item["features"]:
+        for feature in features_list:
             translated_feature = roadmap_t_html(lang, feature)
             features.append(f"<li>{translated_feature}</li>")
 
         footer_els = []
-        for fi in item["footer_items"]:
+        for fi in item.get("footer_items", []):
             if isinstance(fi, dict):
                 label = roadmap_t(lang, fi.get("label", ""))
                 link = fi.get("link", "#")
@@ -659,13 +712,13 @@ def render_native_roadmap(lang: str, title_text: str = None, subtitle_text: str 
         card_item = (
             f'<div class="{card_classes}">'
             f'{badge_html}'
-            f'<div class="roadmap-level-tag">{html_lib.escape(roadmap_t(lang, item["level"]))}</div>'
-            f'<div class="roadmap-card-title">{html_lib.escape(roadmap_t(lang, item["title"]))}</div>'
+            f'<div class="roadmap-level-tag">{html_lib.escape(roadmap_t(lang, level))}</div>'
+            f'<div class="roadmap-card-title">{html_lib.escape(roadmap_t(lang, title))}</div>'
             f'{price_html}'
-            f'<div class="roadmap-card-desc">{html_lib.escape(roadmap_t(lang, item["desc"]))}</div>'
+            f'<div class="roadmap-card-desc">{html_lib.escape(roadmap_t(lang, desc))}</div>'
             f'<ul class="roadmap-features">{"".join(features)}</ul>'
             f'<div class="roadmap-card-footer">'
-            f'<div class="roadmap-market-divider">{html_lib.escape(roadmap_t(lang, item["footer_label"]))}</div>'
+            f'<div class="roadmap-market-divider">{html_lib.escape(roadmap_t(lang, footer_label))}</div>'
             f'{footer_items}'
             f'</div>'
             f'</div>'
@@ -842,7 +895,7 @@ def build_view_url(view: str | None = None, lang: str | None = None) -> str:
 
 
 def social_icon(name: str) -> str:
-    icons = {
+    icons: Final[dict[str, str]] = {
         "linkedin": '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.94 8.5H3.56V19h3.38zM5.25 3A1.97 1.97 0 1 0 5.3 6.94 1.97 1.97 0 0 0 5.25 3M20.44 11.12c0-2.93-1.56-4.3-3.65-4.3a3.16 3.16 0 0 0-2.87 1.58h-.05V8.5H10.5c.04.62 0 10.5 0 10.5h3.38v-5.86c0-.31.02-.62.12-.84.25-.62.82-1.27 1.77-1.27 1.25 0 1.75.96 1.75 2.37V19H21z"/></svg>',
         "x": '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.9 2H22l-6.77 7.74L23.2 22h-6.26l-4.9-7.39L5.58 22H2.47l7.24-8.27L1.8 2h6.42l4.43 6.75zm-1.1 18h1.73L7.3 3.9H5.45z"/></svg>',
         "github": '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.79 23.39c.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.42-4.04-1.42-.55-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.72.08-.72 1.2.08 1.84 1.24 1.84 1.24 1.08 1.83 2.82 1.3 3.5.99.11-.78.42-1.3.76-1.6-2.67-.31-5.47-1.33-5.47-5.92 0-1.31.47-2.38 1.24-3.22-.12-.31-.54-1.56.12-3.26 0 0 1.01-.32 3.3 1.23A11.5 11.5 0 0 1 12 6.32c1.02 0 2.05.14 3.01.41 2.29-1.55 3.29-1.23 3.29-1.23.67 1.7.25 2.95.13 3.26.77.84 1.24 1.91 1.24 3.22 0 4.6-2.8 5.6-5.48 5.91.43.37.82 1.1.82 2.22v3.2c0 .32.22.7.83.58A12 12 0 0 0 12 .5"/></svg>',
@@ -957,7 +1010,7 @@ def inject_seo_tags(lang: str = "pt"):
         "en": "OpenCanvas Pro | Cognitive AutoMLOps Trusted Platform",
         "es": "OpenCanvas Pro | Plataforma de Confianza Cognitive AutoMLOps",
     }.get(lang, tr(lang, "page_title")))
-    st.components.v1.html(seo_script, height=0)
+    st.html(seo_script, unsafe_allow_javascript=True)
 
 # =========================================================
 
@@ -966,15 +1019,19 @@ shield_uri = file_to_data_uri(SHIELD_PATH) if os.path.exists(SHIELD_PATH) else "
 neo4j_uri = file_to_data_uri(NEO4J_PATH) if os.path.exists(NEO4J_PATH) else ""
 desafix_uri = file_to_data_uri(DESAFIX_BANNER_PATH) if os.path.exists(DESAFIX_BANNER_PATH) else ""
 
-requested_lang = st.query_params.get("lang", "pt")
+requested_lang = get_query_param_str("lang", "pt")
 if requested_lang not in LANG_LABELS:
     requested_lang = "pt"
-map_only_view = st.query_params.get("view") == "snis-map"
+map_only_view = get_query_param_str("view") == "snis-map"
 
 if "ui_lang" not in st.session_state:
     st.session_state.ui_lang = requested_lang
 elif map_only_view:
     st.session_state.ui_lang = requested_lang
+
+def format_lang_label(code: str) -> str:
+    return LANG_LABELS.get(code, code)
+
 
 if not map_only_view:
     lang_bar_left, lang_bar_right = st.columns([9, 1], vertical_alignment="center")
@@ -982,14 +1039,14 @@ if not map_only_view:
         st.selectbox(
             "Language",
             options=list(LANG_LABELS.keys()),
-            format_func=lambda code: LANG_LABELS[code],
+            format_func=format_lang_label,
             key="ui_lang",
             label_visibility="collapsed",
         )
 
-lang = st.session_state.ui_lang
+lang = cast(str, st.session_state.ui_lang)
 inject_seo_tags(lang)
-snis_map_html = load_embeddable_html(SNIS_MAP_HTML_PATH)
+snis_map_html = make_snis_logo_clickable(load_embeddable_html(SNIS_MAP_HTML_PATH))
 main_view_url = build_view_url(lang=lang)
 map_view_url = build_view_url(view="snis-map", lang=lang)
 
@@ -2059,6 +2116,16 @@ st.markdown(
             gap: 1.5rem;
         }
 
+        .partner-spotlight-note {
+            max-width: 680px;
+            width: 100%;
+            text-align: center;
+            color: rgba(255,255,255,0.82) !important;
+            font-size: 0.95rem;
+            line-height: 1.45;
+            font-weight: 700;
+        }
+
         .partner-badge {
             display: inline-flex;
             align-items: center;
@@ -2149,19 +2216,22 @@ st.markdown(
             width: 100%;
             border-radius: 16px;
             border: 1px solid rgba(255,255,255,0.08);
+            background: linear-gradient(180deg, #2A0637 0%, #3B0A4D 100%);
             box-shadow: 0 10px 24px rgba(0, 0, 0, 0.24);
             overflow: hidden;
             transition: transform 0.24s ease, box-shadow 0.24s ease;
         }
         .desafix-banner:hover {
             transform: translateY(-2px);
-            box-shadow: 0 14px 32px rgba(0, 0, 0, 0.35);
-            border-color: rgba(255, 107, 0, 0.3);
+            box-shadow: 0 14px 32px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(186, 85, 255, 0.16), 0 0 28px rgba(133, 46, 196, 0.28);
+            border-color: rgba(186, 85, 255, 0.34);
         }
         .desafix-banner img {
             width: 100%;
             height: auto;
             display: block;
+            transform: scale(1.035);
+            transform-origin: center center;
         }
 
         div.stButton > button,
@@ -2472,48 +2542,77 @@ if map_only_view:
                 overflow: hidden !important;
             }
 
-            iframe[title="st.components.v1.html"] {
-                border: 0 !important;
-                display: block !important;
-                margin: 0 !important;
-            }
         </style>
         """,
         unsafe_allow_html=True,
     )
 
     if snis_map_html:
-        standalone_map_html = snis_map_html.replace(
-            "</head>",
-            dedent(
-                """
-                <script>
-                    function syncStandaloneFrameSize() {
-                        if (window.frameElement) {
-                            const viewportHeight = window.parent ? window.parent.innerHeight : window.innerHeight;
-                            window.frameElement.style.height = `${viewportHeight}px`;
-                            window.frameElement.style.width = "100%";
-                            window.frameElement.style.display = "block";
-                            window.frameElement.style.margin = "0";
-                            window.frameElement.style.padding = "0";
-                            window.frameElement.style.verticalAlign = "top";
+        st.iframe(snis_map_html, height=1200)
+        st.html(
+            """
+            <style>
+                html, body, [data-testid="stAppViewContainer"], [data-testid="stMain"] {
+                    margin: 0 !important;
+                    padding: 0 !important;
+                    overflow: hidden !important;
+                }
 
-                            if (window.frameElement.parentElement) {
-                                window.frameElement.parentElement.style.height = `${viewportHeight}px`;
-                                window.frameElement.parentElement.style.margin = "0";
-                                window.frameElement.parentElement.style.padding = "0";
-                            }
+                [data-testid="stMainBlockContainer"] {
+                    max-width: none !important;
+                    padding: 0 !important;
+                    margin: 0 !important;
+                }
+
+                [data-testid="stIFrame"] {
+                    width: calc(100vw + 6px) !important;
+                    height: calc(100vh + 6px) !important;
+                    margin: 0 !important;
+                    padding: 0 !important;
+                    transform: translate(-3px, -3px);
+                }
+
+                [data-testid="stIFrame"] iframe {
+                    height: 100% !important;
+                    width: 100% !important;
+                    display: block !important;
+                    border: 0 !important;
+                }
+            </style>
+            <script>
+                (function() {
+                    function resizeFullscreenMap() {
+                        const wrapper = parent.document.querySelector('[data-testid="stIFrame"]');
+                        const frame = wrapper ? wrapper.querySelector('iframe') : null;
+                        const viewport = window.innerHeight || parent.innerHeight || 900;
+                        const height = Math.max(viewport + 6, 720);
+
+                        if (wrapper) {
+                            wrapper.style.width = 'calc(100vw + 6px)';
+                            wrapper.style.height = height + 'px';
+                            wrapper.style.margin = '0';
+                            wrapper.style.padding = '0';
+                            wrapper.style.transform = 'translate(-3px, -3px)';
+                        }
+
+                        if (frame) {
+                            frame.style.width = '100%';
+                            frame.style.height = height + 'px';
+                            frame.style.border = '0';
+                            frame.style.display = 'block';
                         }
                     }
 
-                    window.addEventListener("load", syncStandaloneFrameSize);
-                    window.addEventListener("resize", syncStandaloneFrameSize);
-                </script>
-                </head>
-                """
-            ).strip(),
+                    resizeFullscreenMap();
+                    window.addEventListener('load', resizeFullscreenMap);
+                    window.addEventListener('resize', resizeFullscreenMap);
+                    setTimeout(resizeFullscreenMap, 150);
+                    setTimeout(resizeFullscreenMap, 500);
+                })();
+            </script>
+            """,
+            unsafe_allow_javascript=True,
         )
-        st.components.v1.html(standalone_map_html, height=1200)
     else:
         st.markdown(
             f'<div class="map-shell"><div class="map-fallback">{tr(lang, "snis_map_missing")}</div></div>',
@@ -2844,7 +2943,7 @@ st.markdown(
 )
 
 if snis_map_html:
-    st.components.v1.html(snis_map_html, height=SNIS_MAP_HEIGHT)
+    st.iframe(snis_map_html, height=SNIS_MAP_HEIGHT)
     st.markdown(
         f"""
         <div class="map-open-row">
@@ -2862,7 +2961,7 @@ else:
 # =========================================================
 # VERSÕES E PREÇOS
 # =========================================================
-pricing_items = [
+pricing_items: list[RoadmapItem] = [
     {
         "level": "Free Starter",
         "title": tr(lang, "pricing_c1_title"),
@@ -2986,6 +3085,7 @@ st.markdown(
         </a>
     </div>
     <div class="partner-spotlight">
+        <div class="partner-spotlight-note">{tr(lang, "partner_spotlight_note")}</div>
         <div class="partner-badge">
             <div class="partner-badge-logo" aria-hidden="true">
                 <img src="{neo4j_uri}" alt="" />
