@@ -162,6 +162,9 @@ I18N: dict[str, dict[str, str]] = {
         "pricing_c3_f9": "Suporte especializado e acompanhamento técnico",
         "pricing_c3_f10": "Recursos avançados de compliance e rastreabilidade",
         "pricing_c3_cta": "Solicitar proposta",
+        "stack_title": "Arquitetura e Stack Tecnológica",
+        "stack_subtitle": "A OpenCanvas Pro é construída sobre tecnologias consolidadas do ecossistema de Ciência de Dados, IA, Engenharia de Dados e Governança.",
+        "stack_disclaimer": "Marcas e logotipos pertencem aos seus respectivos proprietários e são usados apenas para fins informativos.",
     },
     "en": {
         "hero_subcopy": "Built for teams that cannot afford to get data-driven decisions wrong",
@@ -312,6 +315,9 @@ I18N: dict[str, dict[str, str]] = {
         "pricing_c3_f9": "Specialized support and technical monitoring",
         "pricing_c3_f10": "Advanced compliance and traceability features",
         "pricing_c3_cta": "Request proposal",
+        "stack_title": "Architecture & Technology Stack",
+        "stack_subtitle": "OpenCanvas Pro is built on established technologies from the Data Science, AI, Data Engineering, and Governance ecosystem.",
+        "stack_disclaimer": "Trademarks and logos belong to their respective owners and are used for informational purposes only.",
     },
     "es": {
         "hero_subcopy": "Hecho para equipos que no pueden permitirse equivocarse con decisiones basadas en datos",
@@ -379,7 +385,7 @@ I18N: dict[str, dict[str, str]] = {
         "snis_map_expand": "Abrir mapa en nueva pestaña",
         "snis_map_back": "Volver a la landing",
         "footer_main": "© OpenCanvas <span class=\"accent\" style=\"color:#FF6B00;\">Pro™</span> 2026 | <span class=\"footer-highlight\">Plataforma de Confianza de AutoMLOps</span>",
-        "footer_sub": "Plataforma en fase temprana | CNPJ 64.918.004/0001-36 | opencanvaspro.com<br>Construida para la ciencia. Construida para la confianza. Impulsada por E.M.I.L.I.A.™ | <a href=\"mailto:contato@opencanvaspro.com\">Construida para la ciencia. Construida para la confianza. Impulsada por E.M.I.L.I.A.™ | contato@opencanvaspro.com</a>",
+        "footer_sub": "Plataforma en fase temprana | CNPJ 64.918.004/0001-36 | opencanvaspro.com<br>Construida para la ciencia. Construida para la confianza. Impulsada por E.M.I.L.I.A.™ | <a href=\"mailto:contato@opencanvaspro.com\">contato@opencanvaspro.com</a>",
         "page_title": "OpenCanvas Pro | Cognitive AutoMLOps",
         "email_subject": "Nuevo registro en la waitlist — OpenCanvas Pro",
         "email_body": "Nuevo interés registrado en la waitlist de OpenCanvas Pro.",
@@ -462,6 +468,9 @@ I18N: dict[str, dict[str, str]] = {
         "pricing_c3_f9": "Soporte especializado y seguimiento técnico",
         "pricing_c3_f10": "Funciones avanzadas de cumplimiento y trazabilidad",
         "pricing_c3_cta": "Solicitar propuesta",
+        "stack_title": "Arquitectura y Stack Tecnológica",
+        "stack_subtitle": "OpenCanvas Pro está construida sobre tecnologías consolidadas del ecosistema de Ciencia de Datos, IA, Ingeniería de Datos y Gobernanza.",
+        "stack_disclaimer": "Las marcas y logotipos pertenecen a sus respectivos propietarios y se utilizan únicamente con fines informativos.",
     },
     "fr": {
         "hero_subcopy": "Conçu pour les équipes qui ne peuvent pas se permettre de se tromper dans leurs décisions fondées sur les données",
@@ -612,6 +621,9 @@ I18N: dict[str, dict[str, str]] = {
         "pricing_c3_f9": "Support spécialisé et suivi technique",
         "pricing_c3_f10": "Fonctions avancées de conformité et de traçabilité",
         "pricing_c3_cta": "Demander une proposition",
+        "stack_title": "Architecture et Stack Technologique",
+        "stack_subtitle": "OpenCanvas Pro est construite sur des technologies établies de l'écosystème de la Data Science, de l'IA, de l'ingénierie des données et de la gouvernance.",
+        "stack_disclaimer": "Les marques et logos appartiennent à leurs propriétaires respectifs et sont utilisés uniquement à des fins informatives.",
     },
     "de": {
         "hero_subcopy": "Für Teams entwickelt, die sich bei datenbasierten Entscheidungen keinen Fehler leisten können",
@@ -762,6 +774,9 @@ I18N: dict[str, dict[str, str]] = {
         "pricing_c3_f9": "Spezialisierter Support und technische Begleitung",
         "pricing_c3_f10": "Erweiterte Compliance- und Rückverfolgbarkeitsfunktionen",
         "pricing_c3_cta": "Angebot anfordern",
+        "stack_title": "Architektur und Technologie-Stack",
+        "stack_subtitle": "OpenCanvas Pro basiert auf etablierten Technologien aus dem Ökosystem von Data Science, KI, Data Engineering und Governance.",
+        "stack_disclaimer": "Marken und Logos gehören ihren jeweiligen Eigentümern und werden nur zu Informationszwecken verwendet.",
     },
     "hi": {
         "hero_subcopy": "उन टीमों के लिए बनाया गया है जिन्हें डेटा-आधारित फैसलों में बिल्कुल गलती की गुंजाइश नहीं है",
@@ -912,5 +927,8 @@ I18N: dict[str, dict[str, str]] = {
         "pricing_c3_f9": "विशेषज्ञ सहायता और तकनीकी निगरानी",
         "pricing_c3_f10": "उन्नत अनुपालन और ट्रेसबिलिटी सुविधाएँ",
         "pricing_c3_cta": "प्रस्ताव का अनुरोध करें",
+        "stack_title": "वास्तुकला और तकनीकी स्टैक",
+        "stack_subtitle": "OpenCanvas Pro डेटा साइंस, AI, डेटा इंजीनियरिंग और गवर्नेंस इकोसिस्टम की स्थापित तकनीकों पर निर्मित है।",
+        "stack_disclaimer": "ट्रेडमार्क और लोगो उनके संबंधित स्वामियों की संपत्ति हैं और केवल सूचनात्मक उद्देश्यों के लिए उपयोग किए जाते हैं।",
     },
 }

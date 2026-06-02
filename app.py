@@ -29,6 +29,21 @@ DESAFIX_BANNER_PATH = os.path.join(ASSETS_DIR, "Banner_Desafio_2026_empresa_acel
 MATURITY_HTML_PATH = "maturidade_ia_opencanvas_v4.3.html"
 SNIS_MAP_HTML_PATH = os.path.join(ASSETS_DIR, "snis_map.html")
 SNIS_MAP_HEIGHT = 720
+
+STACK_LOGOS = {
+    "python": "python_logo.png",
+    "parquet": "parquet_logo.svg",
+    "pandas": "pandas_white_logo.svg",
+    "numpy": "numpy_logo.svg",
+    "sklearn": "sklearn_logo.png",
+    "pycaret": "pycaret_logo.png",
+    "shap": "shap_logo.png",
+    "plotly": "plotly_logo_white.svg",
+    "streamlit": "streamlit_logo_secondary.svg",
+    "firebase": "firebase_logo.svg",
+    "neo4j": "Neo4j Logo_FullColor_RGB_TransBG.svg",
+}
+
 LINKEDIN_URL = "https://www.linkedin.com/company/opencanvaspro"
 X_URL = "https://x.com/opencanvaspro"
 GITHUB_URL = "https://github.com/OpenCanvas-Pro/opencanvaspro-app"
@@ -71,6 +86,7 @@ def lucide_icon(name: str) -> str:
         "brain": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.5 2a3.5 3.5 0 0 0-2.847 5.534A4 4 0 0 0 6 15.5V16a3 3 0 0 0 5.24 2"/><path d="M14.5 2a3.5 3.5 0 0 1 2.847 5.534A4 4 0 0 1 18 15.5V16a3 3 0 0 1-5.24 2"/><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M9 12H6"/><path d="M18 12h-3"/><path d="M12 12h.01"/></svg>',
         "bell-ring": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.268 21a2 2 0 0 0 3.464 0"/><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.674C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/><path d="M4 2C2.8 3.7 2 5.7 2 8"/><path d="M22 8a9.9 9.9 0 0 0-2-6"/></svg>',
         "send": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.536 21.686a.5.5 0 0 0 .937-.025l6.5-19a.5.5 0 0 0-.63-.63l-19 6.5a.5.5 0 0 0-.025.937l7.876 3.438a2 2 0 0 1 1.02 1.02z"/><path d="m21.854 2.147-10.94 10.939"/></svg>',
+        "chevron-up": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m18 15-6-6-6 6"/></svg>',
         "shield": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></svg>',
         "file-text": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>',
         "rocket": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 16.5c-1.5 1.5-2 4.5-2 4.5s3-.5 4.5-2c1-1 1.5-2 1.5-2s-1-.5-2-1.5-1.5-2-1.5-2-1 1.5-2.5 3Z"/><path d="m12 15-3-3a19.8 19.8 0 0 1 8-8l3 3a19.8 19.8 0 0 1-8 8Z"/><path d="M9 12 4 7a19.8 19.8 0 0 1 8-3l3 3"/><path d="M12 15l5 5a19.8 19.8 0 0 0 3-8l-3-3"/></svg>',
@@ -93,10 +109,10 @@ def tr(lang: str, key: str) -> str:
 
 def get_mailto_link(plan_name: str, lang: str) -> str:
     if lang == "pt":
-        subject = quote(f"Interesse na versão {plan_name} - OpenCanvas Pro")
+        subject = quote(f"Interesse na plataforma {plan_name} - OpenCanvas Pro")
         body = quote(
             f"Olá, equipe OpenCanvas Pro.\n\n"
-            f"Tenho interesse em saber mais sobre a versão {plan_name}.\n\n"
+            f"Tenho interesse em saber mais sobre a plataforma {plan_name}.\n\n"
             f"Gostaria de receber informações sobre recursos, disponibilidade, implantação e próximos passos.\n\n"
             f"Nome:\n"
             f"Empresa:\n"
@@ -1080,6 +1096,10 @@ st.markdown(
             --ocp-soft: #BDBDBD;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         .stApp {
             background: var(--ocp-bg) !important;
         }
@@ -1243,6 +1263,128 @@ st.markdown(
             width: 100%;
         }
 
+        .stack-wrap {
+            width: 100%;
+            max-width: 1240px;
+            margin: 0 auto;
+        }
+
+        .stack-viewport {
+            width: 100%;
+            margin-top: 1.75rem;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .stack-viewport::before,
+        .stack-viewport::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 64px;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .stack-viewport::before {
+            left: 0;
+            background: linear-gradient(90deg, var(--ocp-bg) 0%, rgba(13,13,13,0) 100%);
+        }
+
+        .stack-viewport::after {
+            right: 0;
+            background: linear-gradient(270deg, var(--ocp-bg) 0%, rgba(13,13,13,0) 100%);
+        }
+
+        .stack-strip {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            width: max-content;
+            padding: 0.5rem 0.2rem 0.9rem 0.2rem;
+            will-change: transform;
+            animation: stack-marquee 28s linear infinite;
+        }
+
+        .stack-viewport:hover .stack-strip {
+            animation-play-state: paused;
+        }
+
+        .stack-logo-chip {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 0 0 auto;
+            min-width: 168px;
+            height: 92px;
+            padding: 0.95rem 1.25rem;
+            border-radius: 18px;
+            border: 1px solid rgba(255,255,255,0.08);
+            background: linear-gradient(180deg, rgba(32,32,32,0.98) 0%, rgba(24,24,24,0.98) 100%);
+            box-shadow: 0 14px 28px rgba(0,0,0,0.16);
+            transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease, background 0.22s ease;
+        }
+
+        .stack-logo-item {
+            display: block;
+            width: auto;
+            height: auto;
+            max-width: 150px;
+            max-height: 36px;
+            object-fit: contain;
+            opacity: 0.72;
+            transition: transform 0.22s ease, filter 0.22s ease;
+        }
+
+        .stack-logo-chip:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255,107,0,0.3);
+            background: linear-gradient(180deg, rgba(40,40,40,0.99) 0%, rgba(30,30,30,0.99) 100%);
+            box-shadow: 0 18px 34px rgba(255,107,0,0.08), 0 0 0 1px rgba(255,107,0,0.04) inset;
+        }
+
+        .stack-logo-chip:hover .stack-logo-item {
+            transform: scale(1.06);
+            opacity: 1;
+            filter: brightness(1.06);
+        }
+
+        .stack-logo-item.is-pycaret {
+            max-width: 128px;
+            max-height: 30px;
+        }
+
+        .stack-logo-item.is-parquet {
+            max-width: 162px;
+            max-height: 120px;
+        }
+
+        .stack-logo-item.is-sklearn,
+        .stack-logo-item.is-streamlit {
+            max-height: 46px;
+        }
+
+        .stack-disclaimer {
+            margin-top: 1rem;
+            text-align: center;
+            color: #767676 !important;
+            font-size: 0.82rem;
+            line-height: 1.55;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        @keyframes stack-marquee {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
         .content-box {
             background: linear-gradient(180deg, rgba(22,22,22,0.98) 0%, rgba(18,18,18,0.98) 100%);
             padding: 28px;
@@ -1388,11 +1530,23 @@ st.markdown(
             box-shadow: 0 18px 42px rgba(0,0,0,0.18);
         }
 
+        .audit-flow-shell {
+            width: 100%;
+            margin: 0;
+            overflow-x: auto;
+            overflow-y: hidden;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .audit-flow-shell::-webkit-scrollbar { display: none; }
+
         .audit-flow {
             display: flex;
             align-items: flex-start;
-            justify-content: center;
-            width: 100%;
+            justify-content: flex-start;
+            width: max-content;
+            min-width: 100%;
             gap: 10px;
             flex-wrap: nowrap;
             margin: 2.2rem 0 2.5rem 0;
@@ -1400,11 +1554,9 @@ st.markdown(
             box-sizing: border-box;
             position: relative;
             z-index: 5;
-            overflow-x: auto;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
+            margin-left: auto;
+            margin-right: auto;
         }
-        .audit-flow::-webkit-scrollbar { display: none; }
 
         .audit-item {
             display: flex;
@@ -2141,13 +2293,14 @@ st.markdown(
         .partner-badge {
             display: inline-flex;
             align-items: center;
-            gap: 0.75rem;
-            padding: 0.75rem 1rem;
+            gap: 1rem;
+            padding: 1.05rem 1.15rem;
             border-radius: 16px;
             border: 1px solid rgba(66, 153, 225, 0.28);
             background: linear-gradient(180deg, rgba(11, 28, 45, 0.92) 0%, rgba(7, 17, 29, 0.96) 100%);
             box-shadow: 0 10px 24px rgba(0, 0, 0, 0.24), 0 0 0 1px rgba(66, 153, 225, 0.08);
             max-width: 680px;
+            min-height: 162px;
             transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease, background 0.24s ease;
         }
 
@@ -2206,26 +2359,28 @@ st.markdown(
             color: #FFFFFF !important;
             font-size: 0.95rem;
             font-weight: 800;
-            line-height: 1.2;
+            line-height: 1.3;
         }
 
         .partner-badge-subtitle {
             color: rgba(255,255,255,0.72) !important;
             font-size: 0.84rem;
-            line-height: 1.45;
-            margin-top: 0.18rem;
+            line-height: 1.55;
+            margin-top: 0.28rem;
         }
 
         .partner-badge-disclaimer {
             color: rgba(255,255,255,0.46) !important;
             font-size: 0.72rem;
-            line-height: 1.35;
-            margin-top: 0.22rem;
+            line-height: 1.45;
+            margin-top: 0.35rem;
         }
 
         .desafix-banner {
             max-width: 680px;
             width: 100%;
+            max-height: 162px;
+            min-height: 162px;
             border-radius: 16px;
             border: 1px solid rgba(255,255,255,0.08);
             background: linear-gradient(180deg, #2A0637 0%, #3B0A4D 100%);
@@ -2240,9 +2395,11 @@ st.markdown(
         }
         .desafix-banner img {
             width: 100%;
-            height: auto;
+            height: 162px;
+            object-fit: fill;
+            object-position: center center;
             display: block;
-            transform: scale(1.035);
+            transform: none;
             transform-origin: center center;
         }
 
@@ -2257,6 +2414,15 @@ st.markdown(
             width: 100% !important;
             transition: all 0.25s ease !important;
             box-shadow: 0 8px 20px rgba(255,107,0,0.18);
+        }
+
+        div[data-testid="stFormSubmitButton"] {
+            width: 100% !important;
+        }
+
+        div[data-testid="stFormSubmitButton"] > button {
+            display: block !important;
+            width: 100% !important;
         }
 
         div.stButton > button:hover,
@@ -2320,6 +2486,10 @@ st.markdown(
             background: transparent !important;
         }
 
+        .faq-grid-mobile {
+            display: none !important;
+        }
+
         .faq-item {
             background: rgba(255,255,255,0.02);
             border: 1px solid rgba(255,255,255,0.06);
@@ -2358,6 +2528,14 @@ st.markdown(
         }
 
         @media (max-width: 900px) {
+            .faq-grid-desktop {
+                display: none !important;
+            }
+
+            .faq-grid-mobile {
+                display: grid !important;
+            }
+
             .faq-grid {
                 grid-template-columns: 1fr !important;
             }
@@ -2377,6 +2555,42 @@ st.markdown(
         .footer-highlight {
             color: var(--ocp-orange) !important;
             font-weight: 800;
+        }
+
+        .back-to-top {
+            position: fixed;
+            right: 22px;
+            bottom: 24px;
+            width: 52px;
+            height: 52px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 999px;
+            border: 1px solid rgba(255,255,255,0.12);
+            background: linear-gradient(180deg, rgba(28,28,28,0.96) 0%, rgba(18,18,18,0.98) 100%);
+            color: var(--ocp-white) !important;
+            text-decoration: none !important;
+            box-shadow: 0 14px 32px rgba(0,0,0,0.28), 0 0 0 1px rgba(255,255,255,0.03) inset;
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+            transition: transform 0.22s ease, border-color 0.22s ease, background 0.22s ease, box-shadow 0.22s ease;
+            cursor: pointer;
+            z-index: 1000;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            border-color: rgba(255,107,0,0.52);
+            background: linear-gradient(180deg, rgba(255,107,0,0.96) 0%, rgba(255,138,51,0.96) 100%);
+            color: #FFFFFF !important;
+            box-shadow: 0 18px 36px rgba(255,107,0,0.24), 0 0 18px rgba(255,107,0,0.12);
+        }
+
+        .back-to-top svg {
+            width: 22px;
+            height: 22px;
         }
 
         @media (max-width: 900px) {
@@ -2474,6 +2688,21 @@ st.markdown(
             .faq-grid {
                 grid-template-columns: 1fr;
             }
+
+            .stack-strip {
+                gap: 1.5rem;
+            }
+
+            .stack-logo-chip {
+                min-width: 156px;
+            }
+
+            .back-to-top {
+                right: 16px;
+                bottom: 18px;
+                width: 48px;
+                height: 48px;
+            }
         }
 
         @media (max-width: 700px) {
@@ -2496,6 +2725,13 @@ st.markdown(
 
             .roadmap-native-header {
                 margin-bottom: 1.7rem;
+            }
+
+            .roadmap-native > .section-subtitle {
+                margin: 0 auto 2rem auto !important;
+                font-size: 0.98rem;
+                line-height: 1.55;
+                max-width: 92%;
             }
 
             .map-open-row {
@@ -2532,6 +2768,51 @@ st.markdown(
                 object-position: center center;
             }
 
+            .audit-shell {
+                padding-left: 22px;
+                padding-right: 22px;
+            }
+
+            .audit-flow-shell {
+                margin-left: -6px;
+                margin-right: -6px;
+            }
+
+            .audit-flow {
+                min-width: max-content;
+                margin-top: 1.8rem;
+                margin-bottom: 2rem;
+                padding-left: 6px;
+                padding-right: 6px;
+            }
+
+            .stack-strip {
+                gap: 0.75rem;
+                padding-bottom: 0.7rem;
+                animation-duration: 24s;
+            }
+
+            .stack-logo-chip {
+                min-width: 138px;
+                height: 76px;
+                padding: 0.8rem 1rem;
+                border-radius: 16px;
+            }
+
+            .stack-logo-item {
+                max-width: 122px;
+                max-height: 30px;
+            }
+
+            .stack-viewport {
+                margin-top: 1.25rem;
+            }
+
+            .stack-viewport::before,
+            .stack-viewport::after {
+                width: 28px;
+            }
+
             .partner-badge-copy {
                 text-align: center;
             }
@@ -2554,6 +2835,19 @@ st.markdown(
                 min-height: auto;
             }
 
+            .roadmap-native-header {
+                font-size: 2rem;
+                line-height: 1.12;
+                margin-bottom: 1rem;
+            }
+
+            .roadmap-native > .section-subtitle {
+                margin: 0 auto 1.8rem auto !important;
+                font-size: 0.93rem;
+                line-height: 1.5;
+                max-width: 96%;
+            }
+
             .roadmap-highlight-quote {
                 padding: 16px 18px;
                 font-size: 1.02rem;
@@ -2568,13 +2862,15 @@ st.markdown(
             }
 
             .desafix-banner img {
-                transform: scale(1.05);
+                height: 142px;
             }
         }
     </style>
     """,
     unsafe_allow_html=True,
 )
+
+st.markdown('<div id="page-top"></div>', unsafe_allow_html=True)
 
 if map_only_view:
     st.markdown(
@@ -2738,64 +3034,66 @@ audit_section_html = dedent(
         <div class="feature-intro" style="margin-bottom:0;">
             <div class="section-title">{tr(lang, "audit_title")}</div>
         </div>
-        <div class="audit-flow">
-            <div class="audit-item">
-                <div class="audit-step is-bronze">
-                    <span class="material-symbols-outlined audit-step-icon">database_upload</span>
-                    {tr(lang, "audit_step_bronze")}
+        <div class="audit-flow-shell">
+            <div class="audit-flow">
+                <div class="audit-item">
+                    <div class="audit-step is-bronze">
+                        <span class="material-symbols-outlined audit-step-icon">database_upload</span>
+                        {tr(lang, "audit_step_bronze")}
+                    </div>
+                    <div class="audit-sub-pill">
+                        {tr(lang, "audit_sub_bronze")}
+                    </div>
                 </div>
-                <div class="audit-sub-pill">
-                    {tr(lang, "audit_sub_bronze")}
+                <div class="audit-arrow">→</div>
+                <div class="audit-item">
+                    <div class="audit-step is-silver">
+                        <span class="material-symbols-outlined audit-step-icon">cleaning_services</span>
+                        {tr(lang, "audit_step_silver")}
+                    </div>
+                    <div class="audit-sub-pill">
+                        {tr(lang, "audit_sub_silver")}
+                    </div>
                 </div>
-            </div>
-            <div class="audit-arrow">→</div>
-            <div class="audit-item">
-                <div class="audit-step is-silver">
-                    <span class="material-symbols-outlined audit-step-icon">cleaning_services</span>
-                    {tr(lang, "audit_step_silver")}
+                <div class="audit-arrow">→</div>
+                <div class="audit-item">
+                    <div class="audit-step is-gold">
+                        <span class="material-symbols-outlined audit-step-icon">verified</span>
+                        {tr(lang, "audit_step_gold")}
+                    </div>
+                    <div class="audit-sub-pill">
+                        {tr(lang, "audit_sub_gold")}
+                    </div>
                 </div>
-                <div class="audit-sub-pill">
-                    {tr(lang, "audit_sub_silver")}
+                <div class="audit-arrow">→</div>
+                <div class="audit-item">
+                    <div class="audit-step is-model">
+                        <span class="material-symbols-outlined audit-step-icon">neurology</span>
+                        {tr(lang, "audit_step_model")}
+                    </div>
+                    <div class="audit-sub-pill">
+                        {tr(lang, "audit_sub_model")}
+                    </div>
                 </div>
-            </div>
-            <div class="audit-arrow">→</div>
-            <div class="audit-item">
-                <div class="audit-step is-gold">
-                    <span class="material-symbols-outlined audit-step-icon">verified</span>
-                    {tr(lang, "audit_step_gold")}
+                <div class="audit-arrow">→</div>
+                <div class="audit-item">
+                    <div class="audit-step is-prediction">
+                        <span class="material-symbols-outlined audit-step-icon">online_prediction</span>
+                        {tr(lang, "audit_step_prediction")}
+                    </div>
+                    <div class="audit-sub-pill">
+                        {tr(lang, "audit_sub_prediction")}
+                    </div>
                 </div>
-                <div class="audit-sub-pill">
-                    {tr(lang, "audit_sub_gold")}
-                </div>
-            </div>
-            <div class="audit-arrow">→</div>
-            <div class="audit-item">
-                <div class="audit-step is-model">
-                    <span class="material-symbols-outlined audit-step-icon">neurology</span>
-                    {tr(lang, "audit_step_model")}
-                </div>
-                <div class="audit-sub-pill">
-                    {tr(lang, "audit_sub_model")}
-                </div>
-            </div>
-            <div class="audit-arrow">→</div>
-            <div class="audit-item">
-                <div class="audit-step is-prediction">
-                    <span class="material-symbols-outlined audit-step-icon">online_prediction</span>
-                    {tr(lang, "audit_step_prediction")}
-                </div>
-                <div class="audit-sub-pill">
-                    {tr(lang, "audit_sub_prediction")}
-                </div>
-            </div>
-            <div class="audit-arrow">→</div>
-            <div class="audit-item">
-                <div class="audit-step is-accent">
-                    <span class="material-symbols-outlined audit-step-icon">gavel</span>
-                    {tr(lang, "audit_step_contract")}
-                </div>
-                <div class="audit-sub-pill">
-                    {tr(lang, "audit_sub_contract")}
+                <div class="audit-arrow">→</div>
+                <div class="audit-item">
+                    <div class="audit-step is-accent">
+                        <span class="material-symbols-outlined audit-step-icon">gavel</span>
+                        {tr(lang, "audit_step_contract")}
+                    </div>
+                    <div class="audit-sub-pill">
+                        {tr(lang, "audit_sub_contract")}
+                    </div>
                 </div>
             </div>
         </div>
@@ -3057,7 +3355,8 @@ st.markdown(render_native_roadmap(lang, title_text=tr(lang, "pricing_title"), su
 # =========================================================
 st.markdown('<div class="ocp-section-rule"></div>', unsafe_allow_html=True)
 
-faq_items_html = ""
+faq_items_html_desktop = ""
+faq_items_html_mobile = ""
 # Contagem dinâmica para manter o grid de 2 colunas equilibrado independente do número de perguntas
 faq_keys = [k for k in I18N["pt"].keys() if k.startswith("faq_q") and k[5:].isdigit()]
 num_faq = len(faq_keys)
@@ -3067,7 +3366,11 @@ for i in range(1, half + 1):
     for idx in [i, i + half]:
         if idx <= num_faq:
             q, a = tr(lang, f"faq_q{idx}"), tr(lang, f"faq_a{idx}")
-            faq_items_html += f'<div class="faq-item"><div class="faq-question">{idx}. {q}</div><div class="faq-answer">{a}</div></div>'
+            faq_items_html_desktop += f'<div class="faq-item"><div class="faq-question">{idx}. {q}</div><div class="faq-answer">{a}</div></div>'
+
+for idx in range(1, num_faq + 1):
+    q, a = tr(lang, f"faq_q{idx}"), tr(lang, f"faq_a{idx}")
+    faq_items_html_mobile += f'<div class="faq-item"><div class="faq-question">{idx}. {q}</div><div class="faq-answer">{a}</div></div>'
 
 st.markdown(
     f'<div class="faq-wrap">'
@@ -3075,8 +3378,53 @@ st.markdown(
     f'<div class="section-title">{tr(lang, "faq_title")}</div>'
     f'<div class="section-subtitle" style="margin: 0 auto 2.5rem auto;">{tr(lang, "faq_subtitle")}</div>'
     f'</div>'
-    f'<div class="faq-grid">{faq_items_html}</div>'
+    f'<div class="faq-grid faq-grid-desktop">{faq_items_html_desktop}</div>'
+    f'<div class="faq-grid faq-grid-mobile">{faq_items_html_mobile}</div>'
     f'</div>',
+    unsafe_allow_html=True,
+)
+
+# =========================================================
+# TECHNOLOGY STACK SECTION
+# =========================================================
+st.markdown('<div class="ocp-section-rule"></div>', unsafe_allow_html=True)
+
+stack_logos_html = ""
+for name, filename in STACK_LOGOS.items():
+    path = os.path.join(ASSETS_DIR, filename)
+    if os.path.exists(path):
+        uri = file_to_data_uri(path)
+        logo_class = "stack-logo-item"
+        if name == "parquet":
+            logo_class += " is-parquet"
+        if name == "pycaret":
+            logo_class += " is-pycaret"
+        if name == "sklearn":
+            logo_class += " is-sklearn"
+        if name == "streamlit":
+            logo_class += " is-streamlit"
+        stack_logos_html += (
+            f'<div class="stack-logo-chip">'
+            f'<img src="{uri}" class="{logo_class}" alt="{name}" title="{name.capitalize()}" />'
+            f"</div>"
+        )
+
+st.markdown(
+    f'''
+    <div class="stack-wrap">
+        <div class="feature-intro" style="text-align:center;">
+            <div class="section-title">{tr(lang, "stack_title")}</div>
+            <div class="section-subtitle" style="margin: 0 auto;">{tr(lang, "stack_subtitle")}</div>
+        </div>
+        <div class="stack-viewport">
+            <div class="stack-strip">
+                {stack_logos_html}
+                {stack_logos_html}
+            </div>
+        </div>
+        <div class="stack-disclaimer">{tr(lang, "stack_disclaimer")}</div>
+    </div>
+    ''',
     unsafe_allow_html=True,
 )
 
@@ -3113,7 +3461,7 @@ with st.form("waitlist_form", clear_on_submit=True):
                 unsafe_allow_html=True,
             )
         with cta_button_col:
-            submitted = st.form_submit_button(tr(lang, "waitlist_button"))
+            submitted = st.form_submit_button(tr(lang, "waitlist_button"), use_container_width=True)
 
         if submitted:
             email_pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
@@ -3164,10 +3512,39 @@ st.markdown(
 # =========================================================
 # FOOTER
 # =========================================================
+# Geramos o link de e-mail com as informações preenchidas (usando o nome da plataforma como referência)
+footer_mailto_link = get_mailto_link("OpenCanvas Pro", lang)
+footer_sub_text = tr(lang, "footer_sub").replace("mailto:contato@opencanvaspro.com", footer_mailto_link)
+
 st.markdown(
     f'<div class="footer-wrap">'
     f'<div class="footer-main">{tr(lang, "footer_main")}</div>'
-    f'<div class="footer-sub">{tr(lang, "footer_sub")}</div>'
+    f'<div class="footer-sub">{footer_sub_text}</div>'
     f'</div>',
+    unsafe_allow_html=True,
+)
+
+st.markdown(
+    f"""
+    <a class="back-to-top" href="#page-top" aria-label="Voltar ao topo" title="Voltar ao topo">
+        {lucide_icon("chevron-up")}
+    </a>
+    <script>
+        (function() {{
+            const btn = document.querySelector(".back-to-top");
+            if (!btn) return;
+
+            btn.addEventListener("click", function(event) {{
+                event.preventDefault();
+                const topTarget = document.getElementById("page-top");
+                if (topTarget) {{
+                    topTarget.scrollIntoView({{ behavior: "smooth", block: "start" }});
+                }} else {{
+                    window.scrollTo({{ top: 0, behavior: "smooth" }});
+                }}
+            }});
+        }})();
+    </script>
+    """,
     unsafe_allow_html=True,
 )
